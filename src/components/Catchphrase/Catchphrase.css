@@ -1,0 +1,17 @@
+
+.catchphrase {
+  text-align: left;
+  font-family: Calibri;
+  color: #326FA6;
+  height: 50%;
+  width: 40%;
+  font-size: 50px;
+  font-style: italic;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  margin-left: 158px;
+}

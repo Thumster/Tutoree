@@ -1,0 +1,78 @@
+.box {
+	background: #FFFFFF;
+	border-style: solid;
+	border-color: #326FA6;
+	border-radius: 20px;
+	text-align: center;
+	width: 25%;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	font-family: Calibri;
+}
+
+.logo {
+	margin-top: 10%;
+	width: 62.5%;
+	height: 20%
+}
+.logo-name {
+	font-family: "High Tower Text";
+	font-size: 2.5em;
+	color: #326FA6;
+}
+
+.input {
+	margin-top: 3%;
+	width: 50%;
+	vertical-align: top;
+	margin-bottom: 0;
+	height: 5%;
+	border: 1px solid #326FA6;
+}
+
+.input::placeholder {
+	font-family: Calibri;
+	text-align: center;
+}
+.forget {
+	margin-top: 0;
+	text-align: left;
+	width: 50%;
+	font-family: Calibri;
+	font-size: 0.6em;
+	text-decoration: underline;
+	margin-left: 25%;
+	vertical-align: text-top;
+	cursor: pointer;
+}
+
+.button {
+	width: 50%;
+	height: 7%;
+	background-color: #ffffff;
+	display: inline-block;
+	transition-duration: 0.4s;
+  	cursor: pointer;
+  	border-radius: 3px;
+  	border: 2px solid #326FA6;
+}
+
+.login-button {
+	
+	color: #326FA6;
+}
+
+.login-button:hover {
+  background-color: #326FA6;
+  color: white;
+}
+
+.sign-up-button {
+	background-color: #326FA6;
+	color: white; 
+}
+
+.sign-up-button:hover {
+	background-color: white;
+	color: #326FA6;
+}
