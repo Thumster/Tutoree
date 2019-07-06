@@ -1,4 +1,4 @@
-.App::before {
+.Login::before {
 background-image: url(Teacher-Classroom-Blog-Getty.jpg);
 background-repeat: no-repeat;
 background-size: cover;
@@ -13,11 +13,11 @@ z-index: -2;
 opacity: 0.4;
 }
 
-.App {
+.Login {
   display: flex;
 }
 
-.sign-in {
+/* .sign-in {
   margin-left: auto;
-}
+} */
 

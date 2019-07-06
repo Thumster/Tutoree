@@ -1,12 +1,11 @@
 import React from 'react';
-import './App.css'
-import SignIn from  './components/SignIn/SignIn';
-import Catchphrse from './components/Catchphrase/Catchphrase';
+import Routes from './components/Routes/Routes';
+
 function App() {
+
   return (
     <div className="App">
-      <Catchphrse/>
-      <SignIn/>
+      <Routes />
     </div>
   );
 }
