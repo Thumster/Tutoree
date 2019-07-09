@@ -8,7 +8,7 @@ class SignIn extends React.Component {
 	render() {
 	return (
 		<div className="box">
-			<img className="logo" src={logo} />
+			<img className="bookLogo" src={logo} />
 			<h1 className="logo-name">Tutoree</h1>
 			<LoginButtons/>
 			<br/>

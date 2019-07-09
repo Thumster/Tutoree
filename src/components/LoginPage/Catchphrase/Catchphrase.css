@@ -5,6 +5,7 @@
   color: #326FA6;
   height: 50%;
   width: 40%;
+  min-width: 300px;
   font-size: 50px;
   font-style: italic;
   min-height: 100vh;
@@ -13,5 +14,4 @@
   align-items: left;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  margin-left: 158px;
 }
