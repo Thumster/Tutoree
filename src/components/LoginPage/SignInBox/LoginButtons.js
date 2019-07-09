@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase'
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 import './SignInBox.css';
+import  { Redirect } from 'react-router-dom'
 
 firebase.initializeApp({
     apiKey:"AIzaSyDVScOjOKGbRD_ruKiZj4sMI94Xlrdk5JI",
@@ -40,6 +41,7 @@ class LoginButtons extends Component {
                         <h2>Signed in as {firebase.auth().currentUser.displayName}</h2>
                         <button className="button sign-out-button"
                         onClick={() => firebase.auth().signOut()}>Sign Out</button>
+                        <Redirect to='/Home' />
                     </div>
                 ) : (
                         <StyledFirebaseAuth

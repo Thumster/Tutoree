@@ -1,16 +1,16 @@
-nav{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    min-height: 10vh;
-    background: rgb(85, 116, 126);
-    color: white
+.navicon {
+    height: 1em;
 }
 
-.nav-Links{
-    width: 50%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    list-style: none;
+.right {
+    height: 2em;
+}
+
+.Button{
+    margin: 5px;
+    width: 100%;
+}
+
+.button-item {
+    margin: 5px;
 }

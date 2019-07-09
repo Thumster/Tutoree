@@ -1,15 +1,15 @@
 import React from 'react';
-import Nav from '../Nav/Nav'
-// import Viewpager from '../LoginPage/Slider/Viewpager'
+import NavbarHome from '../Nav/NavbarHome';
+import './Home.css';
+import SearchBar from './SearchBar/SearchBar';
 
 function Home() {
-  return (
-    <div className="Home">
-      <Nav/>
-      {/* <Viewpager/> */}
-      <h1>Home Page</h1>
-    </div>
-  );
-}
-
+    return (
+      <div className="Home">
+      <NavbarHome/>
+      <SearchBar style={{width:"75%"}}/>
+      </div>
+    );
+  }
+  
 export default Home;
