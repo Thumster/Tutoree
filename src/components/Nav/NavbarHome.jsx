@@ -3,7 +3,8 @@ import book from "./book_white.png";
 import user_photo from "./user_photo.png";
 import mail_icon from "./Mail-icon.png";
 import './Nav.css';
-import firebase from 'firebase'
+import firebase from 'firebase';
+import {name, email, photoUrl} from '../LoginPage/SignInBox/LoginButtons';
 
 import {
   Collapse,
@@ -42,7 +43,7 @@ export default class NavbarHome extends React.Component {
               </NavItem>
               <NavItem>
                 {/* <NavLink href="/user"><img src={user_photo} className="navicon right"/></NavLink> */}
-                <NavLink href="/user"><img className="navicon right" src={firebase.auth().currentUser.photoURL}/></NavLink>
+                <NavLink href="/user"><img className="navicon right" alt="profile picture" src={photoUrl}/></NavLink>
               </NavItem>
               <NavItem className="button-item">
               <Button color="secondary" className="Button">Post</Button>{' '}
