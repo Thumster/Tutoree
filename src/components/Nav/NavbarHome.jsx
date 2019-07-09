@@ -45,7 +45,7 @@ export default class NavbarHome extends React.Component {
                 <NavLink href="/user"><img className="navicon right" src={firebase.auth().currentUser.photoURL}/></NavLink>
               </NavItem>
               <NavItem className="button-item">
-              <Button color="secondary" className="Button">Post</Button>{' '}
+              <Button color="secondary" className="Button" href="/Post">Post</Button>{' '}
               </NavItem>
               <NavItem className="button-item">
               <Button color="danger" className="Button" onClick={() => firebase.auth().signOut()} href="/">  Log Out</Button>{' '}
