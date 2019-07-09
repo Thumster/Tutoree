@@ -66,12 +66,17 @@
   color: white;
 }
 
-.sign-up-button {
+.sign-out-button {
 	background-color: #326FA6;
 	color: white; 
 }
 
-.sign-up-button:hover {
+.sign-out-button:hover {
 	background-color: white;
 	color: #326FA6;
+}
+
+.user-icon {
+	width: 100px;
+	height: 100px;
 }

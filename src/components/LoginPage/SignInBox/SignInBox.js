@@ -1,19 +1,9 @@
 import React from 'react';
 import './SignInBox.css';
 import logo from './book_blue.png';
-import Facebook from './Facebook'
+import LoginButtons from './LoginButtons';
 
 class SignIn extends React.Component {
-	constructor(props){
-		super(props);
-		this.state={
-			logout:false
-		}
-	}
-
-	logout=()=>{
-		this.setState({logout:true});
-	}
 
 	render() {
 	return (
@@ -29,10 +19,9 @@ class SignIn extends React.Component {
 			OR
 			</div>
 			<button className="button sign-up-button">Sign Up</button> */}
+			<LoginButtons/>
 			<br/>
-			<Facebook logout={this.state.logout} />
-			<br/>
-			<button className="button sign-up-button" onClick={this.logout}>Log Out</button> 
+ 
 		</div>
 	);}
 }
