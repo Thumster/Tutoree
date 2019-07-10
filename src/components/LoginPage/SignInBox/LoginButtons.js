@@ -9,20 +9,10 @@ firebase.initializeApp({
   authDomain: "tutoree-52fe1.firebaseapp.com"
 });
 
-var user = firebase.auth().currentUser;
-var name, email, photoUrl, uid, emailVerified;
-
-if (user != null) {
-    name = user.displayName;
-    email = user.email;
-    photoUrl = user.photoURL;
-    emailVerified = user.emailVerified;
-    uid = user.uid;
-}
-
 class LoginButtons extends Component {
-  state = { isSignedIn: false };
-  
+  state = { isSignedIn: false, 
+    userDetails:{'name': "", 'email': "", 'photoUrl': "" }
+  };
 
   uiConfig = {
     signInFlow: "popup",
@@ -39,6 +29,19 @@ class LoginButtons extends Component {
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ isSignedIn: !!user });
+    //   if (user) {
+    //           console.log(userProfile.getName());
+    //     // this.setState({
+    //     //   name: firebase.auth().currentUser.displayName,
+    //     //   email: firebase.auth().currentUser.email,
+    //     //   photoUrl: firebase.auth().currentUser.photoURL
+    //     // });
+    //     // console.log("signed in");
+    //   } else {
+    //       userProfile.signOut();
+    //       console.log("Signed Out");
+    //     // this.setState({ name: "", email: "", photoUrl: "" });
+    //   }
     });
   };
 
@@ -47,14 +50,19 @@ class LoginButtons extends Component {
       <div>
         {this.state.isSignedIn ? (
           <div>
-            <img className="user-icon" alt="profile picture" src={photoUrl} />
-            <h2>Signed in as {name}</h2>
+            <img
+              className="user-icon"
+              alt="profile picture"
+              src={firebase.auth().currentUser.photoURL}
+            />
+            <h2>Signed in as {firebase.auth().currentUser.displayName}</h2>
             <button
               className="button sign-out-button"
               onClick={() => firebase.auth().signOut()}
             >
               Sign Out
             </button>
+            {/* <Redirect to = "/home"/> */}
           </div>
         ) : (
           <StyledFirebaseAuth
@@ -68,5 +76,4 @@ class LoginButtons extends Component {
 }
 
 export default LoginButtons;
-export {name, email, photoUrl};
 //https://www.youtube.com/watch?v=zq0TuNqV0Ew
