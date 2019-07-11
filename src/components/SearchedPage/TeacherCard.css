@@ -1,0 +1,15 @@
+#containerid {
+    width: 500px;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+.btn-warning {
+    margin: auto;
+    margin-top: 2em;
+}
+
+.photo {
+    margin: 1em;
+    height: 6em;
+}

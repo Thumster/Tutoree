@@ -14,3 +14,13 @@
 .button-item {
     margin: 5px;
 }
+
+.icons {
+    margin: auto;
+}
+
+.search {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
