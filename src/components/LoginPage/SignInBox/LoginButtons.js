@@ -10,7 +10,7 @@ firebase.initializeApp({
 });
 
 class LoginButtons extends Component {
-  state = { isSignedIn: false, 
+  state = {
     userDetails:{'name': "", 'email': "", 'photoUrl': "" }
   };
 

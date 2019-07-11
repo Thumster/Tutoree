@@ -61,14 +61,17 @@ export default class NavSearched extends React.Component {
                                 </div>
                             </NavItem>
                             <NavItem className="icons"> 
-                                <NavLink href="/mail"><img src={mail_icon} className="navicon right" /></NavLink>
+                                <NavLink href="/Mail"><img src={mail_icon} className="navicon right" /></NavLink>
                             </NavItem>
                             <NavItem className="icons">
-                                {<NavLink href="/user"><img src={user_photo} className="navicon right" /></NavLink>}
+                                {<NavLink href="/User"><img src={user_photo} className="navicon right" /></NavLink>}
                                 {/*<NavLink href="/user"><img className="navicon right" alt="profile picture" src={firebase.auth().currentUser.photoURL}/></NavLink>*/}
                             </NavItem>
                             <NavItem className="button-item">
-                                <Button color="secondary" className="Button" href="/Post">Post</Button>{' '}
+                                <Button color="primary" className="Button" href="/Dashboard">Dashboard</Button>{' '}
+                            </NavItem>
+                            <NavItem className="button-item">
+                                <Button color="secondary" className="Button" href="/CreatePost">Post</Button>{' '}
                             </NavItem>
                             <NavItem className="button-item">
                                 <Button color="danger" className="Button" onClick={() => firebase.auth().signOut()} href="/">Logout</Button>{' '}
