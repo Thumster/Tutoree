@@ -47,7 +47,7 @@ export default class ChoiceTab extends React.Component {
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
-             <PostList/>
+             {/* <PostList/> */}
           </TabPane>
           <TabPane tabId="2">
             

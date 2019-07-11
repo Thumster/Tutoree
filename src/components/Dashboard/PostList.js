@@ -7,15 +7,20 @@ const cards = {
     justifyContent: 'flex-start'
 };
 
-const PostList = () => {
+const PostList = ({posts}) => {
     return (
         <div style={cards}>
+            {/* <PostCard />
             <PostCard />
             <PostCard />
             <PostCard />
             <PostCard />
-            <PostCard />
-            <PostCard />
+            <PostCard /> */}
+            {posts && posts.map(post =>{
+                return(
+                    <PostCard post={post} key={post.id}/>
+                )
+            })}
         </div>
     );
 }
