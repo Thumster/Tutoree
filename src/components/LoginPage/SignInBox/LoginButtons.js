@@ -4,10 +4,10 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import "./SignInBox.css";
 import { Redirect } from "react-router-dom";
 
-firebase.initializeApp({
-  apiKey: "AIzaSyDVScOjOKGbRD_ruKiZj4sMI94Xlrdk5JI",
-  authDomain: "tutoree-52fe1.firebaseapp.com"
-});
+// firebase.initializeApp({
+//   apiKey: "AIzaSyDVScOjOKGbRD_ruKiZj4sMI94Xlrdk5JI",
+//   authDomain: "tutoree-52fe1.firebaseapp.com"
+// });
 
 class LoginButtons extends Component {
   state = {

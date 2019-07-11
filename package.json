@@ -9,12 +9,14 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-firebaseui": "^3.1.2",
-    "react-redux": "^7.1.0",
+    "react-redux": "^5.1.1",
+    "react-redux-firebase": "^2.2.6",
     "react-responsive-carousel": "^3.1.49",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "reactstrap": "^8.0.0",
     "redux": "^4.0.3",
+    "redux-firestore": "^0.8.0",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
