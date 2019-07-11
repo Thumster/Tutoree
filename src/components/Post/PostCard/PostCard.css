@@ -1,15 +1,44 @@
 #containerid {
-    width: 500px;
-    border-style: solid;
-    border-radius: 20px;
+    width: 300px;
+    border-style: solid;;
+    border-radius: 5px;
+    border-color: antiquewhite;
+    margin: 0;
+    border-width: 0.5px;
+    cursor: pointer;
 }
 
-.btn-warning {
-    margin: auto;
-    margin-top: 2em;
+#containerid:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn-warning, .btn-secondary{
+    margin: 5% auto;
+}
+
+.btn {
+    border-radius: 0;
 }
 
 .photo {
-    margin: 20%;
-    height: 100px;
+    height: 5rem;
+    margin: 8% auto;
+}
+
+.title {
+    font-size: 2rem;
+    text-decoration: underline;
+    font-weight: 400;
+    margin: 3%;
+}
+
+.name, .price, .location {
+    margin:0;
+    width: 100%;
+}
+
+.flexbutton{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
 }
