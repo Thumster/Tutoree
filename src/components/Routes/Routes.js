@@ -4,6 +4,8 @@ import Login from '../LoginPage/Login';
 import Home from '../HomePage/Home';
 import Post from '../Post/Post';
 import Searched from '../SearchedPage/Searched';
+import CreatePost from '../Post/CreatePost';
+import PostDetails from '../Post/PostDetails'
 
 const Routes = () => {
     return (
@@ -11,9 +13,9 @@ const Routes = () => {
             <Router>
                 <Switch>
                     <Route exact path="/" component={Login} />
-                    <Route path="/Home" component={Home} />
-                    <Route path="/Post" component={Post} />
-                    <Route path="/Searched" component={Searched} />
+                    <Route exact path="/CreatePost" component={CreatePost} />
+                    <Route exact path="/Home" component={Home} />
+                    <Route path="/Post/:id" component={PostDetails}/>
                     <Route render={() => <Redirect to={{pathname: "/Home"}} />} />
                 </Switch>
             </Router>
