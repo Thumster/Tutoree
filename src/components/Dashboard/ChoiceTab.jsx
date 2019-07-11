@@ -1,8 +1,11 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
-import './ChoiceTab.css';
-import TeacherPage from './TeacherPage';
+import PostList from './PostList';
+
+const tabs = {
+  display: 'flex'
+};
 
 export default class ChoiceTab extends React.Component {
   constructor(props) {
@@ -24,7 +27,7 @@ export default class ChoiceTab extends React.Component {
   render() {
     return (
       <div>
-        <Nav tabs>
+        <Nav style = {tabs}>
           <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '1' })}
@@ -44,7 +47,7 @@ export default class ChoiceTab extends React.Component {
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
-             <TeacherPage/>
+             <PostList/>
           </TabPane>
           <TabPane tabId="2">
             

@@ -33,7 +33,7 @@ export default class NavbarHome extends React.Component {
     return (
       <div>
         <Navbar style={{backgroundColor: '#326FA6'}} light expand="md">
-          <NavbarBrand href="/home" style={{fontFamily: 'Calibri', color: 'white', fontSize: '2em'}}><img src={book} className="navicon"/> Tutoree</NavbarBrand>
+          <NavbarBrand href="/Home" style={{fontFamily: 'Calibri', color: 'white', fontSize: '2em'}}><img src={book} className="navicon"/> Tutoree</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
