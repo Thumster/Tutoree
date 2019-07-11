@@ -47,33 +47,33 @@ export default class NavSearched extends React.Component {
                                 <div className="container">
                                     <div className="row">
                                         <div className="col-3">
-                                            <Dropdown/>
+                                            <Dropdown />
                                         </div>
                                         <div className="col-9">
-                                <InputGroup>
-                                    <Input />
-                                    <InputGroupAddon addonType="append">
-                                        <Button color="secondary">Search</Button>
-                                    </InputGroupAddon>
-                                </InputGroup>
-                                </div>
-                                </div>
+                                            <InputGroup>
+                                                <Input />
+                                                <InputGroupAddon addonType="append">
+                                                    <Button color="secondary">Search</Button>
+                                                </InputGroupAddon>
+                                            </InputGroup>
+                                        </div>
+                                    </div>
                                 </div>
                             </NavItem>
-                            <NavItem className="icons"> 
+                            <NavItem className="icons">
                                 <NavLink href="/Mail"><img src={mail_icon} className="navicon right" /></NavLink>
                             </NavItem>
                             <NavItem className="icons">
                                 {<NavLink href="/User"><img src={user_photo} className="navicon right" /></NavLink>}
                                 {/*<NavLink href="/user"><img className="navicon right" alt="profile picture" src={firebase.auth().currentUser.photoURL}/></NavLink>*/}
                             </NavItem>
-                            <NavItem className="button-item">
+                            <NavItem className="button-item icons">
                                 <Button color="primary" className="Button" href="/Dashboard">Dashboard</Button>{' '}
                             </NavItem>
-                            <NavItem className="button-item">
+                            <NavItem className="button-item icons">
                                 <Button color="secondary" className="Button" href="/CreatePost">Post</Button>{' '}
                             </NavItem>
-                            <NavItem className="button-item">
+                            <NavItem className="button-item icons">
                                 <Button color="danger" className="Button" onClick={() => firebase.auth().signOut()} href="/">Logout</Button>{' '}
                             </NavItem>
                         </Nav>
