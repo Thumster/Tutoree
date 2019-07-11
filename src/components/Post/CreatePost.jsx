@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Button, Form, FormGroup, Label, Input, FormText, Jumbotron, Container, CustomInput} from 'reactstrap';
 
-export default class Post extends React.Component {
+export default class CreatePost extends React.Component {
     render() {
         return (
             <Container>
