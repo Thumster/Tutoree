@@ -3,6 +3,9 @@ import NavSearched from '../Nav/NavSearched';
 import ChoiceTab from './ChoiceTab';
 import {connect} from 'react-redux'
 import PostList from './PostList';
+import {firestoreConnect} from 'react-redux-firebase'
+import {compose} from 'redux'
+import { firestore } from 'firebase';
 
 class Dashboard extends React.Component {
     render() {
@@ -20,8 +23,14 @@ class Dashboard extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return {
-        posts: state.post.posts
+        posts: state.firestore.ordered.posts
     }
 }
-export default connect(mapStateToProps)(Dashboard)
+export default compose(
+    connect(mapStateToProps),
+    firestoreConnect([
+        {collection: 'posts'}
+    ])
+)(Dashboard)

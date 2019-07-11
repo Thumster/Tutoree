@@ -1,3 +1,5 @@
+import { defaultCipherList } from "constants";
+
 const initState = {
   posts: [
     {
@@ -32,17 +34,20 @@ const initState = {
       location: "west",
       description: "so am i"
     }
-    // {photoUrl:'',title:'5',profile_name:'mary',price:'5',location:'central',description:'me too!'}
-    // {photoUrl:'',title:'6',profile_name:'abraham',price:'6',location:'east'}
   ]
 };
 
 const postReducer = (state = initState, action) => {
   switch (action.type) {
     case 'CREATE_POST':
-      console.log('created post', action.post)
+      console.log('created post', action.post);
+      return state;
+    case 'CREATE_POST_ERROR':
+      console.log('create post error', action.err);
+      return state;
+    default:
+      return state;
   }
-  return state;
-};
+}
 
 export default postReducer;
