@@ -22,7 +22,7 @@
 .search {
     display: flex;
     margin: auto;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 #scrolled {
