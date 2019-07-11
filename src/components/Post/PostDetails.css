@@ -1,0 +1,19 @@
+.profilePhoto{
+    max-width: 70%;
+    margin: auto;
+}
+
+#description {
+    background-color: whitesmoke;
+    margin-top: 3%;
+}
+
+.header {
+    width: 100%;
+    position: fixed;
+    z-index: 2;
+}
+
+.empty-space {
+    height: 74px;
+}

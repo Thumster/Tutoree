@@ -24,3 +24,7 @@
     margin: auto;
     justify-content: center;
 }
+
+#scrolled {
+    position: fixed;
+}

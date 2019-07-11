@@ -23,10 +23,10 @@ const PostCard = () => {
                     </div>
                 </div>
                 <div className="col-9">
-                    <h1>{teacher.title}</h1>
-                    <h4>{teacher.profile_name}</h4>
-                    <h4>{teacher.price}</h4>
-                    <h4>{teacher.location}</h4>
+                    <p>{teacher.title}</p>
+                    <p>{teacher.profile_name}</p>
+                    <p>{teacher.price}</p>
+                    <p>{teacher.location}</p>
                     <p>
                         Desciption blah blah blah nlaalcnaca;ojms;l
                         </p>
