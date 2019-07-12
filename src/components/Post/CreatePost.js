@@ -22,7 +22,16 @@ class CreatePost extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.createPost(this.state)
+        console.log(
+            this.state.category + " "
+            + this.state.title + " "
+            + this.state.description + " "
+            + this.state.price + " "
+            + this.state.location + " "
+            + this.state.subject
+        )
+        this.props.createPost(this.state);
+        this.props.history.push(`/Dashboard`);
     }
 
     render() {
