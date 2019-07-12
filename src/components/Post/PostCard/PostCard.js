@@ -48,6 +48,7 @@ class PostCard extends React.Component {
                 </div>
                 <div className="col-7">
                     <p className="title">Title {this.props.post.title}</p>
+                    <p className="subject">Subject {this.props.post.subject}</p>
                     <p className="name">Name: {this.props.post.profile_name}</p>
                     <p className="price">Price: {this.props.post.price}</p>
                     <p className="location">Location: {this.props.post.location}</p>

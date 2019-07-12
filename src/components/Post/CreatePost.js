@@ -30,7 +30,8 @@ class CreatePost extends React.Component {
             + this.state.location + " "
             + this.state.subject
         )
-        this.props.createPost(this.state)
+        this.props.createPost(this.state);
+        this.props.history.push(`/Dashboard`);
     }
 
     render() {

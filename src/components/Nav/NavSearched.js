@@ -74,7 +74,7 @@ export default class NavSearched extends React.Component {
                                 <Button color="secondary" className="Button" href="/CreatePost">Post</Button>{' '}
                             </NavItem>
                             <NavItem className="button-item icons">
-                                <Button color="danger" className="Button" onClick={() => firebase.auth().signOut()} href="/">Logout</Button>{' '}
+                                <Button href="/Dashboard" color="danger" className="Button" onClick={() => firebase.auth().signOut()} href="/">Logout</Button>{' '}
                             </NavItem>
                         </Nav>
                     </Collapse>

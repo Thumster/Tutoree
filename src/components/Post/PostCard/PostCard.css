@@ -1,6 +1,7 @@
 #containerid {
     width: 400px;
     border-style: solid;;
+    height: 180px;
     border-radius: 5px;
     border-color: antiquewhite;
     margin: 0;
@@ -29,12 +30,18 @@
     font-size: 1.5rem;
     text-decoration: underline;
     font-weight: 400;
-    margin: 3%;
+    margin: 3% 0;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.name, .price, .location {
+.name, .price, .location, .subject {
     margin:0;
     width: 100%;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .flexbutton{
