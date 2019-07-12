@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Form, FormGroup, Label, Input, Jumbotron, Container, CustomInput } from 'reactstrap';
 import {connect} from 'react-redux'
 import {createPost} from '../store/actions/postActions'
+import NavSearched from '../Nav/NavSearched';
 
 class CreatePost extends React.Component {
     state = {
@@ -34,8 +35,12 @@ class CreatePost extends React.Component {
 
     render() {
         return (
+            <div>
+                <NavSearched/>
             <Container>
+                
                 <Jumbotron>
+                    <p style={{textAlign:"center", fontSize:"2rem", fontWeight:"heavy"}}>Post Details</p>
                     <Form onSubmit={this.handleSubmit}>
                         <FormGroup>
                             <CustomInput type="radio" id="learnRadio" name="category" label="I want to learn!" value="learn" onChange={this.handleChange}/>
@@ -65,6 +70,7 @@ class CreatePost extends React.Component {
                     </Form>
                 </Jumbotron>
             </Container>
+            </div>
         );
     }
 }
