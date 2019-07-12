@@ -11,7 +11,9 @@ class SignIn extends React.Component {
 			<img className="bookLogo" src={logo} />
 			<h1 className="logo-name">Tutoree</h1>
 			<LoginButtons/>
-			<br/>
+			<div className="boxFooter">
+				<p style={{margin:"auto", color:"white"}}>Do not have an account? <a href="">Sign Up!</a></p>
+			</div>
  
 		</div>
 	);}
