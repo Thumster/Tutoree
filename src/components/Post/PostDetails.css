@@ -17,3 +17,33 @@
 .empty-space {
     height: 74px;
 }
+
+.jumbotron.pd, .jumbotron.ud {
+    background-color: white;
+    min-width: 400px;
+    padding: 2rem 1rem;
+}
+
+.pd-title, .pd-timeStamp ,.pd-subject, .pd-price, .pd-location {
+    margin: 3px;
+}
+
+.pd-title{
+    font-size: 1.5rem;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+#subjectBadge{
+    width: 30%;
+    font-size: 1.5rem;
+}
+
+.jumbotron.desc{
+    padding: 1rem 1rem;
+}
+
+.name.ud{
+    font-size: 1.5rem;
+    text-decoration: underline;
+}

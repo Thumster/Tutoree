@@ -1,6 +1,6 @@
 import React from 'react';
 import NavbarHome from '../Nav/NavSearched';
-import './Home.css';
+import styles from './Home.css';
 import SearchBar from './SearchBar/SearchBar';
 
 function Home() {
