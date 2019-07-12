@@ -6,6 +6,7 @@ export const createPost = (post) => {
             ...post,
             authorName: 'Bryan Thum',
             authorId: '123',
+            photoUrl: 'https://image.flaticon.com/icons/svg/61/61467.svg',
             createdAt: new Date()
         }).then(() => {
             dispatch({type: 'CREATE_POST', post});

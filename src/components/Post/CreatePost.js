@@ -11,7 +11,7 @@ class CreatePost extends React.Component {
         description: '',
         price: '',
         location: '',
-        subject: ''
+        subject: '',
     }
     handleChange = (e) => {
         this.setState({
@@ -22,14 +22,6 @@ class CreatePost extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(
-            this.state.category + " "
-            + this.state.title + " "
-            + this.state.description + " "
-            + this.state.price + " "
-            + this.state.location + " "
-            + this.state.subject
-        )
         this.props.createPost(this.state)
     }
 
