@@ -38,7 +38,7 @@ export default class NavSearched extends React.Component {
     render() {
         return (
             <div>
-                <Navbar style={{ backgroundColor: '#326FA6' }} light expand="md">
+                <Navbar style={{ backgroundColor: '#326FA6' }} light expand="lg">
                     <NavbarBrand href="/home" style={{ fontFamily: 'Calibri', color: 'white', fontSize: '2em' }}><img src={book} className="navicon" /> Tutoree</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
@@ -46,10 +46,10 @@ export default class NavSearched extends React.Component {
                             <NavItem className="search">
                                 <div className="container">
                                     <div className="row">
-                                        <div className="col-3">
+                                        <div className="col-3 w-100">
                                             <Dropdown style={{margin: "auto"}}l/>
                                         </div>
-                                        <div className="col-9">
+                                        <div className="col-9 ">
                                             <InputGroup>
                                                 <Input style={{margin: "auto"}}/>
                                                 <InputGroupAddon addonType="append">
