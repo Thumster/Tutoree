@@ -11,7 +11,7 @@ class CreatePost extends React.Component {
         description: '',
         price: '',
         location: '',
-        subject: ''
+        subject: '',
     }
     handleChange = (e) => {
         this.setState({

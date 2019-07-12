@@ -50,7 +50,7 @@ const PostDetails = props => {
                           </div>
                         </div>
                         <div className="col-7">
-                          <p className="name ud">{post.name}</p>
+                          <p className="name ud">{post.authorName}</p>
                           <p className="email ud">Email: </p>
                           <p className="contact ud">Contact No.:</p>
                         </div>
