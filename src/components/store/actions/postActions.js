@@ -4,10 +4,10 @@ export const createPost = (post) => {
         const firestore = getFirestore();
         firestore.collection('posts').add({
             ...post,
+            authorId: '1234567890',
             authorName: 'Bryan Thum',
-            authorId: '123',
-            photoUrl: 'https://image.flaticon.com/icons/svg/61/61467.svg',
-            createdAt: new Date()
+            photoUrl: 'https://lh6.googleusercontent.com/-is2PHQln-Fg/AAAAAAAAAAI/AAAAAAAAWUo/TD-1UroF0Mw/photo.jpg',
+            createdAt: new Date().toString()
         }).then(() => {
             dispatch({type: 'CREATE_POST', post});
         }).catch((err) => {
