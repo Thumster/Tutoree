@@ -2,6 +2,7 @@ import React from 'react';
 import './SignInBox.css';
 import logo from './book_blue.png';
 import LoginButtons from './LoginButtons';
+import SignUp from './SignUp';
 
 class SignIn extends React.Component {
 
@@ -12,7 +13,7 @@ class SignIn extends React.Component {
 			<h1 className="logo-name">Tutoree</h1>
 			<LoginButtons/>
 			<div className="boxFooter">
-				<p style={{margin:"auto", color:"white"}}>Do not have an account? <a href="">Sign Up!</a></p>
+				<p style={{margin:"auto", color:"white"}}>Do not have an account? <SignUp /></p>
 			</div>
  
 		</div>

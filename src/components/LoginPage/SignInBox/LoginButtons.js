@@ -78,7 +78,7 @@ class LoginButtons extends Component {
           <div className="col">
             <h3 style={{color:"grey"}}>Sign In</h3>
               <form>
-                <input type="text" className="form-control" placeholder="User Id" style={{marginTop:17}} />
+                <input type="email" className="form-control" placeholder="Email" style={{marginTop:17}} />
                 <input type="password" className="form-control" placeholder="Password" style={{margin:"17px 0"}}/>
                 <button id="dopebutton">Sign In</button>
               </form>
