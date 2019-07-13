@@ -11,7 +11,6 @@ import Dashboard from "../Dashboard/Dashboard";
 import CreatePost from "../Post/CreatePost";
 import PostDetails from "../Post/PostDetails";
 import { connect } from "react-redux";
-import PrivateRoute from "./PrivateRoute";
 
 const Routes = props => {
   const { auth } = props;
