@@ -33,11 +33,11 @@ class LoginButtons extends Component {
 
   handleChange = e => {
     var newCreds = this.state.creds;
-    newCreds[e.target.id] = e.target.value
+    newCreds[e.target.id] = e.target.value;
     this.setState({
       creds: newCreds
     });
-    console.log(this.state.creds)
+    console.log(this.state.creds);
   };
 
   handleSubmit = e => {
