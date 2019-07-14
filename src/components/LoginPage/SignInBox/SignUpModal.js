@@ -17,6 +17,11 @@ class ModalExample extends React.Component {
         }));
     }
 
+    handleSubmit = e => {
+        e.preventDefault();
+        this.toggle();
+    };
+
     render() {
         return (
             <span>
@@ -24,9 +29,9 @@ class ModalExample extends React.Component {
                     Sign Up!
                 </a>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} centered>
-                    <ModalHeader toggle={this.toggle}>SIGN UP</ModalHeader>
-                    <ModalBody>
-                        <Form>
+                    <Form onSubmit={this.handleSubmit}>
+                        <ModalHeader toggle={this.toggle}>SIGN UP</ModalHeader>
+                        <ModalBody>
                             <FormGroup>
                                 <Label for="exampleEmail">Email</Label>
                                 <Input type="email" name="email" id="exampleEmail" placeholder="example@abc.com" />
@@ -39,13 +44,15 @@ class ModalExample extends React.Component {
                                 <Label for="confirmPassword">Confirm Password</Label>
                                 <Input type="password" name="password" id="confirmPassword" placeholder="Enter password again" />
                             </FormGroup>
-                        </Form>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.toggle}> Submit</Button>
-                    </ModalFooter>
+
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button type="submit" color="primary" > Submit</Button>
+                        </ModalFooter>
+                    </Form>
                 </Modal>
-            </span>
+
+            </span >
         );
     }
 }
