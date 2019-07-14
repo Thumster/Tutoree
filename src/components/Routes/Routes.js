@@ -41,7 +41,7 @@ const Routes = props => {
           <PrivateRoute exact path="/Home" component={Home} />
           <PrivateRoute exact path="/Dashboard" component={Dashboard} />
           <PrivateRoute path="/Post/:id" component={PostDetails} />
-          <Route render={() => <Redirect to={{ pathname: "/Home" }} />} />
+          <Route render={() => <Redirect to={{ pathname: "/Dashboard" }} />} />
         </Switch>
       </Router>
     </div>

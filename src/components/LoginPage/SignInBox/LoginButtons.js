@@ -4,6 +4,7 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import "./SignInBox.css";
 import { connect } from "react-redux";
 import { signInAccount, signOut } from "../../store/actions/authActions";
+import {Redirect} from 'react-router-dom'
 
 class LoginButtons extends Component {
   state = {
@@ -48,24 +49,14 @@ class LoginButtons extends Component {
   render() {
     const { authError } = this.props;
     const { auth } = this.props;
-    console.log(auth)
-    const a = ((
+
+    const currentlySignedIn = (
       <div>
-        <img
-          className="user-icon"
-          alt="profile picture"
-          src={auth.photoURL}
-        />
-        <h2>Signed in as {auth.displayName}</h2>
-        <button
-          className="button sign-out-button"
-          onClick={() => this.props.signOut()}
-        >
-          Sign Out
-        </button>
+        <Redirect to = '/Dashboard'></Redirect>
       </div>
-    ))
-    const b = (
+    )
+
+    const notSignedIn = (
       <div className="container">
         <div className="row">
           <div className="col" style={lineStyle}>
@@ -95,7 +86,7 @@ class LoginButtons extends Component {
               />
               <button id="dopebutton">Sign In</button>
               <div style={{ color: "red" }}>
-                {authError ? <p>{authError}</p> : null}
+                {authError ? {authError} : null}
               </div>
             </form>
           </div>
@@ -104,7 +95,7 @@ class LoginButtons extends Component {
     );
     return (
       <div>
-        {this.state.isSignedIn ? a : b}
+        {this.state.isSignedIn ? currentlySignedIn : notSignedIn}
       </div>
     );
   }

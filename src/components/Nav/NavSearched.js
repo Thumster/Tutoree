@@ -5,7 +5,7 @@ import mail_icon from "./Mail-icon.png";
 import './Nav.css';
 import firebase from 'firebase';
 import SearchDropdown from '../HomePage/SearchBar/SearchDropdown/SearchDropdown';
-import { Form, Col, Row} from 'reactstrap'
+import { Form, Col, Row } from 'reactstrap'
 
 import {
     Collapse,
@@ -40,7 +40,7 @@ export default class NavSearched extends React.Component {
         return (
             <div>
                 <Navbar style={{ backgroundColor: '#326FA6' }} light expand="lg">
-                    <NavbarBrand href="/home" style={{ fontFamily: 'Calibri', color: 'white', fontSize: '2em' }}><img src={book} className="navicon" /> Tutoree</NavbarBrand>
+                    <NavbarBrand href="/Dashboard" style={{ fontFamily: 'Calibri', color: 'white', fontSize: '2em' }}><img src={book} className="navicon" /> Tutoree</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
@@ -48,30 +48,30 @@ export default class NavSearched extends React.Component {
                                 <div className="container">
                                     <Form>
                                         <Row form>
-                                        {/* <div className="col-3 w-100">
+                                            {/* <div className="col-3 w-100">
                                             <Dropdown style={{margin: "auto"}}l/>
                                         </div>
                                         <div className="col-9 ">
                                             <div className="row"> */}
-                                              
-                                                <Col xs={4} className="NoPadding">
-                                                <SearchDropdown style={{ margin:"0px"}}/>
-                                                </Col>
-                                                <Col xs={6} className="NoPadding">
-                                                <Input style={{ width: "100%", margin:"none" }} />
-                                                </Col>
-                                                <Col xs={2} className="NoPadding">
-                                                <Button style={{ backgroundColor: "grey", width: "100%", margin:"0px"}}>Search</Button>
-                                                </Col>
-                                            
-                                           
+
+                                            <Col xs={4} className="NoPadding">
+                                                <SearchDropdown style={{ margin: "0px" }} />
+                                            </Col>
+                                            <Col xs={6} className="NoPadding">
+                                                <Input style={{ width: "100%", margin: "none" }} />
+                                            </Col>
+                                            <Col xs={2} className="NoPadding">
+                                                <Button style={{ backgroundColor: "grey", width: "100%", margin: "0px" }}>Search</Button>
+                                            </Col>
+
+
                                             {/* <InputGroup>
                                                 <Input style={{margin: "auto"}}/>
                                                 <InputGroupAddon addonType="append">
                                                     <Button color="secondary">Search</Button>
                                                 </InputGroupAddon>
                                             </InputGroup> */}
-                                      </Row>
+                                        </Row>
                                     </Form>
                                 </div>
                             </NavItem>
