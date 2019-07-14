@@ -3,6 +3,7 @@ import "./SignInBox.css";
 import logo from "./book_blue.png";
 import LoginButtons from "./LoginButtons";
 import SignUp from "./SignUp";
+import Modal from "./SignUpModal";
 import { connect } from "react-redux";
 
 const SignIn = props => {
@@ -16,7 +17,7 @@ const SignIn = props => {
       {!auth.uid ? (
         <div className="boxFooter">
           <p style={{ margin: "auto", color: "white" }}>
-            Do not have an account? <SignUp />
+            Do not have an account? <Modal />
           </p>
         </div>
       ) : null}

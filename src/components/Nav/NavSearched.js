@@ -46,6 +46,7 @@ export default class NavSearched extends React.Component {
                         <Nav className="ml-auto" navbar>
                             <NavItem className="search">
                                 <div className="container">
+<<<<<<< HEAD
                                     <Form>
                                         <Row form>
                                         {/* <div className="col-3 w-100">
@@ -67,6 +68,15 @@ export default class NavSearched extends React.Component {
                                            
                                             {/* <InputGroup>
                                                 <Input style={{margin: "auto"}}/>
+=======
+                                    <div className="row">
+                                        <div className="col-3 w-100">
+                                            <Dropdown style={{ margin: "auto" }} l />
+                                        </div>
+                                        <div className="col-9 ">
+                                            <InputGroup>
+                                                <Input style={{ margin: "auto" }} />
+>>>>>>> 166dbba768f367e379298fdb8b4bfe37271e92bb
                                                 <InputGroupAddon addonType="append">
                                                     <Button color="secondary">Search</Button>
                                                 </InputGroupAddon>
