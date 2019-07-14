@@ -4,7 +4,8 @@ import user_photo from "./user_photo.png";
 import mail_icon from "./Mail-icon.png";
 import './Nav.css';
 import firebase from 'firebase';
-import Dropdown from './Dropdown';
+import SearchDropdown from '../HomePage/SearchBar/SearchDropdown/SearchDropdown';
+import { Form, Col, Row} from 'reactstrap'
 
 import {
     Collapse,
@@ -45,19 +46,33 @@ export default class NavSearched extends React.Component {
                         <Nav className="ml-auto" navbar>
                             <NavItem className="search">
                                 <div className="container">
-                                    <div className="row">
-                                        <div className="col-3 w-100">
+                                    <Form>
+                                        <Row form>
+                                        {/* <div className="col-3 w-100">
                                             <Dropdown style={{margin: "auto"}}l/>
                                         </div>
                                         <div className="col-9 ">
-                                            <InputGroup>
+                                            <div className="row"> */}
+                                              
+                                                <Col xs={4} className="NoPadding">
+                                                <SearchDropdown style={{ margin:"0px"}}/>
+                                                </Col>
+                                                <Col xs={6} className="NoPadding">
+                                                <Input style={{ width: "100%", margin:"none" }} />
+                                                </Col>
+                                                <Col xs={2} className="NoPadding">
+                                                <Button style={{ backgroundColor: "grey", width: "100%", margin:"0px"}}>Search</Button>
+                                                </Col>
+                                            
+                                           
+                                            {/* <InputGroup>
                                                 <Input style={{margin: "auto"}}/>
                                                 <InputGroupAddon addonType="append">
                                                     <Button color="secondary">Search</Button>
                                                 </InputGroupAddon>
-                                            </InputGroup>
-                                        </div>
-                                    </div>
+                                            </InputGroup> */}
+                                      </Row>
+                                    </Form>
                                 </div>
                             </NavItem>
                             <NavItem className="icons">

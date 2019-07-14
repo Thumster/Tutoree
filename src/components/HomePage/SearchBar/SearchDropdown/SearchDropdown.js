@@ -38,7 +38,7 @@ export default class SearchDropdown extends React.Component {
     return (
         
       <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="SearchDropdown">
-        <DropdownToggle caret style={{backgroundColor: "#326FA6",  margin:"0px"}}>
+        <DropdownToggle caret style={{backgroundColor: "grey",  margin:"0px"}}>
           {this.state.wantTo}
         </DropdownToggle>
         <DropdownMenu>
