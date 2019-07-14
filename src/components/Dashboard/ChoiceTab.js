@@ -7,6 +7,7 @@ const tabs = {
   display: 'flex'
 };
 
+
 export default class ChoiceTab extends React.Component {
   constructor(props) {
     super(props);

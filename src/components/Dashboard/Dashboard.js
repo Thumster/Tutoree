@@ -16,7 +16,7 @@ class Dashboard extends React.Component {
             <div>
             <NavSearched/>
             <ChoiceTab/>
-            <PostList posts={posts}/>
+            {/* <PostList posts={posts}/> */}
             </div>
         );
     }
