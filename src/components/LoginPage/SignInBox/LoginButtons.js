@@ -4,7 +4,7 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import "./SignInBox.css";
 import { connect } from "react-redux";
 import { signInAccount, signOut } from "../../store/actions/authActions";
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 class LoginButtons extends Component {
   state = {
@@ -47,55 +47,48 @@ class LoginButtons extends Component {
   };
 
   render() {
-    const { authError } = this.props;
-    const { auth } = this.props;
+    const { auth, authError } = this.props;
 
-    const currentlySignedIn = (
-      <div>
-        <Redirect to = '/Dashboard'></Redirect>
-      </div>
-    )
-
-    const notSignedIn = (
-      <div className="container">
-        <div className="row">
-          <div className="col" style={lineStyle}>
-            <StyledFirebaseAuth
-              uiConfig={this.uiConfig}
-              firebaseAuth={firebase.auth()}
-            />
-          </div>
-          <div className="col">
-            <h3 style={{ color: "grey" }}>Sign In</h3>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="email"
-                id="email"
-                style={{ marginTop: 17 }}
-                onChange={this.handleChange}
-              />
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Password"
-                id="password"
-                style={{ margin: "17px 0" }}
-                onChange={this.handleChange}
-              />
-              <button id="dopebutton">Sign In</button>
-              <div style={{ color: "red" }}>
-                {authError ? {authError} : null}
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    );
     return (
       <div>
-        {this.state.isSignedIn ? currentlySignedIn : notSignedIn}
+        {this.state.isSignedIn ?
+          <Redirect to='/Dashboard'></Redirect>
+          :
+          <div className="container">
+            <div className="row">
+              <div className="col" style={lineStyle}>
+                <StyledFirebaseAuth
+                  uiConfig={this.uiConfig}
+                  firebaseAuth={firebase.auth()}
+                />
+              </div>
+              <div className="col">
+                <h3 style={{ color: "grey" }}>Sign In</h3>
+                <form onSubmit={this.handleSubmit}>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="email"
+                    id="email"
+                    style={{ marginTop: 17 }}
+                    onChange={this.handleChange}
+                  />
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Password"
+                    id="password"
+                    style={{ margin: "17px 0" }}
+                    onChange={this.handleChange}
+                  />
+                  <button id="dopebutton">Sign In</button>
+                  <div style={{ color: "red" }}>
+                    {authError ? <p>{ authError }</p>: null}
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>}
       </div>
     );
   }
