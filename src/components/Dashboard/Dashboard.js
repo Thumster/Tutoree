@@ -9,21 +9,19 @@ import { firestore } from 'firebase';
 
 class Dashboard extends React.Component {
     render() {
-        console.log(this.props);
         const {posts} = this.props;
 
         return (
             <div>
             <NavSearched/>
             <ChoiceTab/>
-            {/* <PostList posts={posts}/> */}
+            <PostList posts={posts}/>
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         posts: state.firestore.ordered.posts
     }

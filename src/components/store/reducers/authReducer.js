@@ -1,6 +1,7 @@
 const initState = {
     authError: null,
-    signUpError: null
+    signUpError: null,
+    signUpProviderError: null
 }
 
 const authReducer = (state = initState, action) => {
@@ -31,6 +32,18 @@ const authReducer = (state = initState, action) => {
             return {
                 ...state,
                 signUpError: action.err.message
+            }
+        case 'SIGNUP_PROVIDER_SUCCESS':
+            console.log('signup provider success')
+            return {
+                ...state,
+                signUpProviderError: null
+            }
+        case 'SIGNUP_PROVIDER_ERROR':
+            console.log('signup provider error')
+            return {
+                ...state,
+                signUpProviderError: action.err.message
             }
         default:
             return state;

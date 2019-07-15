@@ -1,12 +1,11 @@
 import React from 'react';
 import book from "./book_white.png";
-import user_photo from "./user_photo.png";
+// import user_photo from "./user_photo.png";
 import mail_icon from "./Mail-icon.png";
 import './Nav.css';
-import firebase from 'firebase';
 import SearchDropdown from '../HomePage/SearchBar/SearchDropdown/SearchDropdown';
 import { Form, Col, Row } from 'reactstrap'
-
+import { connect } from "react-redux";
 import {
     Collapse,
     Navbar,
@@ -16,12 +15,11 @@ import {
     NavItem,
     NavLink,
     Button,
-    Input,
-    InputGroup,
-    InputGroupAddon
+    Input
 } from 'reactstrap';
+import { signOut } from '../store/actions/authActions'
 
-export default class NavSearched extends React.Component {
+class NavSearched extends React.Component {
     constructor(props) {
         super(props);
 
@@ -37,6 +35,8 @@ export default class NavSearched extends React.Component {
         });
     }
     render() {
+        const { profile } = this.props;
+        console.log(profile);
         return (
             <div>
                 <Navbar style={{ backgroundColor: '#326FA6' }} light expand="lg">
@@ -79,8 +79,7 @@ export default class NavSearched extends React.Component {
                                 <NavLink href="/Mail"><img src={mail_icon} className="navicon right" /></NavLink>
                             </NavItem>
                             <NavItem className="icons">
-                                {<NavLink href="/User"><img src={user_photo} className="navicon right" /></NavLink>}
-                                {/*<NavLink href="/user"><img className="navicon right" alt="profile picture" src={firebase.auth().currentUser.photoURL}/></NavLink>*/}
+                                {<NavLink href="/User"><img src={profile.photoURL} className="navicon right" /></NavLink>}
                             </NavItem>
                             <NavItem className="button-item icons">
                                 <Button color="primary" className="Button" href="/Dashboard">Dashboard</Button>{' '}
@@ -89,7 +88,7 @@ export default class NavSearched extends React.Component {
                                 <Button color="secondary" className="Button" href="/CreatePost">Post</Button>{' '}
                             </NavItem>
                             <NavItem className="button-item icons">
-                                <Button color="danger" className="Button" onClick={() => firebase.auth().signOut()} href="/">Logout</Button>{' '}
+                                <Button color="danger" className="Button" onClick={() => this.props.signOut()} href="/">Logout</Button>{' '}
                             </NavItem>
                         </Nav>
                     </Collapse>
@@ -98,3 +97,19 @@ export default class NavSearched extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        auth: state.firebase.auth,
+        profile: state.firebase.profile
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signOut: () => dispatch(signOut())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavSearched)

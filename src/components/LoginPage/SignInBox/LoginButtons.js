@@ -3,16 +3,20 @@ import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import "./SignInBox.css";
 import { connect } from "react-redux";
-import { signInAccount, signOut } from "../../store/actions/authActions";
+import { signInAccount, signUpProvider } from '../../store/actions/authActions'
 import { Redirect } from 'react-router-dom'
 
 class LoginButtons extends Component {
-  state = {
-    creds: {
-      email: "",
-      password: ""
-    }
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      creds: {
+        email: "",
+        password: ""
+      },
+      isNewUser: false
+    };
+  }
 
   uiConfig = {
     signInFlow: "popup",
@@ -22,7 +26,20 @@ class LoginButtons extends Component {
       firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
     callbacks: {
-      signInSuccess: () => false
+      signInSuccess: () => false,
+      signInSuccessWithAuthResult: (authResult) => {
+        this.setState({
+          isNewUser: authResult.additionalUserInfo.isNewUser
+        })
+        if (this.state.isNewUser) {
+          this.props.signUpProvider(authResult.user);
+          console.log('new user');
+          this.setState({ isNewUser: false })
+        } else {
+          console.log('old user');
+        }
+        return false;
+      }
     }
   };
 
@@ -83,7 +100,7 @@ class LoginButtons extends Component {
                   />
                   <button id="dopebutton">Sign In</button>
                   <div style={{ color: "red" }}>
-                    {authError ? <p>{ authError }</p>: null}
+                    {authError ? <p>{authError}</p> : null}
                   </div>
                 </form>
               </div>
@@ -100,15 +117,15 @@ const lineStyle = {
 
 const mapStateToProps = state => {
   return {
-    authError: state.auth.authError,
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    authError: state.auth.authError
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     signInAccount: creds => dispatch(signInAccount(creds)),
-    signOut: () => dispatch(signOut())
+    signUpProvider: newUser => dispatch(signUpProvider(newUser))
   };
 };
 

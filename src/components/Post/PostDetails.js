@@ -6,11 +6,16 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import Moment from 'react-moment';
+import { firestore } from 'firebase';
 
 const PostDetails = props => {
+
+
+
   const { post } = props;
 
   if (post) {
+    console.log('testttt', post);
     return (
       <div>
         <header className="header">
@@ -26,8 +31,8 @@ const PostDetails = props => {
                     <p className="pd-title">{post.title}</p>
                     <span class="badge badge-info" id="subjectBadge">
                       {post.subject}
-                    </span> 
-                    <p className="pd-timeStamp">Posted: <Moment fromNow ago = {post.createdAt}></Moment> ago</p>
+                    </span>
+                    <p className="pd-timeStamp">Posted: <Moment fromNow ago={post.createdAt}></Moment> ago</p>
                     <p className="pd-price">Price: $ {post.price}</p>
                     <div className="jumbotron desc">
                       <p>Descripton</p>
@@ -41,7 +46,7 @@ const PostDetails = props => {
                       <div className="col-5">
                         <div className="row">
                           <img
-                            src={post.photoUrl}
+                            src={post.photoURL}
                             className="ud profilePhoto"
                           />
                         </div>
@@ -52,8 +57,8 @@ const PostDetails = props => {
                         </div>
                       </div>
                       <div className="col-7">
-                        <p className="name ud">{post.authorName}</p>
-                        <p className="email ud">Email: </p>
+                        <p className="name ud">{post.name}</p>
+                        <p className="email ud">Email: {post.email}</p>
                         <p className="contact ud">Contact No:</p>
                       </div>
                     </div>
