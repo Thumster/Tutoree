@@ -1,5 +1,5 @@
 import React from "react";
-import NavSearched from "../Nav/NavSearched";
+import NavSearched from "../../Nav/NavSearched";
 import "./PostDetails.css";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";

@@ -1,7 +1,7 @@
 import React from "react";
 import SignIn from "./SignInBox/SignInBox";
 import Catchphrase from "./Catchphrase/Catchphrase";
-import teacherBackground from './Teacher-Classroom-Blog-Getty.jpg'
+import teacherBackground from '../../images/Teacher-Classroom-Blog-Getty.jpg'
 
 import styled from "styled-components";
 
@@ -14,11 +14,6 @@ const LoginDiv = styled.div`
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  @media only screen and (max-width: 850px) {
-    div.box{
-      margin-top: 55px;
-    }
-  }
 `;
 
 function Login() {

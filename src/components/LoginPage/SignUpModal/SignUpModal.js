@@ -15,6 +15,40 @@ import {
   AvInput,
   AvFeedback
 } from "availity-reactstrap-validation";
+import book from "../../../images/book_white.png";
+
+import styled from "styled-components";
+
+const SignUpBook = styled.img`
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: 15%;
+  height: 1em;
+`;
+
+const StyledModalHeader = styled(ModalHeader)`
+  color: white;
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
+  background-color: #326fa6;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+`;
+
+const StyledError = styled.div`
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  ${({ active }) =>
+    !active &&
+    `
+    display: none;
+  `}
+`;
 
 class ModalExample extends React.Component {
   constructor(props) {
@@ -37,12 +71,11 @@ class ModalExample extends React.Component {
   }
 
   render() {
-    const { auth, signUpError } = this.props;
+    const { signUpError } = this.props;
 
     return (
       <span>
         <a
-          id="Popover1"
           onClick={this.toggle}
           style={{ cursor: "pointer", color: "#007bff" }}
         >
@@ -55,7 +88,10 @@ class ModalExample extends React.Component {
           centered
         >
           <AvForm onValidSubmit={this.handleValidSubmit}>
-            <ModalHeader toggle={this.toggle}>SIGN UP</ModalHeader>
+            <StyledModalHeader toggle={this.toggle}>
+              <SignUpBook src={book} />
+              SIGN UP
+            </StyledModalHeader>
             <ModalBody>
               <AvGroup>
                 <Label for="exampleName">Name</Label>
@@ -102,16 +138,19 @@ class ModalExample extends React.Component {
                   Passwords do not match. Please try again.
                 </AvFeedback>
               </AvGroup>
+              <StyledError
+                class="form-control-static pull-left"
+                active={signUpError}
+              >
+                Error: {signUpError}
+              </StyledError>
+              {/* //  */}
             </ModalBody>
             <ModalFooter>
               <Button type="submit" color="primary">
-                {" "}
                 Submit
               </Button>
             </ModalFooter>
-            <div style={{ color: "red" }}>
-              {signUpError ? <p>{signUpError}</p> : null}
-            </div>
           </AvForm>
         </Modal>
       </span>

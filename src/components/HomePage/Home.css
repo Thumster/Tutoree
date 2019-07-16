@@ -1,6 +1,6 @@
 
     .Home::before {
-        background-image: url(home_background.jpg);
+        /* background-image: url(home_background.jpg); */
         background-repeat: no-repeat;
         background-size: cover;
         content: "";

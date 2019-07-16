@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./book_blue.png";
+import logo from "../../../images/book_blue.png";
 import LoginButtons from "./LoginButtons";
 import Modal from "../SignUpModal/SignUpModal";
 import { connect } from "react-redux";
@@ -17,6 +17,9 @@ const BoxDiv = styled.div`
   height: 500px;
   margin: auto;
   position: relative;
+  @media only screen and (max-width: 850px) {
+      margin-top: 55px;
+  }
 `;
 
 const BookLogo = styled.img`

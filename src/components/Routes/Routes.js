@@ -8,8 +8,8 @@ import {
 import Login from "../LoginPage/Login";
 import Home from "../HomePage/Home";
 import Dashboard from "../Dashboard/Dashboard";
-import CreatePost from "../Post/CreatePost";
-import PostDetails from "../Post/PostDetails";
+import CreatePost from "../Post/CreatePost/CreatePost";
+import PostDetails from "../Post/PostDetails/PostDetails";
 import { connect } from "react-redux";
 
 const Routes = props => {
