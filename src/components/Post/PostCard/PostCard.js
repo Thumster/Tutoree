@@ -1,10 +1,11 @@
 import React from "react";
-import profilePhoto from "./user_photo.png";
 import "./PostCard.css";
-import mailIcon from "./Mail-icon.png";
-import unfilledHeart from "./heart_unfilled.png";
-import filledHeart from "./heart_filled.png";
+// import unfilledHeart from "./heart_unfilled.png";
+// import filledHeart from "./heart_filled.png";
+import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { MdAccountCircle } from 'react-icons/md'
+import { IoMdChatbubbles } from "react-icons/io";
 
 class PostCard extends React.Component {
   constructor(props) {
@@ -22,26 +23,26 @@ class PostCard extends React.Component {
   }
 
   render() {
+    const unfilledHeart = <IoIosHeartEmpty style={{ height: "1.5rem" }} />;
+    const filledHeart = <IoIosHeart style={{ height: "1.5rem" }} color = 'red'/>;
+
     return (
       <div id="containerid" className="container">
         <div className="row">
           <div className="col-5">
             <div className="row">
               {/* <div className="col"> */}
-              <img className="photo" src={profilePhoto} />
+              <MdAccountCircle className="photo" size="15em" />
               {/* </div> */}
             </div>
             <div className="row">
               <div className="flexbutton">
                 <button type="button" class="btn btn-warning">
-                  <img src={mailIcon} style={{ height: "1.5rem" }} />
+                  <IoMdChatbubbles color = 'white'/>
+                  {/* <img src={mailIcon} style={{ height: "1.5rem" }} /> */}
                 </button>
-                <button type="button" class="btn btn-light">
-                  <img
-                    onClick={this.like}
-                    src={this.state.liked ? filledHeart : unfilledHeart}
-                    style={{ height: "1.5rem" }}
-                  />
+                <button type="button" class="btn btn-light" onClick={this.like}>
+                  {this.state.liked ? filledHeart : unfilledHeart}
                 </button>
               </div>
             </div>

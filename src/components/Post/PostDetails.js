@@ -1,6 +1,5 @@
 import React from "react";
 import NavSearched from "../Nav/NavSearched";
-import profilePhoto from "../Post/PostCard/user_photo.png";
 import "./PostDetails.css";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
@@ -9,9 +8,7 @@ import Moment from 'react-moment';
 import ReactLoading from "react-loading";
 
 const PostDetails = props => {
-
-
-
+  
   const { post } = props;
   const { author } = props;
 

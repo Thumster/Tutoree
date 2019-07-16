@@ -1,7 +1,8 @@
 import React from 'react';
 import book from "./book_white.png";
 // import user_photo from "./user_photo.png";
-import mail_icon from "./Mail-icon.png";
+// import mail_icon from "./Mail-icon.png";
+
 import './Nav.css';
 import SearchDropdown from '../HomePage/SearchBar/SearchDropdown/SearchDropdown';
 import { Form, Col, Row } from 'reactstrap'
@@ -18,6 +19,10 @@ import {
     Input
 } from 'reactstrap';
 import { signOut } from '../store/actions/authActions'
+
+import { MdMailOutline, MdCreate, MdAccountCircle } from 'react-icons/md'
+
+
 
 class NavSearched extends React.Component {
     constructor(props) {
@@ -63,20 +68,12 @@ class NavSearched extends React.Component {
                                             <Col xs={2} className="NoPadding">
                                                 <Button style={{ backgroundColor: "grey", width: "100%", margin: "0px" }}>Search</Button>
                                             </Col>
-
-
-                                            {/* <InputGroup>
-                                                <Input style={{margin: "auto"}}/>
-                                                <InputGroupAddon addonType="append">
-                                                    <Button color="secondary">Search</Button>
-                                                </InputGroupAddon>
-                                            </InputGroup> */}
                                         </Row>
                                     </Form>
                                 </div>
                             </NavItem>
                             <NavItem className="icons">
-                                <NavLink href="/Mail"><img src={mail_icon} className="navicon right" /></NavLink>
+                                <NavLink href="/Mail"><MdMailOutline fontSize="50px" color="#fff" /></NavLink>
                             </NavItem>
                             <NavItem className="icons">
                                 {<NavLink href="/User"><img src={profile.photoURL} className="navicon right" /></NavLink>}
@@ -85,7 +82,7 @@ class NavSearched extends React.Component {
                                 <Button color="primary" className="Button" href="/Dashboard">Dashboard</Button>{' '}
                             </NavItem>
                             <NavItem className="button-item icons">
-                                <Button color="secondary" className="Button" href="/CreatePost">Post</Button>{' '}
+                                <Button color="warning" className="Button" href="/CreatePost"><MdCreate />Post</Button>{' '}
                             </NavItem>
                             <NavItem className="button-item icons">
                                 <Button color="danger" className="Button" onClick={() => this.props.signOut()} href="/">Logout</Button>{' '}
@@ -113,3 +110,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavSearched)
+// https://react-icons.netlify.com/#/
