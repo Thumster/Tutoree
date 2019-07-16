@@ -22,11 +22,7 @@ const Routes = props => {
         auth.uid ? (
           <Component {...props} />
         ) : (
-          <Redirect
-            to={{
-              pathname: "/"
-            }}
-          />
+          <Redirect to={{ pathname: "/" }} />
         )
       }
     />

@@ -1,21 +1,35 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import "./SignInBox.css";
 import { connect } from "react-redux";
-import { signInAccount, signUpProvider } from '../../store/actions/authActions'
-import { Redirect } from 'react-router-dom'
+import { signInAccount, signUpProvider } from "../../store/actions/authActions";
+import { Redirect } from "react-router-dom";
+import {
+  AvForm,
+  AvGroup,
+  AvInput,
+  AvFeedback
+} from "availity-reactstrap-validation";
+import styled from "styled-components";
+
+const SignInButton = styled.button`
+  background-color: #326fa6;
+  color: white;
+  border-style: solid;
+  border-color: #326fa6;
+  width: 100%;
+  height: 36px;
+  :hover {
+    background-color: white;
+    color: #326fa6;
+  }
+`;
 
 class LoginButtons extends Component {
   constructor(props) {
-    super(props)
-    this.state = {
-      creds: {
-        email: "",
-        password: ""
-      },
-      isNewUser: false
-    };
+    super(props);
+    this.state = { isNewUser: false };
+    this.handleValidSubmit = this.handleValidSubmit.bind(this);
   }
 
   uiConfig = {
@@ -27,16 +41,16 @@ class LoginButtons extends Component {
     ],
     callbacks: {
       signInSuccess: () => false,
-      signInSuccessWithAuthResult: (authResult) => {
+      signInSuccessWithAuthResult: authResult => {
         this.setState({
           isNewUser: authResult.additionalUserInfo.isNewUser
-        })
+        });
         if (this.state.isNewUser) {
           this.props.signUpProvider(authResult.user);
-          console.log('new user');
-          this.setState({ isNewUser: false })
+          console.log("new user");
+          this.setState({ isNewUser: false });
         } else {
-          console.log('old user');
+          console.log("old user");
         }
         return false;
       }
@@ -49,28 +63,21 @@ class LoginButtons extends Component {
     });
   };
 
-  handleChange = e => {
-    var newCreds = this.state.creds;
-    newCreds[e.target.id] = e.target.value;
-    this.setState({
-      creds: newCreds
-    });
-    console.log(this.state.creds);
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.signInAccount(this.state.creds);
-  };
+  handleValidSubmit(event, values) {
+    event.preventDefault();
+    this.setState({ values });
+    console.log(values);
+    this.props.signInAccount(values);
+  }
 
   render() {
-    const { auth, authError } = this.props;
+    const { authError } = this.props;
 
     return (
       <div>
-        {this.state.isSignedIn ?
-          <Redirect to='/Dashboard'></Redirect>
-          :
+        {this.state.isSignedIn ? (
+          <Redirect to="/Dashboard" />
+        ) : (
           <div className="container">
             <div className="row">
               <div className="col" style={lineStyle}>
@@ -81,31 +88,39 @@ class LoginButtons extends Component {
               </div>
               <div className="col">
                 <h3 style={{ color: "grey" }}>Sign In</h3>
-                <form onSubmit={this.handleSubmit}>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="email"
-                    id="email"
-                    style={{ marginTop: 17 }}
-                    onChange={this.handleChange}
-                  />
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Password"
-                    id="password"
-                    style={{ margin: "17px 0" }}
-                    onChange={this.handleChange}
-                  />
-                  <button id="dopebutton">Sign In</button>
+                <AvForm onValidSubmit={this.handleValidSubmit}>
+                  <AvGroup>
+                    <AvInput
+                      type="text"
+                      name="email"
+                      placeholder="email"
+                      id="email"
+                      style={{ marginTop: 17 }}
+                      required
+                    />
+                    <AvFeedback>*Email invalid</AvFeedback>
+                  </AvGroup>
+
+                  <AvGroup>
+                    <AvInput
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      id="password"
+                      style={{ margin: "17px 0" }}
+                      required
+                    />
+                    <AvFeedback>*Password required</AvFeedback>
+                  </AvGroup>
+                  <SignInButton>Sign In</SignInButton>
                   <div style={{ color: "red" }}>
                     {authError ? <p>{authError}</p> : null}
                   </div>
-                </form>
+                </AvForm>
               </div>
             </div>
-          </div>}
+          </div>
+        )}
       </div>
     );
   }
@@ -117,7 +132,6 @@ const lineStyle = {
 
 const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth,
     authError: state.auth.authError
   };
 };
