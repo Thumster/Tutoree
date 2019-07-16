@@ -6,16 +6,16 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import Moment from 'react-moment';
-import { firestore } from 'firebase';
+import ReactLoading from "react-loading";
 
 const PostDetails = props => {
 
 
 
   const { post } = props;
+  const { author } = props;
 
-  if (post) {
-    console.log('testttt', post);
+  if (post && author) {
     return (
       <div>
         <header className="header">
@@ -46,7 +46,7 @@ const PostDetails = props => {
                       <div className="col-5">
                         <div className="row">
                           <img
-                            src={post.photoURL}
+                            src={author.photoURL}
                             className="ud profilePhoto"
                           />
                         </div>
@@ -57,8 +57,8 @@ const PostDetails = props => {
                         </div>
                       </div>
                       <div className="col-7">
-                        <p className="name ud">{post.name}</p>
-                        <p className="email ud">Email: {post.email}</p>
+                        <p className="name ud">{author.name}</p>
+                        <p className="email ud">Email: {author.email}</p>
                         <p className="contact ud">Contact No:</p>
                       </div>
                     </div>
@@ -76,6 +76,7 @@ const PostDetails = props => {
         <NavSearched />
         <div className="container center">
           <p>LOADING POST...</p>
+          <ReactLoading type='spinningBubbles' color="#457cc9" />
         </div>
       </div>
     );
@@ -83,15 +84,22 @@ const PostDetails = props => {
 };
 
 const mapStateToProps = (state, ownProps) => state => {
+
   const id = ownProps.match.params.id;
   const posts = state.firestore.data.posts;
   const post = posts ? posts[id] : null;
+  console.log('post', post)
+  const users = state.firestore.data.users;
+  const author = (users && post) ? users[post.uid] : null
+  console.log('author', author)
   return {
-    post: post
+    post: post,
+    author: author
   };
 };
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: "posts" }])
+  firestoreConnect([{ collection: "posts" }]),
+  firestoreConnect([{ collection: "users" }])
 )(PostDetails);
