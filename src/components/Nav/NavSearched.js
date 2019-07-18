@@ -45,6 +45,9 @@ const StyledUserIcon = styled(Media)`
   transform: scale(1.2);
   vertical-align: middle;
   border-radius: 50%;
+  :hover {
+    transform: scale(1.4);
+  }
 `;
 
 class NavSearched extends React.Component {

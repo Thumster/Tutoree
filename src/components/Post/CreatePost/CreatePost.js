@@ -19,6 +19,8 @@ import {
   AvRadio,
   AvRadioGroup
 } from "availity-reactstrap-validation";
+import Geosuggest from "react-geosuggest";
+import "./geosuggest.css"
 
 import styled from "styled-components";
 
@@ -28,7 +30,13 @@ const StyledHeader = styled.p`
   font-weight: heavy;
 `;
 
-const StyledAvRadioGroup = styled(AvRadioGroup)``;
+const StyledAvRadioGroup = styled(AvRadioGroup)`
+  /* background-color: yellow; */
+`;
+
+const StyledAvRadio = styled(AvRadio)`
+  /* background-color: yellow; */
+`
 
 class CreatePost extends React.Component {
   constructor(props) {
@@ -52,7 +60,14 @@ class CreatePost extends React.Component {
     this.props.history.push(`/Dashboard`);
   }
 
+  onSuggestSelect(place) {
+    console.log(place);
+  }
+
   render() {
+    const GeoInput = (
+      <Geosuggest placeholder="Enter your location" country="SG" />
+    );
     return (
       <div>
         <NavSearched />
@@ -67,8 +82,8 @@ class CreatePost extends React.Component {
                 errorMessage="*Please choose a category"
                 inline
               >
-                <AvRadio customInput label="I want to learn!" value="learn" />
-                <AvRadio customInput label="I want to teach!" value="teach" />
+                <StyledAvRadio customInput label="I want to learn!" value="learn" />
+                <StyledAvRadio customInput label="I want to teach!" value="teach" />
               </StyledAvRadioGroup>
               <AvGroup>
                 <Label for="title">Title</Label>
@@ -112,6 +127,7 @@ class CreatePost extends React.Component {
                   required
                   placeholder="Enter your location here"
                 />
+                {GeoInput}
                 <AvFeedback>*Location is required</AvFeedback>
               </AvGroup>
               <AvGroup>
