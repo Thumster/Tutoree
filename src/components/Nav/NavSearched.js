@@ -1,7 +1,5 @@
 import React from "react";
 import book from "../../images/book_white.png";
-// import user_photo from "./user_photo.png";
-// import mail_icon from "./Mail-icon.png";
 
 import "./Nav.css";
 import SearchDropdown from "../HomePage/SearchBar/SearchDropdown/SearchDropdown";
@@ -16,11 +14,38 @@ import {
   NavItem,
   NavLink,
   Button,
-  Input
+  Input,
+  Media
 } from "reactstrap";
 import { signOut } from "../store/actions/authActions";
 
 import { MdMailOutline, MdCreate, MdAccountCircle } from "react-icons/md";
+import styled from "styled-components";
+
+const StyledMailIcon = styled(MdMailOutline)`
+  font-size: 45px;
+  color: #fff;
+  :hover {
+    color: #d2d2d2;
+    transform: scale(1.1);
+    animation: wiggle 0.1s 7 alternate;
+  }
+
+  @keyframes wiggle {
+    0% {
+      transform: rotate(-2deg) scale(1.1);
+    }
+    100% {
+      transform: rotate(2deg) scale(1.1);
+    }
+  }
+`;
+
+const StyledUserIcon = styled(Media)`
+  transform: scale(1.2);
+  vertical-align: middle;
+  border-radius: 50%;
+`;
 
 class NavSearched extends React.Component {
   constructor(props) {
@@ -85,13 +110,16 @@ class NavSearched extends React.Component {
               </NavItem>
               <NavItem className="icons">
                 <NavLink href="/Mail">
-                  <MdMailOutline fontSize="50px" color="#fff" />
+                  <StyledMailIcon />
                 </NavLink>
               </NavItem>
               <NavItem className="icons">
                 {
                   <NavLink href="/User">
-                    <img src={profile.photoURL} className="navicon right" />
+                    <StyledUserIcon
+                      src={profile.photoURL}
+                      className="navicon right"
+                    />
                   </NavLink>
                 }
               </NavItem>

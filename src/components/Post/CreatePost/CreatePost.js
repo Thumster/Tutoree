@@ -3,7 +3,8 @@ import {
   Button,
   FormGroup,
   Label,
-  Input,
+  InputGroup,
+  InputGroupAddon,
   Jumbotron,
   Container
 } from "reactstrap";
@@ -18,6 +19,16 @@ import {
   AvRadio,
   AvRadioGroup
 } from "availity-reactstrap-validation";
+
+import styled from "styled-components";
+
+const StyledHeader = styled.p`
+  text-align: center;
+  font-size: 2rem;
+  font-weight: heavy;
+`;
+
+const StyledAvRadioGroup = styled(AvRadioGroup)``;
 
 class CreatePost extends React.Component {
   constructor(props) {
@@ -47,25 +58,18 @@ class CreatePost extends React.Component {
         <NavSearched />
         <Container>
           <Jumbotron>
-            <p
-              style={{
-                textAlign: "center",
-                fontSize: "2rem",
-                fontWeight: "heavy"
-              }}
-            >
-              Post Details
-            </p>
+            <StyledHeader>Post Details</StyledHeader>
             <AvForm onValidSubmit={this.handleValidSubmit}>
-              <AvRadioGroup
+              <StyledAvRadioGroup
                 name="category"
                 label="Category"
                 required
                 errorMessage="*Please choose a category"
+                inline
               >
                 <AvRadio customInput label="I want to learn!" value="learn" />
                 <AvRadio customInput label="I want to teach!" value="teach" />
-              </AvRadioGroup>
+              </StyledAvRadioGroup>
               <AvGroup>
                 <Label for="title">Title</Label>
                 <AvInput
@@ -79,30 +83,44 @@ class CreatePost extends React.Component {
                 <Label for="description">Description</Label>
                 <AvInput
                   name="description"
+                  id="exampleText"
                   type="textarea"
                   placeholder="Enter your post description here"
                   required
                 />
                 <AvFeedback>*Description is required</AvFeedback>
               </AvGroup>
+
               <AvGroup>
                 <Label for="price">Price</Label>
-                <Label for="price">S$</Label>
-                <AvInput
-                  name="price"
-                  required
-                  placeholder="Enter your price here"
-                />
-                <AvFeedback>*Price is required</AvFeedback>
+                <InputGroup>
+                  <InputGroupAddon addonType="prepend">S$</InputGroupAddon>
+
+                  <AvInput
+                    name="price"
+                    required
+                    placeholder="Enter your price here"
+                  />
+                  <AvFeedback>*Price is required</AvFeedback>
+                </InputGroup>
               </AvGroup>
+
               <AvGroup>
                 <Label for="location">Location</Label>
-                <AvInput name="location" required placeholder="Enter your location here"/>
+                <AvInput
+                  name="location"
+                  required
+                  placeholder="Enter your location here"
+                />
                 <AvFeedback>*Location is required</AvFeedback>
               </AvGroup>
               <AvGroup>
                 <Label for="subject">Subject</Label>
-                <AvInput name="subject" required placeholder="Enter your subject here"/>
+                <AvInput
+                  name="subject"
+                  required
+                  placeholder="Enter your subject here"
+                />
                 <AvFeedback>*Subject is required</AvFeedback>
               </AvGroup>
               <Button type="submit">Submit</Button>
