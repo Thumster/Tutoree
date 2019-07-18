@@ -4,11 +4,10 @@ import "./PostDetails.css";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import Moment from 'react-moment';
+import Moment from "react-moment";
 import ReactLoading from "react-loading";
 
 const PostDetails = props => {
-  
   const { post } = props;
   const { author } = props;
 
@@ -29,7 +28,14 @@ const PostDetails = props => {
                     <span class="badge badge-info" id="subjectBadge">
                       {post.subject}
                     </span>
-                    <p className="pd-timeStamp">Posted: <Moment fromNow ago={post.createdAt}></Moment> ago</p>
+                    {console.log(post.createdAt)}
+                    <p className="pd-timeStamp">
+                      Posted:{" "}
+                      <Moment fromNow ago>
+                        {post.createdAt}
+                      </Moment>{" "}
+                      ago
+                    </p>
                     <p className="pd-price">Price: $ {post.price}</p>
                     <div className="jumbotron desc">
                       <p>Descripton</p>
@@ -73,7 +79,7 @@ const PostDetails = props => {
         <NavSearched />
         <div className="container center">
           <p>LOADING POST...</p>
-          <ReactLoading type='spinningBubbles' color="#457cc9" />
+          <ReactLoading type="spinningBubbles" color="#457cc9" />
         </div>
       </div>
     );
@@ -81,14 +87,13 @@ const PostDetails = props => {
 };
 
 const mapStateToProps = (state, ownProps) => state => {
-
   const id = ownProps.match.params.id;
   const posts = state.firestore.data.posts;
   const post = posts ? posts[id] : null;
-  console.log('post', post)
+  console.log("post", post);
   const users = state.firestore.data.users;
-  const author = (users && post) ? users[post.uid] : null
-  console.log('author', author)
+  const author = users && post ? users[post.uid] : null;
+  console.log("author", author);
   return {
     post: post,
     author: author
@@ -97,6 +102,5 @@ const mapStateToProps = (state, ownProps) => state => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: "posts" }]),
-  firestoreConnect([{ collection: "users" }])
+  firestoreConnect([{ collection: "posts" }, { collection: "users" }])
 )(PostDetails);

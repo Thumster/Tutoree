@@ -1,5 +1,8 @@
 import React from "react";
 import PostCard from "../Post/PostCard/PostCard";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
 
 const cards = {
   display: "flex",
@@ -7,15 +10,29 @@ const cards = {
   justifyContent: "flex-start"
 };
 
-const PostList = ({ posts }) => {
+const PostList = props => {
+  const { posts } = props;
+  const { users } = props;
+
   return (
     <div style={cards}>
       {posts &&
         posts.map(post => {
-          return <PostCard post={post} key={post.id} />;
+          const author = (users && post) ? users[post.uid] : null
+          console.log('authorrrrr', author)
+          return <PostCard post={post} key={post.id} author={author}/>;
         })}
     </div>
   );
 };
+const mapStateToProps = state => {
+  return {
+    users: state.firestore.data.users,
+    posts: state.firestore.ordered.posts
+  };
+};
 
-export default PostList;
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: "users" }, { collection: "posts" }])
+)(PostList);

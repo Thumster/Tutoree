@@ -28,7 +28,8 @@ class PostCard extends React.Component {
         <div className="row">
           <div className="col-5">
             <div className="row">
-              <MdAccountCircle className="photo" size="15em" />
+              {/* <MdAccountCircle className="photo" size="15em" /> */}
+              <img src={this.props.author.photoURL} style={{ height: "5em" }} />
             </div>
             <div className="row">
               <div className="flexbutton">
@@ -45,7 +46,7 @@ class PostCard extends React.Component {
             <Link to={"/post/" + this.props.post.id}>
               <p className="title">Title {this.props.post.title}</p>
               <p className="subject">Subject {this.props.post.subject}</p>
-              <p className="name">Name: {this.props.authorName}</p>
+              <p className="name">Name: {this.props.author.name}</p>
               <p className="price">Price: {this.props.post.price}</p>
               <p className="location">Location: {this.props.post.location}</p>
             </Link>
