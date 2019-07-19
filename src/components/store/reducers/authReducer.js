@@ -1,10 +1,4 @@
-const initState = {
-    authError: null,
-    signUpError: null,
-    signUpProviderError: null
-}
-
-const authReducer = (state = initState, action) => {
+const authReducer = (state = {}, action) => {
     switch (action.type) {
         case 'LOGIN_ERROR':
             console.log('login error')
