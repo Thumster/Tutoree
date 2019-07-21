@@ -33,7 +33,8 @@ export const signUp = (newUser) => {
             newUser.password
         ).then((resp) => {
             return firestore.collection('users').doc(resp.user.uid).set({
-                name: newUser.name
+                name: newUser.name,
+                postsLiked: []
             })
         }).then(() => {
             dispatch({ type: 'SIGNUP_SUCCESS' })
@@ -49,7 +50,8 @@ export const signUpProvider = (newUser) => {
         firestore.collection('users').doc(newUser.uid).set({
             name: newUser.displayName,
             email: newUser.email,
-            photoURL: newUser.photoURL
+            photoURL: newUser.photoURL,
+            postsLiked: []
         }).then(() => {
             dispatch({ type: 'SIGNUP_PROVIDER_SUCCESS' })
         }).catch((err) => {

@@ -5,22 +5,30 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
-
+import { likePost } from "../../store/actions/postActions";
 import { MdAccountCircle } from "react-icons/md";
 
 class PostCard extends React.Component {
   constructor(props) {
     super(props);
-    this.like = this.like.bind(this);
     this.state = {
-      liked: false
+      liked: this.props.posts.postsLiked.some(id => this.props.post.pid === id)
     };
+    this.toggleLike = this.toggleLike.bind(this);
   }
 
-  like() {
-    this.setState({
-      liked: !this.state.liked
-    });
+  componentDidMount = () => {};
+
+  toggleLike(e) {
+    e.preventDefault();
+    this.setState(
+      {
+        liked: !this.state.liked
+      },
+      () => {
+        this.props.likePost(this.state.liked, this.props.post.pid);
+      }
+    );
   }
 
   render() {
@@ -41,7 +49,7 @@ class PostCard extends React.Component {
       </button>
     );
     const likeButton = (
-      <button type="button" class="btn btn-light" onClick={this.like}>
+      <button type="button" class="btn btn-light" onClick={this.toggleLike}>
         {this.state.liked ? filledHeart : unfilledHeart}
       </button>
     );
@@ -54,12 +62,15 @@ class PostCard extends React.Component {
             <div className="row">
               <div className="flexbutton">
                 {chatButton}
-                {likeButton}
+                <span>
+                  {likeButton}
+                  {this.props.posts.postsLikeCounter[this.props.post.pid]}
+                </span>
               </div>
             </div>
           </div>
           <div className="col-7">
-            <Link to={"/post/" + this.props.post.id}>
+            <Link to={"/post/" + this.props.post.pid}>
               <p className="title">Title {this.props.post.title}</p>
               <p className="subject">Subject {this.props.post.subject}</p>
               <p className="name">Name: {author.name}</p>
@@ -75,10 +86,21 @@ class PostCard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    users: state.firestore.data.users
+    users: state.firestore.data.users,
+    posts: state.posts
   };
 };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    likePost: (liked, pid) => dispatch(likePost(liked, pid))
+  };
+};
+
 export default compose(
-  connect(mapStateToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   firestoreConnect([{ collection: "users" }])
 )(PostCard);
