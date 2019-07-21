@@ -1,7 +1,11 @@
 import React from "react";
 import "./PostCard.css";
 import { IoIosHeartEmpty, IoIosHeart, IoMdChatbubbles } from "react-icons/io";
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
 import { Link } from "react-router-dom";
+
 import { MdAccountCircle } from "react-icons/md";
 
 class PostCard extends React.Component {
@@ -20,25 +24,37 @@ class PostCard extends React.Component {
   }
 
   render() {
+    const author = this.props.users[this.props.post.uid];
+
     const filledHeart = <IoIosHeart style={{ height: "1.5rem" }} color="red" />;
     const unfilledHeart = <IoIosHeartEmpty style={{ height: "1.5rem" }} />;
+
+    const photo = author.photoURL ? (
+      <img src={author.photoURL} style={{ height: "5em" }} />
+    ) : (
+      <MdAccountCircle className="photo" size="15em" />
+    );
+
+    const chatButton = (
+      <button type="button" class="btn btn-warning">
+        <IoMdChatbubbles color="white" />
+      </button>
+    );
+    const likeButton = (
+      <button type="button" class="btn btn-light" onClick={this.like}>
+        {this.state.liked ? filledHeart : unfilledHeart}
+      </button>
+    );
 
     return (
       <div id="containerid" className="container">
         <div className="row">
           <div className="col-5">
-            <div className="row">
-              {/* <MdAccountCircle className="photo" size="15em" /> */}
-              <img src={this.props.author.photoURL} style={{ height: "5em" }} />
-            </div>
+            <div className="row">{photo}</div>
             <div className="row">
               <div className="flexbutton">
-                <button type="button" class="btn btn-warning">
-                  <IoMdChatbubbles color="white" />
-                </button>
-                <button type="button" class="btn btn-light" onClick={this.like}>
-                  {this.state.liked ? filledHeart : unfilledHeart}
-                </button>
+                {chatButton}
+                {likeButton}
               </div>
             </div>
           </div>
@@ -46,7 +62,7 @@ class PostCard extends React.Component {
             <Link to={"/post/" + this.props.post.id}>
               <p className="title">Title {this.props.post.title}</p>
               <p className="subject">Subject {this.props.post.subject}</p>
-              <p className="name">Name: {this.props.author.name}</p>
+              <p className="name">Name: {author.name}</p>
               <p className="price">Price: {this.props.post.price}</p>
               <p className="location">Location: {this.props.post.location}</p>
             </Link>
@@ -57,4 +73,12 @@ class PostCard extends React.Component {
   }
 }
 
-export default PostCard;
+const mapStateToProps = state => {
+  return {
+    users: state.firestore.data.users
+  };
+};
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: "users" }])
+)(PostCard);

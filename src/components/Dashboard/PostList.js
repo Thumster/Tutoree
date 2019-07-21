@@ -3,6 +3,9 @@ import PostCard from "../Post/PostCard/PostCard";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
+import { fetchPostsIfNeeded } from "../store/actions/postActions";
+import ReactLoading from "react-loading";
+import Filter from "./Filter";
 
 const cards = {
   display: "flex",
@@ -10,29 +13,77 @@ const cards = {
   justifyContent: "flex-start"
 };
 
-const PostList = props => {
-  const { posts } = props;
-  const { users } = props;
+class PostList extends React.Component {
+  // const { posts } = props;
+  // const { users } = props;
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <div style={cards}>
-      {posts &&
-        posts.map(post => {
-          const author = (users && post) ? users[post.uid] : null
-          console.log('authorrrrr', author)
-          return <PostCard post={post} key={post.id} author={author}/>;
-        })}
-    </div>
-  );
-};
+  componentDidMount = () => {
+    this.props.fetchPostsIfNeeded();
+  };
+  render() {
+    const { data } = this.props.posts;
+    const { isFetching } = this.props.posts;
+    const { didInvalidate } = this.props.posts;
+
+    console.log("props", this.props);
+    return (
+      <div>
+        {isFetching ? (
+          showSpinner()
+        ) : data.length > 0 ? (
+          <div>
+            <Filter /> {showCards(data)}
+          </div>
+        ) : (
+          showNoPostsToLoad()
+        )}
+      </div>
+    );
+  }
+}
+
+const showCards = posts => (
+  <div style={cards}>
+    {posts &&
+      posts.map(post => {
+        return <PostCard post={post} key={post.pid} />;
+      })}
+  </div>
+);
+
+const showSpinner = () => (
+  <div>
+    <p>FETCHING POSTS...</p>
+    <ReactLoading type="spinningBubbles" color="#457cc9" />
+  </div>
+);
+
+const showNoPostsToLoad = () => (
+  <div>
+    <p>NO POSTS TO LOAD</p>
+  </div>
+);
+
 const mapStateToProps = state => {
   return {
     users: state.firestore.data.users,
-    posts: state.firestore.ordered.posts
+    posts: state.posts
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchPostsIfNeeded: () => dispatch(fetchPostsIfNeeded())
   };
 };
 
 export default compose(
-  connect(mapStateToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   firestoreConnect([{ collection: "users" }, { collection: "posts" }])
 )(PostList);

@@ -47,10 +47,7 @@ class LoginButtons extends Component {
         });
         if (this.state.isNewUser) {
           this.props.signUpProvider(authResult.user);
-          console.log("new user");
           this.setState({ isNewUser: false });
-        } else {
-          console.log("old user");
         }
         return false;
       }
@@ -66,7 +63,6 @@ class LoginButtons extends Component {
   handleValidSubmit(event, values) {
     event.preventDefault();
     this.setState({ values });
-    console.log(values);
     this.props.signInAccount(values);
   }
 

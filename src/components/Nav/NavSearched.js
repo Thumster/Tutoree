@@ -67,7 +67,6 @@ class NavSearched extends React.Component {
   }
   render() {
     const { profile } = this.props;
-    console.log(profile);
     return (
       <div>
         <Navbar style={{ backgroundColor: "#326FA6" }} light expand="lg">
@@ -156,7 +155,6 @@ class NavSearched extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile

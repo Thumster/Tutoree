@@ -28,7 +28,6 @@ const PostDetails = props => {
                     <span class="badge badge-info" id="subjectBadge">
                       {post.subject}
                     </span>
-                    {console.log(post.createdAt)}
                     <p className="pd-timeStamp">
                       Posted:{" "}
                       <Moment fromNow ago>
@@ -90,10 +89,8 @@ const mapStateToProps = (state, ownProps) => state => {
   const id = ownProps.match.params.id;
   const posts = state.firestore.data.posts;
   const post = posts ? posts[id] : null;
-  console.log("post", post);
   const users = state.firestore.data.users;
   const author = users && post ? users[post.uid] : null;
-  console.log("author", author);
   return {
     post: post,
     author: author

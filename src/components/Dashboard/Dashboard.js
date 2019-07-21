@@ -9,7 +9,6 @@ class Dashboard extends React.Component {
         return (
             <div>
             <NavSearched/>
-            <ChoiceTab/>
             <PostList />
             </div>
         );

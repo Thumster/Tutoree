@@ -46,13 +46,11 @@ export const signUp = (newUser) => {
 export const signUpProvider = (newUser) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
-        
         firestore.collection('users').doc(newUser.uid).set({
             name: newUser.displayName,
             email: newUser.email,
             photoURL: newUser.photoURL
         }).then(() => {
-            console.log('then called')
             dispatch({ type: 'SIGNUP_PROVIDER_SUCCESS' })
         }).catch((err) => {
             dispatch({ type: 'SIGNUP_PROVIDER_ERROR', err })

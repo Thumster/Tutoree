@@ -41,21 +41,12 @@ const StyledAvRadio = styled(AvRadio)`
 class CreatePost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      category: "",
-      title: "",
-      description: "",
-      price: "",
-      location: "",
-      subject: ""
-    };
     this.handleValidSubmit = this.handleValidSubmit.bind(this);
   }
 
   handleValidSubmit(event, values) {
     event.preventDefault();
     this.setState({ values });
-    console.log(values);
     this.props.createPost(values);
     this.props.history.push(`/Dashboard`);
   }
