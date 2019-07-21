@@ -2,33 +2,26 @@ import {
   REQUEST_POSTS,
   RECEIVE_POSTS,
   CREATE_POST,
-  CREATE_POST_ERROR,
-  INVALIDATE_POSTS
+  CREATE_POST_ERROR
 } from "../actions/postActions";
 
 const initState = {
   isFetching: false,
-  didInvalidate: false,
   data: []
 };
 
 export const posts = (state = initState, action) => {
   switch (action.type) {
-    case INVALIDATE_POSTS:
-      return Object.assign({}, state, { didInvalidate: true });
-
     case REQUEST_POSTS:
       console.log("requesting posts...");
       return Object.assign({}, state, {
-        isFetching: true,
-        didInvalidate: false
+        isFetching: true
       });
 
     case RECEIVE_POSTS:
       console.log("received posts", action.posts);
       return Object.assign({}, state, {
         isFetching: false,
-        didInvalidate: false,
         data: action.posts
       });
 
@@ -51,5 +44,3 @@ export const createPostReducer = (state = null, action) => {
       return state;
   }
 };
-
-// export default {postReducer,postsByCategoryReducer};

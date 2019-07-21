@@ -14,8 +14,6 @@ const cards = {
 };
 
 class PostList extends React.Component {
-  // const { posts } = props;
-  // const { users } = props;
   constructor(props) {
     super(props);
   }
@@ -23,10 +21,10 @@ class PostList extends React.Component {
   componentDidMount = () => {
     this.props.fetchPostsIfNeeded();
   };
+
   render() {
     const { data } = this.props.posts;
     const { isFetching } = this.props.posts;
-    const { didInvalidate } = this.props.posts;
 
     console.log("props", this.props);
     return (

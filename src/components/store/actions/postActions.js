@@ -2,13 +2,6 @@ export const REQUEST_POSTS = "REQUEST_POSTS";
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const CREATE_POST = "CREATE_POST";
 export const CREATE_POST_ERROR = "CREATE_POST_ERROR";
-export const INVALIDATE_POSTS = "INVALIDATE_POSTS";
-
-export function invalidatePosts() {
-  return {
-    type: INVALIDATE_POSTS
-  };
-}
 
 function requestPosts() {
   return {
@@ -27,7 +20,6 @@ function fetchPosts() {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(requestPosts());
     const firestore = getFirestore();
-    console.log("firestoree", firestore.collection("posts"));
     return firestore
       .collection("posts")
       .get()
@@ -53,7 +45,7 @@ function shouldFetchPosts(state) {
   } else if (posts.isFetching) {
     return false;
   } else {
-    return posts.didInvalidate;
+    return true;
   }
 }
 
