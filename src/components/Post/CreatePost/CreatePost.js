@@ -10,7 +10,6 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { createPost } from "../../store/actions/postActions";
-import NavSearched from "../../Nav/NavSearched";
 import {
   AvForm,
   AvGroup,
@@ -65,10 +64,8 @@ class CreatePost extends React.Component {
     const GeoInput = (
       <Geosuggest placeholder="Enter your location" country="SG" />
     );
-    console.log(this.props);
     return (
       <div>
-        <NavSearched />
         <Container>
           <Jumbotron>
             <StyledHeader>Post Details</StyledHeader>

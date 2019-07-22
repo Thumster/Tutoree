@@ -47,7 +47,6 @@ function fetchPosts() {
 
 function shouldFetchPosts(state) {
   const posts = state.posts;
-  // console.log(posts);
   if (!posts) {
     return true;
   } else if (posts.isFetching) {

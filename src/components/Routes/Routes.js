@@ -11,6 +11,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import CreatePost from "../Post/CreatePost/CreatePost";
 import PostDetails from "../Post/PostDetails/PostDetails";
 import { connect } from "react-redux";
+import NavBar from "../Nav/NavSearched"
 
 const Routes = props => {
   const { auth } = props;
@@ -31,6 +32,7 @@ const Routes = props => {
   return (
     <div>
       <Router>
+        {auth.uid ? <NavBar/> : null}
         <Switch>
           <Route exact path="/" component={Login} />
           <PrivateRoute exact path="/CreatePost" component={CreatePost} />

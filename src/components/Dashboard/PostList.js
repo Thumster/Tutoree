@@ -64,11 +64,10 @@ const showNoPostsToLoad = () => (
 );
 
 const mapStateToProps = state => {
+  console.log("PROPS",state)
   return {
     users: state.firestore.data.users,
     posts: state.posts
-    // postsLiked: state.postsLiked,
-    // postsLikeCounter: state.postsLikeCounter
   };
 };
 

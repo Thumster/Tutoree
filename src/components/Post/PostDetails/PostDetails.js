@@ -1,5 +1,4 @@
 import React from "react";
-import NavSearched from "../../Nav/NavSearched";
 import "./PostDetails.css";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
@@ -15,7 +14,6 @@ const PostDetails = props => {
     return (
       <div>
         <header className="header">
-          <NavSearched />
         </header>
         <div className="empty-space">EMPTY SPACE</div>
         <div className="container" id="content">
@@ -75,7 +73,6 @@ const PostDetails = props => {
   } else {
     return (
       <div>
-        <NavSearched />
         <div className="container center">
           <p>LOADING POST...</p>
           <ReactLoading type="spinningBubbles" color="#457cc9" />

@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { connect } from "react-redux";
-import { signInAccount, signUpProvider } from "../../store/actions/authActions";
+import {
+  signInAccount,
+  checkNewUser,
+  signIn
+} from "../../store/actions/authActions";
 import { Redirect } from "react-router-dom";
 import {
   AvForm,
@@ -28,7 +32,6 @@ const SignInButton = styled.button`
 class LoginButtons extends Component {
   constructor(props) {
     super(props);
-    this.state = { isNewUser: false };
     this.handleValidSubmit = this.handleValidSubmit.bind(this);
   }
 
@@ -40,23 +43,17 @@ class LoginButtons extends Component {
       firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
     callbacks: {
-      signInSuccess: () => false,
       signInSuccessWithAuthResult: authResult => {
-        this.setState({
-          isNewUser: authResult.additionalUserInfo.isNewUser
-        });
-        if (this.state.isNewUser) {
-          this.props.signUpProvider(authResult.user);
-          this.setState({ isNewUser: false });
-        }
-        return false;
+        this.props.checkNewUser(authResult);
       }
     }
   };
 
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(user => {
-      this.setState({ isSignedIn: !!user });
+      if (user) {
+        this.props.signIn(user);
+      }
     });
   };
 
@@ -71,7 +68,7 @@ class LoginButtons extends Component {
 
     return (
       <div>
-        {this.state.isSignedIn ? (
+        {this.props.isSignedIn ? (
           <Redirect to="/Dashboard" />
         ) : (
           <div className="container">
@@ -128,14 +125,17 @@ const lineStyle = {
 
 const mapStateToProps = state => {
   return {
-    authError: state.auth.authError
+    auth: state.auth,
+    authError: state.auth.authError,
+    isSignedIn: state.auth.isSignedIn
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    signIn: user => dispatch(signIn(user)),
     signInAccount: creds => dispatch(signInAccount(creds)),
-    signUpProvider: newUser => dispatch(signUpProvider(newUser))
+    checkNewUser: authResult => dispatch(checkNewUser(authResult))
   };
 };
 

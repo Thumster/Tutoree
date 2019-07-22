@@ -11,6 +11,7 @@ import thunk from "redux-thunk";
 import { reduxFirestore, getFirestore } from "redux-firestore";
 import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
 import fbConfig from "./components/config/fbConfig";
+import { fetchInit } from "./components/store/actions/authActions";
 
 const store = createStore(
   rootReducer,
@@ -21,7 +22,9 @@ const store = createStore(
   )
 );
 
+
 store.firebaseAuthIsReady.then(() => {
+  store.dispatch(fetchInit());
   ReactDOM.render(
     <Provider store={store}>
       <App />
