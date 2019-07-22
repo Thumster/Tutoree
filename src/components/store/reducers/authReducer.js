@@ -29,7 +29,7 @@ const authReducer = (state = initState, action) => {
       console.log("initialisation succesful");
       return state;
     case SIGNED_IN:
-      console.log("signed in");
+      console.log("signed in as", action.userDetails);
       return Object.assign({}, state, {
         isSignedIn: true,
         userDetails: action.userDetails

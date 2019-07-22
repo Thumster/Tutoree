@@ -38,7 +38,6 @@ export const signIn = user => {
       .catch(err => {
         console.log("error getting user data", err);
       });
-    console.log("this user signed in", user);
   };
 };
 
