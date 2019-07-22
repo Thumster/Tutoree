@@ -3,7 +3,7 @@ import PostCard from "../Post/PostCard/PostCard";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
-import { fetchPostsIfNeeded, fetchPostsLiked } from "../store/actions/postActions";
+import { fetchPostsIfNeeded } from "../store/actions/postActions";
 import ReactLoading from "react-loading";
 import Filter from "./Filter";
 
@@ -20,13 +20,11 @@ class PostList extends React.Component {
 
   componentDidMount = () => {
     this.props.fetchPostsIfNeeded();
-    this.props.fetchPostsLiked();
   };
 
   render() {
     const { data } = this.props.posts;
     const { isFetching } = this.props.posts;
-    console.log(this.props)
     return (
       <div>
         {isFetching ? (
@@ -69,13 +67,14 @@ const mapStateToProps = state => {
   return {
     users: state.firestore.data.users,
     posts: state.posts
+    // postsLiked: state.postsLiked,
+    // postsLikeCounter: state.postsLikeCounter
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPostsIfNeeded: () => dispatch(fetchPostsIfNeeded()),
-    fetchPostsLiked: () => dispatch(fetchPostsLiked())
+    fetchPostsIfNeeded: () => dispatch(fetchPostsIfNeeded())
   };
 };
 

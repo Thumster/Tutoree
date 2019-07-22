@@ -20,7 +20,7 @@ import {
   AvRadioGroup
 } from "availity-reactstrap-validation";
 import Geosuggest from "react-geosuggest";
-import "./geosuggest.css"
+import "./geosuggest.css";
 
 import styled from "styled-components";
 
@@ -36,7 +36,7 @@ const StyledAvRadioGroup = styled(AvRadioGroup)`
 
 const StyledAvRadio = styled(AvRadio)`
   /* background-color: yellow; */
-`
+`;
 
 class CreatePost extends React.Component {
   constructor(props) {
@@ -48,7 +48,13 @@ class CreatePost extends React.Component {
     event.preventDefault();
     this.setState({ values });
     this.props.createPost(values);
-    this.props.history.push(`/Dashboard`);
+    // this.props.history.push(`/Dashboard`);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.isCreating && !this.props.isCreating) {
+      this.props.history.push(`/Dashboard`);
+    }
   }
 
   onSuggestSelect(place) {
@@ -59,6 +65,7 @@ class CreatePost extends React.Component {
     const GeoInput = (
       <Geosuggest placeholder="Enter your location" country="SG" />
     );
+    console.log(this.props);
     return (
       <div>
         <NavSearched />
@@ -73,8 +80,16 @@ class CreatePost extends React.Component {
                 errorMessage="*Please choose a category"
                 inline
               >
-                <StyledAvRadio customInput label="I want to learn!" value="learn" />
-                <StyledAvRadio customInput label="I want to teach!" value="teach" />
+                <StyledAvRadio
+                  customInput
+                  label="I want to learn!"
+                  value="learn"
+                />
+                <StyledAvRadio
+                  customInput
+                  label="I want to teach!"
+                  value="teach"
+                />
               </StyledAvRadioGroup>
               <AvGroup>
                 <Label for="title">Title</Label>
@@ -139,12 +154,17 @@ class CreatePost extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    isCreating: state.createPost.isCreating
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
     createPost: post => dispatch(createPost(post))
   };
 };
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(CreatePost);

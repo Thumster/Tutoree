@@ -11,9 +11,6 @@ import { MdAccountCircle } from "react-icons/md";
 class PostCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      liked: this.props.posts.postsLiked.some(id => this.props.post.pid === id)
-    };
     this.toggleLike = this.toggleLike.bind(this);
   }
 
@@ -21,18 +18,15 @@ class PostCard extends React.Component {
 
   toggleLike(e) {
     e.preventDefault();
-    this.setState(
-      {
-        liked: !this.state.liked
-      },
-      () => {
-        this.props.likePost(this.state.liked, this.props.post.pid);
-      }
-    );
+    this.props.likePost(this.props.post.pid);
   }
 
   render() {
+    // {console.log("RPOPS", this.props)}
+
     const author = this.props.users[this.props.post.uid];
+    const liked = this.props.postsLiked[this.props.post.pid] || false;
+    const likeCount = this.props.postsLikeCounter[this.props.post.pid];
 
     const filledHeart = <IoIosHeart style={{ height: "1.5rem" }} color="red" />;
     const unfilledHeart = <IoIosHeartEmpty style={{ height: "1.5rem" }} />;
@@ -50,7 +44,7 @@ class PostCard extends React.Component {
     );
     const likeButton = (
       <button type="button" class="btn btn-light" onClick={this.toggleLike}>
-        {this.state.liked ? filledHeart : unfilledHeart}
+        {liked ? filledHeart : unfilledHeart}
       </button>
     );
 
@@ -64,7 +58,7 @@ class PostCard extends React.Component {
                 {chatButton}
                 <span>
                   {likeButton}
-                  {this.props.posts.postsLikeCounter[this.props.post.pid]}
+                  {likeCount}
                 </span>
               </div>
             </div>
@@ -87,7 +81,8 @@ class PostCard extends React.Component {
 const mapStateToProps = state => {
   return {
     users: state.firestore.data.users,
-    posts: state.posts
+    postsLiked: state.postsLiked,
+    postsLikeCounter: state.postsLikeCounter
   };
 };
 

@@ -1,7 +1,8 @@
 import firebase from "firebase";
 export const REQUEST_POSTS = "REQUEST_POSTS";
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
-export const CREATE_POST = "CREATE_POST";
+export const CREATING_POST = "CREATING_POST";
+export const CREATED_POST = "CREATED_POST";
 export const CREATE_POST_ERROR = "CREATE_POST_ERROR";
 export const FETCH_LIKES = "FETCH_LIKES";
 export const FETCH_POSTS_LIKED = "FETCH_POSTS_LIKED";
@@ -34,6 +35,7 @@ function fetchPosts() {
       })
       .then(posts => {
         if (posts) {
+          dispatch(fetchPostsLiked());
           dispatch(fetchLikes(posts));
           dispatch(receivePosts(posts));
         } else {
@@ -45,6 +47,7 @@ function fetchPosts() {
 
 function shouldFetchPosts(state) {
   const posts = state.posts;
+  // console.log(posts);
   if (!posts) {
     return true;
   } else if (posts.isFetching) {
@@ -59,26 +62,35 @@ export const fetchPostsIfNeeded = () => {
     if (shouldFetchPosts(getState)) {
       return dispatch(fetchPosts());
     } else {
+      // Let the calling code know there's nothing to wait for.
       return Promise.resolve();
     }
   };
 };
 
-export const fetchPostsLiked = () => {
+function fetchPostsLiked() {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const uid = getState().firebase.auth.uid;
     getFirestore()
       .collection("users")
       .doc(uid)
       .get()
-      .then(querySnapshot => {
+      .then(docs => {
+        return docs.data().postsLiked.reduce((out, doc) => {
+          return {
+            ...out,
+            [doc]: true
+          };
+        }, {});
+      })
+      .then(finalResponse => {
         dispatch({
           type: FETCH_POSTS_LIKED,
-          postsLiked: querySnapshot.data().postsLiked
+          postsLiked: finalResponse
         });
       });
   };
-};
+}
 
 function fetchLikes(posts) {
   console.log("fetching likes...");
@@ -94,39 +106,44 @@ function fetchLikes(posts) {
   };
 }
 
-export const likePost = (liked, pid) => {
+export const likePost = pid => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const uid = getState().firebase.auth.uid;
-    var value = getState().posts.postsLikeCounter[pid] || 0;
+    var value = getState().postsLikeCounter[pid] || 0;
     const currentUser = getFirestore()
       .collection("users")
       .doc(uid);
-
-    if (liked) {
-      currentUser.update({
-        postsLiked: getFirebase().firestore.FieldValue.arrayUnion(pid)
-      });
-      value++;
-    } else {
+    const currentLike = getState().postsLiked[pid] ? true : false;
+    if (currentLike) {
       currentUser.update({
         postsLiked: getFirebase().firestore.FieldValue.arrayRemove(pid)
       });
       value = Math.max(--value, 0);
+    } else {
+      currentUser.update({
+        postsLiked: getFirebase().firestore.FieldValue.arrayUnion(pid)
+      });
+      ++value;
     }
+    const newLike = !currentLike;
     getFirestore()
       .collection("posts")
       .doc(pid)
       .update({ likes: value });
-    dispatch({ type: POST_LIKED, pid: pid, value: value });
+    dispatch({ type: POST_LIKED, pid: pid, liked: newLike, value: value });
   };
 };
+
+function creatingPost() {
+  return { type: CREATING_POST };
+}
 
 export const createPost = post => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     // make async call to database
     const posts = getFirestore().collection("posts");
     const uid = getState().firebase.auth.uid;
-
+    dispatch(creatingPost());
     posts
       .add({
         ...post,
@@ -138,7 +155,7 @@ export const createPost = post => {
         posts.doc(docRef.id).update({ pid: docRef.id });
       })
       .then(() => {
-        dispatch({ type: CREATE_POST, post });
+        dispatch({ type: CREATED_POST, post });
       })
       .catch(err => {
         dispatch({ type: CREATE_POST_ERROR, err });

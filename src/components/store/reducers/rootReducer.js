@@ -1,12 +1,14 @@
 import authReducer from "./authReducer";
-import { posts, createPostReducer } from "./postReducer";
+import { posts, postsLiked, postsLikeCounter, createPost } from "./postReducer";
 import { combineReducers } from "redux";
 import { firestoreReducer } from "redux-firestore";
 import { firebaseReducer } from "react-redux-firebase";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  createPost: createPostReducer,
+  createPost: createPost,
+  postsLiked: postsLiked,
+  postsLikeCounter: postsLikeCounter,
   posts: posts,
   firestore: firestoreReducer,
   firebase: firebaseReducer

@@ -1,7 +1,8 @@
 import {
   REQUEST_POSTS,
   RECEIVE_POSTS,
-  CREATE_POST,
+  CREATING_POST,
+  CREATED_POST,
   CREATE_POST_ERROR,
   FETCH_LIKES,
   FETCH_POSTS_LIKED,
@@ -9,22 +10,50 @@ import {
 } from "../actions/postActions";
 
 const initState = {
-  isFetching: false,
-  data: [],
+  posts: {
+    isFetching: false,
+    data: []
+  },
+  createPost: {
+    isCreating: false
+  },
   postsLiked: [],
   postsLikeCounter: []
 };
 
-// data.reduce((out, post) => {
-//   return {
-//     ...out,
-//     [post.id]: post.likes
-//   };
-// }, {})
+export const postsLiked = (state = initState.postsLiked, action) => {
+  switch (action.type) {
+    case FETCH_POSTS_LIKED:
+      console.log("fetched posts liked", action.postsLiked);
+      return Object.assign({}, state, action.postsLiked);
 
-// state.categories.find((item) => item.id === Number(categoryId))
+    case POST_LIKED:
+      return Object.assign({}, state, {
+        [action.pid]: action.liked
+      });
+    default:
+      return state;
+  }
+};
 
-export const posts = (state = initState, action) => {
+export const postsLikeCounter = (
+  state = initState.postsLikeCounter,
+  action
+) => {
+  switch (action.type) {
+    case FETCH_LIKES:
+      console.log("fetched likes counter", action.postsLikeCounter);
+      return Object.assign({}, state, action.postsLikeCounter);
+    case POST_LIKED:
+      const newPostsLikeCounter = Object.assign({}, state.postsLikeCounter);
+      newPostsLikeCounter[action.pid] = action.value;
+      return Object.assign({}, state, newPostsLikeCounter);
+    default:
+      return state;
+  }
+};
+
+export const posts = (state = initState.posts, action) => {
   switch (action.type) {
     case REQUEST_POSTS:
       console.log("requesting posts...");
@@ -38,33 +67,20 @@ export const posts = (state = initState, action) => {
         isFetching: false,
         data: action.posts
       });
-    case FETCH_POSTS_LIKED:
-      console.log("fetched posts liked", action.postsLiked);
-      return Object.assign({}, state, {
-        postsLiked: action.postsLiked
-      });
-    case FETCH_LIKES:
-      console.log("fetched likes counter", action.postsLikeCounter);
-      return Object.assign({}, state, {
-        postsLikeCounter: action.postsLikeCounter
-      });
-    case POST_LIKED:
-      const newPostsLikeCounter = Object.assign({},state.postsLikeCounter);
-      newPostsLikeCounter[action.pid] = action.value;
-      return Object.assign({}, state, {
-        postsLikeCounter: newPostsLikeCounter
-      });
+
     default:
       return state;
   }
 };
 
-export const createPostReducer = (state = null, action) => {
+export const createPost = (state = initState.createPost, action) => {
   switch (action.type) {
-    case CREATE_POST:
+    case CREATING_POST:
+      console.log("creating post...");
+      return Object.assign({}, state, { isCreating: true });
+    case CREATED_POST:
       console.log("created post", action.post);
-      return state;
-
+      return Object.assign({}, state, { isCreating: false });
     case CREATE_POST_ERROR:
       console.log("create post error", action.err);
       return state;
