@@ -21,7 +21,6 @@ class Filter extends Component {
     this.props.checkboxChange(event.target.id);
   };
 
-
   render() {
     return (
       <div>
@@ -74,9 +73,8 @@ class Filter extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log("STATE", state);
   return {
-    checkboxes: state.filterCheckboxes
+    checkboxes: state.filter.checkboxes
   };
 };
 
