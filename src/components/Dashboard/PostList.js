@@ -27,7 +27,6 @@ class PostList extends React.Component {
   render() {
     const data = this.props.displayedPosts;
     const { isFetching } = this.props;
-    const { isFiltering } = this.props;
     console.log("DISPLAYED POSTS", data);
     return (
       <div>
@@ -73,8 +72,7 @@ const mapStateToProps = state => {
     users: state.firestore.data.users,
     posts: state.posts,
     displayedPosts: state.displayedPosts.data,
-    isFetching: state.posts.isFetching,
-    isFiltering: state.filter.isFiltering
+    isFetching: state.posts.isFetching
   };
 };
 

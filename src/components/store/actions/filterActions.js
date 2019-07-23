@@ -4,9 +4,9 @@ export const UPDATE_CURRENT_FILTER = "UPDATE_CURRENT_FILTER";
 export const FILTERING_POSTS = "FILTERING_POSTS";
 export const DONE_FILTERING = "DONE_FILTERING";
 
-export const checkboxChange = id => {
+export const categoryCheckboxChange = id => {
   return (dispatch, getState) => {
-    const checkboxesArr = Object.assign({}, getState().filter.checkboxes);
+    const checkboxesArr = Object.assign({}, getState().filter.checkboxes.category);
     for (var element in checkboxesArr) {
       checkboxesArr[element] = false;
     }

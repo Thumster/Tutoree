@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Collapse, Button, CardBody, Card } from "reactstrap";
 import { connect } from "react-redux";
-import { checkboxChange } from "../store/actions/filterActions";
+import { categoryCheckboxChange } from "../store/actions/filterActions";
 
 import styled from "styled-components";
 
@@ -9,7 +9,9 @@ class Filter extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    this.handleCategoryCheckboxChange = this.handleCategoryCheckboxChange.bind(
+      this
+    );
     this.state = { collapse: false, checked: false };
   }
 
@@ -17,11 +19,47 @@ class Filter extends Component {
     this.setState(state => ({ collapse: !state.collapse }));
   }
 
-  handleCheckboxChange = event => {
-    this.props.checkboxChange(event.target.id);
+  handleCategoryCheckboxChange = event => {
+    console.log("called");
+    this.props.categoryCheckboxChange(event.target.id);
   };
 
   render() {
+    const categoryCheckboxes = (
+      <div>
+        <label>
+          <input
+            name="show all"
+            type="checkbox"
+            id="SHOWALL"
+            checked={this.props.checkboxes["SHOWALL"]}
+            onChange={this.handleCategoryCheckboxChange}
+          />
+          show all
+        </label>
+        <label>
+          <input
+            name="teach"
+            type="checkbox"
+            id="SHOWTEACH"
+            checked={this.props.checkboxes["SHOWTEACH"]}
+            onChange={this.handleCategoryCheckboxChange}
+          />
+          teach
+        </label>
+        <label>
+          <input
+            name="learn"
+            type="checkbox"
+            id="SHOWLEARN"
+            checked={this.props.checkboxes["SHOWLEARN"]}
+            onChange={this.handleCategoryCheckboxChange}
+          />
+          learn
+        </label>
+      </div>
+    );
+
     return (
       <div>
         <Button
@@ -33,38 +71,7 @@ class Filter extends Component {
         </Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
-            <CardBody>
-              <label>
-                <input
-                  name="show all"
-                  type="checkbox"
-                  id="SHOWALL"
-                  checked={this.props.checkboxes["SHOWALL"]}
-                  onChange={this.handleCheckboxChange}
-                />
-                show all
-              </label>
-              <label>
-                <input
-                  name="teach"
-                  type="checkbox"
-                  id="SHOWTEACH"
-                  checked={this.props.checkboxes["SHOWTEACH"]}
-                  onChange={this.handleCheckboxChange}
-                />
-                teach
-              </label>
-              <label>
-                <input
-                  name="learn"
-                  type="checkbox"
-                  id="SHOWLEARN"
-                  checked={this.props.checkboxes["SHOWLEARN"]}
-                  onChange={this.handleCheckboxChange}
-                />
-                learn
-              </label>
-            </CardBody>
+            <CardBody>{categoryCheckboxes}</CardBody>
           </Card>
         </Collapse>
       </div>
@@ -74,13 +81,13 @@ class Filter extends Component {
 
 const mapStateToProps = state => {
   return {
-    checkboxes: state.filter.checkboxes
+    checkboxes: state.filter.checkboxes.category
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    checkboxChange: id => dispatch(checkboxChange(id))
+    categoryCheckboxChange: id => dispatch(categoryCheckboxChange(id))
   };
 };
 

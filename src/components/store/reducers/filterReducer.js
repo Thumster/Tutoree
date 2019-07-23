@@ -7,9 +7,11 @@ import {
 
 const initState = {
   checkboxes: {
-    SHOWALL: true,
-    SHOWLEARN: false,
-    SHOWTEACH: false
+    category: {
+      SHOWALL: true,
+      SHOWLEARN: false,
+      SHOWTEACH: false
+    }
   },
   currentFilter: "SHOWALL"
 };
@@ -17,7 +19,11 @@ const initState = {
 export const filter = (state = initState, action) => {
   switch (action.type) {
     case FILTER_CHANGE:
-      return Object.assign({}, state, { checkboxes: action.newCheckboxes });
+      const checkboxesTemp = Object.assign({}, state.checkboxes);
+      const replacedCheckboxesTemp = Object.assign({}, checkboxesTemp, {
+        category: action.newCheckboxes
+      });
+      return Object.assign({}, state, { checkboxes: replacedCheckboxesTemp });
     case UPDATE_CURRENT_FILTER:
       return Object.assign({}, state, { currentFilter: action.id });
     default:
@@ -28,14 +34,14 @@ export const filter = (state = initState, action) => {
 const displayedPostsInitState = {
   isFiltering: false,
   data: {}
-}
+};
 export const displayedPosts = (state = displayedPostsInitState, action) => {
   switch (action.type) {
     case FILTERING_POSTS:
-      console.log("filtering posts...")
+      console.log("filtering posts...");
       return Object.assign({}, state, { isFiltering: true });
     case DONE_FILTERING:
-      console.log("done filtering")
+      console.log("done filtering");
       return Object.assign({}, state, {
         isFiltering: false,
         data: action.posts
