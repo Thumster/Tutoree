@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Collapse, Button, CardBody, Card } from "reactstrap";
 import { connect } from "react-redux";
-
+import { checkboxChange } from "../store/actions/filterActions";
 
 import styled from "styled-components";
 
@@ -18,9 +18,9 @@ class Filter extends Component {
   }
 
   handleCheckboxChange = event => {
-    // this.setState({ checked: event.target.checked });
-    console.log("clicked ", event.target.id)
+    this.props.checkboxChange(event.target.id);
   };
+
 
   render() {
     return (
@@ -74,7 +74,7 @@ class Filter extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("STATE", state);
+  // console.log("STATE", state);
   return {
     checkboxes: state.filterCheckboxes
   };
@@ -82,7 +82,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // fetchPostsIfNeeded: () => dispatch(fetchPostsIfNeeded())
+    checkboxChange: id => dispatch(checkboxChange(id))
   };
 };
 

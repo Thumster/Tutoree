@@ -1,6 +1,6 @@
 import authReducer from "./authReducer";
 import { posts, postsLiked, postsLikeCounter, createPost } from "./postReducer";
-import {filterCheckboxes} from "./filterReducer"
+import { filter, filterCheckboxes } from "./filterReducer";
 import { combineReducers } from "redux";
 import { firestoreReducer } from "redux-firestore";
 import { firebaseReducer } from "react-redux-firebase";
