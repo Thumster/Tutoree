@@ -6,7 +6,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { fetchPostsIfNeeded } from "../store/actions/postActions";
 import ReactLoading from "react-loading";
 import Filter from "./Filter";
-import { filterPosts } from "../store/actions/filterActions";
+import { getVisiblePosts } from "../store/actions/filterActions";
 
 const cards = {
   display: "flex",
@@ -21,20 +21,22 @@ class PostList extends React.Component {
 
   componentDidMount = () => {
     console.log("mounted");
-    this.props.fetchPostsIfNeeded().then(() => this.props.filterPosts());
+    this.props.fetchPostsIfNeeded();
   };
 
   render() {
-    const data = this.props.displayedPosts;
+    console.log("DISPLAYEDPOSTS", this.props.displayedPosts);
+    const displayedPosts = this.props.displayedPosts;
+    const posts = this.props.posts;
     const { isFetching } = this.props;
-    console.log("DISPLAYED POSTS", data);
     return (
       <div>
         {isFetching ? (
           showSpinner()
-        ) : data.length > 0 ? (
+        ) : posts ? (
           <div>
-            <Filter /> {showCards(data)}
+            <Filter />{" "}
+            {displayedPosts.length > 0 ? showCards(displayedPosts) : null}
           </div>
         ) : (
           showNoPostsToLoad()
@@ -67,19 +69,18 @@ const showNoPostsToLoad = () => (
 );
 
 const mapStateToProps = state => {
-  console.log("STATE", state);
+  console.log("STATE", state)
   return {
     users: state.firestore.data.users,
-    posts: state.posts,
-    displayedPosts: state.displayedPosts.data,
+    posts: state.posts.data,
+    displayedPosts: getVisiblePosts(state),
     isFetching: state.posts.isFetching
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPostsIfNeeded: () => dispatch(fetchPostsIfNeeded()),
-    filterPosts: () => dispatch(filterPosts())
+    fetchPostsIfNeeded: () => dispatch(fetchPostsIfNeeded())
   };
 };
 

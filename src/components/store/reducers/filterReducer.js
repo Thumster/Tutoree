@@ -1,61 +1,64 @@
 import {
-  UPDATE_CURRENT_FILTER,
-  FILTER_CHANGE,
-  FILTERING_POSTS,
-  DONE_FILTERING
+  CATEGORY_FILTER_CHANGE,
+  SUBJECT_FILTER_CHANGE,
+  LOCATION_FILTER_CHANGE,
+  SORT_CHANGE
 } from "../actions/filterActions";
 
 const initState = {
   checkboxes: {
     category: {
-      SHOWALL: true,
-      SHOWLEARN: false,
-      SHOWTEACH: false
+      all: true,
+      learn: false,
+      teach: false
+    },
+    subject: {
+      all: true,
+      english: false,
+      chinese: false,
+      math: false,
+      science: false,
+      others: false
+    },
+    location: {
+      all: true,
+      north: false,
+      south: false,
+      east: false,
+      west: false,
+      others: false
+    },
+    sort: {
+      createdAt: "asc",
+      price: false,
+      likes: false
     }
-  },
-  currentFilter: "SHOWALL"
+  }
 };
 
 export const filter = (state = initState, action) => {
   switch (action.type) {
-    case FILTER_CHANGE:
-      const checkboxesTemp = Object.assign({}, state.checkboxes);
-      const replacedCheckboxesTemp = Object.assign({}, checkboxesTemp, {
+    case CATEGORY_FILTER_CHANGE:
+      const categoryTemp = Object.assign({}, state.checkboxes, {
         category: action.newCheckboxes
       });
-      return Object.assign({}, state, { checkboxes: replacedCheckboxesTemp });
-    case UPDATE_CURRENT_FILTER:
-      return Object.assign({}, state, { currentFilter: action.id });
-    default:
-      return state;
-  }
-};
-
-const displayedPostsInitState = {
-  isFiltering: false,
-  data: {}
-};
-export const displayedPosts = (state = displayedPostsInitState, action) => {
-  switch (action.type) {
-    case FILTERING_POSTS:
-      console.log("filtering posts...");
-      return Object.assign({}, state, { isFiltering: true });
-    case DONE_FILTERING:
-      console.log("done filtering");
-      return Object.assign({}, state, {
-        isFiltering: false,
-        data: action.posts
+      return Object.assign({}, state, { checkboxes: categoryTemp });
+    case SUBJECT_FILTER_CHANGE:
+      const subjectTemp = Object.assign({}, state.checkboxes, {
+        subject: action.newCheckboxes
       });
+      return Object.assign({}, state, { checkboxes: subjectTemp });
+    case LOCATION_FILTER_CHANGE:
+      const locationTemp = Object.assign({}, state.checkboxes, {
+        location: action.newCheckboxes
+      });
+      return Object.assign({}, state, { checkboxes: locationTemp });
+    case SORT_CHANGE:
+      const sortTemp = Object.assign({}, state.checkboxes, {
+        sort: action.newSort
+      });
+      return Object.assign({}, state, { checkboxes: sortTemp });
     default:
       return state;
   }
 };
-
-// export const filterCheckboxes = (state = initState.checkboxes, action) => {
-//   switch (action.type) {
-//     case FILTER_CHANGE:
-//       return Object.assign({}, state, action.newCheckboxes);
-//     default:
-//       return state;
-//   }
-// };

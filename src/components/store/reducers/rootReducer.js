@@ -14,7 +14,6 @@ const rootReducer = combineReducers({
   posts: posts,
 
   filter: filter,
-  displayedPosts: displayedPosts,
 
   firestore: firestoreReducer,
   firebase: firebaseReducer

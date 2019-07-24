@@ -11,6 +11,7 @@ import {
 import { connect } from "react-redux";
 import { createPost } from "../../store/actions/postActions";
 import {
+  AvField,
   AvForm,
   AvGroup,
   AvInput,
@@ -113,33 +114,52 @@ class CreatePost extends React.Component {
                 <Label for="price">Price</Label>
                 <InputGroup>
                   <InputGroupAddon addonType="prepend">S$</InputGroupAddon>
-
                   <AvInput
                     name="price"
+                    type="number"
                     required
                     placeholder="Enter your price here"
                   />
-                  <AvFeedback>*Price is required</AvFeedback>
+                  <AvFeedback>*Enter a valid price</AvFeedback>
                 </InputGroup>
               </AvGroup>
 
               <AvGroup>
-                <Label for="location">Location</Label>
+                {/* <Label for="location">Location</Label>
                 <AvInput
                   name="location"
                   required
                   placeholder="Enter your location here"
                 />
                 {GeoInput}
+                <AvFeedback>*Location is required</AvFeedback> */}
+                <Label for="location">Location</Label>
+                <AvInput type="select" name="location" required>
+                  <option value="" disabled selected hidden>
+                    Select a location
+                  </option>
+                  <option>North</option>
+                  <option>South</option>
+                  <option>East</option>
+                  <option>West</option>
+                  <option>Central</option>
+                  <option>Others</option>
+                </AvInput>
                 <AvFeedback>*Location is required</AvFeedback>
               </AvGroup>
+
               <AvGroup>
                 <Label for="subject">Subject</Label>
-                <AvInput
-                  name="subject"
-                  required
-                  placeholder="Enter your subject here"
-                />
+                <AvInput type="select" name="subject" required>
+                  <option value="" disabled selected hidden>
+                    Select a subject
+                  </option>
+                  <option>English</option>
+                  <option>Chinese</option>
+                  <option>Math</option>
+                  <option>Science</option>
+                  <option>Others</option>
+                </AvInput>
                 <AvFeedback>*Subject is required</AvFeedback>
               </AvGroup>
               <Button type="submit">Submit</Button>

@@ -29,7 +29,7 @@ const PostDetails = props => {
                     <p className="pd-timeStamp">
                       Posted:{" "}
                       <Moment fromNow ago>
-                        {post.createdAt}
+                        {post.createdAt.toString()}
                       </Moment>{" "}
                       ago
                     </p>

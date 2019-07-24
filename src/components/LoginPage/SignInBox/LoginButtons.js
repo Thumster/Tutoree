@@ -68,7 +68,7 @@ class LoginButtons extends Component {
 
     return (
       <div>
-        {this.props.isSignedIn ? (
+        {this.props.auth.uid ? (
           <Redirect to="/Dashboard" />
         ) : (
           <div className="container">
@@ -125,9 +125,8 @@ const lineStyle = {
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth,
-    authError: state.auth.authError,
-    isSignedIn: state.auth.isSignedIn
+    auth: state.firebase.auth,
+    authError: state.auth.authError
   };
 };
 

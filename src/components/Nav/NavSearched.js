@@ -126,7 +126,7 @@ class NavSearched extends React.Component {
                 }
               </NavItem>
               <NavItem className="button-item icons">
-                <Button color="primary" className="Button" href="/Dashboard">
+                <Button color="success" className="Button" href="/Dashboard">
                   Dashboard
                 </Button>{" "}
               </NavItem>

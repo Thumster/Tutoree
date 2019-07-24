@@ -147,7 +147,7 @@ export const createPost = post => {
         ...post,
         likes: 0,
         uid: uid,
-        createdAt: new Date().toString()
+        createdAt: new Date()
       })
       .then(docRef => {
         posts.doc(docRef.id).update({ pid: docRef.id });
