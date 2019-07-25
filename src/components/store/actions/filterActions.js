@@ -89,7 +89,6 @@ const getCategoryVisiblePosts = createSelector(
       }
     }, "NOFILTER");
 
-    console.log("category " + filter + " filter called");
     if (filter === "all" || filter === "NOFILTER") {
       return posts;
     } else {

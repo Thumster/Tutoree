@@ -61,7 +61,6 @@ class PostCard extends React.Component {
 
   toggleLike(e) {
     e.preventDefault();
-    console.log(this.props.post.title)
     this.props.likePost(this.props.post.pid);
   }
 

@@ -7,6 +7,14 @@ import { fetchPostsIfNeeded } from "../store/actions/postActions";
 import ReactLoading from "react-loading";
 import Filter from "./Filter";
 import { getVisiblePosts } from "../store/actions/filterActions";
+import ReactPaginate from "react-paginate";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
+import styled from "styled-components";
 
 const cards = {
   display: "flex",
@@ -14,21 +22,101 @@ const cards = {
   justifyContent: "flex-start"
 };
 
+const StyledDiv = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+`;
+
 class PostList extends React.Component {
   constructor(props) {
     super(props);
+    this.handlePageClick = this.handlePageClick.bind(this);
+    this.toggleDropDown = this.toggleDropDown.bind(this);
+    this.selectDropDown = this.selectDropDown.bind(this);
+    this.state = { perPage: 5, offset: 0, dropdownOpen: false, currentPage: 0 };
   }
 
   componentDidMount = () => {
-    console.log("mounted");
     this.props.fetchPostsIfNeeded();
   };
 
+  handlePageClick = data => {
+    console.log("DATA",data)
+    let selected = data.selected;
+    let offset = Math.ceil(selected * this.state.perPage);
+
+    this.setState({ offset: offset, currentPage: selected });
+  };
+
+  toggleDropDown() {
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }));
+  }
+
+  selectDropDown(event) {
+    this.setState({
+      offset: 0,
+      currentPage: 0,
+      perPage: parseInt(event.target.innerText, 10)
+    });
+  }
+
   render() {
-    console.log("DISPLAYEDPOSTS", this.props.displayedPosts);
-    const displayedPosts = this.props.displayedPosts;
     const posts = this.props.posts;
+    const displayedPosts = this.props.displayedPosts;
+    const end = this.state.offset + this.state.perPage;
+    const paginatedPosts = displayedPosts.slice(this.state.offset, end);
+    // console.log("DISPLAYED_POSTS", displayedPosts);
+    // console.log("PAGINATED_POSTS", paginatedPosts);
+
     const { isFetching } = this.props;
+    const showCards = posts => (
+      <div>
+        {console.log("OFFSET", this.state.offset, "end", end, "currentPage", this.state.currentPage)}
+        {console.log("POSTS", posts)}
+        <div style={cards}>
+          {posts &&
+            posts.map(post => {
+              return <PostCard post={post} key={post.pid} />;
+            })}
+          <StyledDiv>
+            <ReactPaginate
+              forcePage={this.state.currentPage}
+              pageCount={Math.ceil(displayedPosts.length / this.state.perPage)}
+              // pageRangeDisplayed={3}
+              onPageChange={this.handlePageClick}
+              marginPagesDisplayed={2}
+              previousLabel={"previous"}
+              nextLabel={"next"}
+              breakClassName={"break-me"}
+              breakLabel={"..."}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
+              // https://github.com/AdeleD/react-paginate#readme
+            />
+            <Dropdown
+              isOpen={this.state.dropdownOpen}
+              size="sm"
+              toggle={this.toggleDropDown}
+            >
+              <DropdownToggle caret>{this.state.perPage}</DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem header>Choose no of posts per page</DropdownItem>
+                <DropdownItem onClick={this.selectDropDown}>1</DropdownItem>
+                <DropdownItem onClick={this.selectDropDown}>2</DropdownItem>
+                <DropdownItem onClick={this.selectDropDown}>3</DropdownItem>
+                <DropdownItem onClick={this.selectDropDown}>4</DropdownItem>
+                <DropdownItem onClick={this.selectDropDown}>5</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </StyledDiv>
+        </div>
+      </div>
+    );
     return (
       <div>
         {isFetching ? (
@@ -36,7 +124,9 @@ class PostList extends React.Component {
         ) : posts ? (
           <div>
             <Filter />{" "}
-            {displayedPosts.length > 0 ? showCards(displayedPosts) : showNoPostsToLoad()}
+            {paginatedPosts.length > 0
+              ? showCards(paginatedPosts)
+              : showNoPostsToLoad()}
           </div>
         ) : (
           showNoPostsToLoad()
@@ -45,15 +135,6 @@ class PostList extends React.Component {
     );
   }
 }
-
-const showCards = posts => (
-  <div style={cards}>
-    {posts &&
-      posts.map(post => {
-        return <PostCard post={post} key={post.pid} />;
-      })}
-  </div>
-);
 
 const showSpinner = () => (
   <div>
@@ -69,7 +150,7 @@ const showNoPostsToLoad = () => (
 );
 
 const mapStateToProps = state => {
-  console.log("STATE", state);
+  // console.log("STATE", state);
   return {
     users: state.firestore.data.users,
     posts: state.posts.data,

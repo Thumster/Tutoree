@@ -90,7 +90,6 @@ export const signUp = newUser => {
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then(resp => {
-        console.log(resp);
         dispatch(storeNewUser(resp.user));
       })
       .then(() => {
