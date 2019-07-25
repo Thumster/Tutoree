@@ -133,8 +133,6 @@ const getLocationVisiblePosts = createSelector(
 );
 
 const getVisibilitySort = state => state.filter.checkboxes.sort;
-const ascSortFunc = (a, b) => (a > b ? -1 : 1);
-const descSortFunc = (a, b) => (a > b ? 1 : -1);
 
 const getSortedVisiblePosts = createSelector(
   [getVisibilitySort, getLocationVisiblePosts],

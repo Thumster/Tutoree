@@ -36,7 +36,7 @@ class PostList extends React.Component {
         ) : posts ? (
           <div>
             <Filter />{" "}
-            {displayedPosts.length > 0 ? showCards(displayedPosts) : null}
+            {displayedPosts.length > 0 ? showCards(displayedPosts) : showNoPostsToLoad()}
           </div>
         ) : (
           showNoPostsToLoad()
@@ -69,7 +69,7 @@ const showNoPostsToLoad = () => (
 );
 
 const mapStateToProps = state => {
-  console.log("STATE", state)
+  console.log("STATE", state);
   return {
     users: state.firestore.data.users,
     posts: state.posts.data,

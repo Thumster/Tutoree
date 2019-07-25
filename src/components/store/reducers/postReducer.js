@@ -68,6 +68,13 @@ export const posts = (state = initState.posts, action) => {
         data: action.posts
       });
 
+    case POST_LIKED:
+      console.log("updated post like");
+      const dataArr = Object.assign([], state.data);
+      const idx = dataArr.findIndex(element => element.pid === action.pid);
+      dataArr[idx].likes = action.value;
+      return Object.assign({}, state, { data: dataArr });
+
     default:
       return state;
   }

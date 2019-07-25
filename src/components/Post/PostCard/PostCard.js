@@ -61,6 +61,7 @@ class PostCard extends React.Component {
 
   toggleLike(e) {
     e.preventDefault();
+    console.log(this.props.post.title)
     this.props.likePost(this.props.post.pid);
   }
 
@@ -112,7 +113,7 @@ class PostCard extends React.Component {
               <p className="createdAt">
                 createdAt:
                 <Moment format="HH:mm:ss">
-                  {this.props.post.createdAt.toString()}
+                  {this.props.post.createdAt}
                 </Moment>
               </p>
             </Link>
