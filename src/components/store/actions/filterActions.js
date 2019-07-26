@@ -1,16 +1,21 @@
 import { createSelector } from "reselect";
-import Moment from "react-moment";
 
 export const CATEGORY_FILTER_CHANGE = "CATEGORY_FILTER_CHANGE";
 export const SUBJECT_FILTER_CHANGE = "SUBJECT_FILTER_CHANGE";
 export const LOCATION_FILTER_CHANGE = "LOCATION_FILTER_CHANGE";
 export const SORT_CHANGE = "SORT_CHANGE";
+export const SEARCH_CHANGE = "SEARCH_CHANGE";
+export const FILTER_ERROR = "FILTER_ERROR";
+export const PAGE_UPDATE = "PAGE_UPDATE";
+export const PER_PAGE_UPDATE = "PER_PAGE_UPDATE";
+export const RESET_PAGE = "RESET_PAGE";
 
 export const UPDATE_CURRENT_FILTER = "UPDATE_CURRENT_FILTER";
 export const FILTERING_POSTS = "FILTERING_POSTS";
 export const DONE_FILTERING = "DONE_FILTERING";
 
-export const categoryCheckboxChange = id => {
+export const categoryCheckboxChange = event => {
+  const id = event.target.id;
   return (dispatch, getState) => {
     const categoryArr = Object.assign(
       {},
@@ -18,12 +23,13 @@ export const categoryCheckboxChange = id => {
     );
     Object.keys(categoryArr).forEach(key => (categoryArr[key] = false));
     categoryArr[id] = true;
+    dispatch({ type: RESET_PAGE });
     dispatch({ type: CATEGORY_FILTER_CHANGE, newCheckboxes: categoryArr });
-    // dispatch(filterPosts());
   };
 };
 
-export const subjectCheckboxChange = id => {
+export const subjectCheckboxChange = event => {
+  const id = event.target.id;
   return (dispatch, getState) => {
     let subjectArr = Object.assign({}, getState().filter.checkboxes.subject);
 
@@ -38,11 +44,13 @@ export const subjectCheckboxChange = id => {
     if (!Object.values(subjectArr).some(t => t)) {
       subjectArr["all"] = true;
     }
+    dispatch({ type: RESET_PAGE });
     dispatch({ type: SUBJECT_FILTER_CHANGE, newCheckboxes: subjectArr });
   };
 };
 
-export const locationCheckboxChange = id => {
+export const locationCheckboxChange = event => {
+  const id = event.target.id;
   return (dispatch, getState) => {
     let locationArr = Object.assign({}, getState().filter.checkboxes.location);
 
@@ -57,21 +65,63 @@ export const locationCheckboxChange = id => {
     if (!Object.values(locationArr).some(t => t)) {
       locationArr["all"] = true;
     }
+    dispatch({ type: RESET_PAGE });
     dispatch({ type: LOCATION_FILTER_CHANGE, newCheckboxes: locationArr });
   };
 };
 
-export const sortButtonChange = id => {
+export const sortButtonChange = event => {
   return (dispatch, getState) => {
-    let sortArr = Object.assign({}, getState().filter.checkboxes.sort);
-    if (sortArr[id] !== false) {
-      sortArr[id] == "asc" ? (sortArr[id] = "desc") : (sortArr[id] = "asc");
+    if (event.target.id) {
+      const id = event.target.id;
+      let sortArr = Object.assign({}, getState().filter.checkboxes.sort);
+      if (sortArr[id] !== false) {
+        sortArr[id] == "asc" ? (sortArr[id] = "desc") : (sortArr[id] = "asc");
+      } else {
+        Object.keys(sortArr).forEach(key => (sortArr[key] = false));
+        sortArr[id] = "asc";
+      }
+      dispatch({ type: RESET_PAGE });
+      dispatch({ type: SORT_CHANGE, newSort: sortArr });
     } else {
-      Object.keys(sortArr).forEach(key => (sortArr[key] = false));
-      sortArr[id] = "asc";
+      dispatch({ type: FILTER_ERROR, errorMsg: "sort ID not picked up" });
     }
+  };
+};
 
-    dispatch({ type: SORT_CHANGE, newSort: sortArr });
+export const searchFilterChange = event => {
+  return dispatch => {
+    const id = event.target.id;
+    if (id == "input") {
+      console.log(event.target.value);
+      dispatch({ type: RESET_PAGE });
+      dispatch({ type: SEARCH_CHANGE, newSearch: event.target.value });
+    } else if (id == "clear") {
+      dispatch({ type: RESET_PAGE });
+      dispatch({ type: SEARCH_CHANGE, newSearch: "" });
+    } else {
+      dispatch({ type: FILTER_ERROR, errorMsg: "search ID not picked up" });
+    }
+  };
+};
+
+export const pageUpdate = event => {
+  return (dispatch, getState) => {
+    let selected = event.selected;
+    let offset = Math.ceil(selected * getState().filter.pagination.perPage);
+
+    dispatch({ type: PAGE_UPDATE, newPage: selected, newOffset: offset });
+  };
+};
+
+export const perPageUpdate = event => {
+  console.log(event);
+  return dispatch => {
+    dispatch({
+      type: PER_PAGE_UPDATE,
+      newPerPage: parseInt(event.target.innerText, 10)
+    });
+    dispatch({ type: RESET_PAGE });
   };
 };
 
@@ -169,8 +219,35 @@ const getSortedVisiblePosts = createSelector(
   }
 );
 
+const getSearchVisibilityFilter = state => state.filter.checkboxes.search;
+const getUsers = state => state.users;
+
+const getSearchVisiblePosts = createSelector(
+  [getSearchVisibilityFilter, getSortedVisiblePosts, getUsers],
+  (visibilityFilter, posts, users) => {
+    var stringSimilarity = require("string-similarity");
+    const searchText = visibilityFilter.toLowerCase();
+    console.log("POSTS", posts);
+    if (!visibilityFilter) {
+      return posts;
+    } else {
+      return posts.filter(post => {
+        const desc = post.description.toLowerCase();
+        const title = post.title.toLowerCase();
+        const userName = users[post.uid].name.toLowerCase();
+        console.log(desc, title, userName);
+        const result =
+          stringSimilarity.compareTwoStrings(searchText, desc) +
+          stringSimilarity.compareTwoStrings(searchText, title) +
+          stringSimilarity.compareTwoStrings(searchText, userName);
+        return result > 0.5;
+      });
+    }
+  }
+);
+
 export const getVisiblePosts = createSelector(
-  getSortedVisiblePosts,
+  getSearchVisiblePosts,
   posts => {
     return posts;
   }

@@ -111,9 +111,7 @@ class PostCard extends React.Component {
               <p className="location">Location: {this.props.post.location}</p>
               <p className="createdAt">
                 createdAt:
-                <Moment format="HH:mm:ss">
-                  {this.props.post.createdAt}
-                </Moment>
+                <Moment format="HH:mm:ss">{this.props.post.createdAt}</Moment>
               </p>
             </Link>
           </div>

@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import { Collapse, Button, CardBody, Card } from "reactstrap";
+import { Collapse, Button, CardBody, Card, Input } from "reactstrap";
 import { connect } from "react-redux";
 import {
   categoryCheckboxChange,
   subjectCheckboxChange,
   locationCheckboxChange,
-  sortButtonChange
+  sortButtonChange,
+  searchFilterChange
 } from "../store/actions/filterActions";
 import { TiArrowDownOutline, TiArrowUpOutline } from "react-icons/ti";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 import styled, { css } from "styled-components";
 
@@ -29,44 +31,18 @@ const StyledArrowDown = styled(TiArrowDownOutline)`
     `}
 `;
 
+const StyledSearchInput = styled(Input)``;
+
 class Filter extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-    this.handleCategoryCheckboxChange = this.handleCategoryCheckboxChange.bind(
-      this
-    );
-    this.handleSubjectCheckboxChange = this.handleSubjectCheckboxChange.bind(
-      this
-    );
-    this.handleLocationCheckboxChange = this.handleLocationCheckboxChange.bind(
-      this
-    );
-    this.state = { collapse: false, checked: false };
+    this.state = { collapse: false };
   }
 
   toggle() {
     this.setState(state => ({ collapse: !state.collapse }));
   }
-
-  handleCategoryCheckboxChange = event => {
-    this.props.categoryCheckboxChange(event.target.id);
-  };
-
-  handleSubjectCheckboxChange = event => {
-    this.props.subjectCheckboxChange(event.target.id);
-  };
-
-  handleLocationCheckboxChange = event => {
-    this.props.locationCheckboxChange(event.target.id);
-  };
-
-  handleSortButtonChange = event => {
-    event.preventDefault();
-    if (event.target.id) {
-      this.props.sortButtonChange(event.target.id);
-    }
-  };
 
   render() {
     const categoryCheckboxesBlock = (
@@ -77,7 +53,7 @@ class Filter extends Component {
             type="checkbox"
             id="all"
             checked={this.props.categoryCheckboxes["all"]}
-            onChange={this.handleCategoryCheckboxChange}
+            onChange={this.props.categoryCheckboxChange}
           />
           show all
         </label>
@@ -87,7 +63,7 @@ class Filter extends Component {
             type="checkbox"
             id="teach"
             checked={this.props.categoryCheckboxes["teach"]}
-            onChange={this.handleCategoryCheckboxChange}
+            onChange={this.props.categoryCheckboxChange}
           />
           teach
         </label>
@@ -97,7 +73,7 @@ class Filter extends Component {
             type="checkbox"
             id="learn"
             checked={this.props.categoryCheckboxes["learn"]}
-            onChange={this.handleCategoryCheckboxChange}
+            onChange={this.props.categoryCheckboxChange}
           />
           learn
         </label>
@@ -111,7 +87,7 @@ class Filter extends Component {
             type="checkbox"
             id="all"
             checked={this.props.subjectCheckboxes["all"]}
-            onChange={this.handleSubjectCheckboxChange}
+            onChange={this.props.subjectCheckboxChange}
           />
           show all
         </label>
@@ -121,7 +97,7 @@ class Filter extends Component {
             type="checkbox"
             id="english"
             checked={this.props.subjectCheckboxes["english"]}
-            onChange={this.handleSubjectCheckboxChange}
+            onChange={this.props.subjectCheckboxChange}
           />
           english
         </label>
@@ -131,7 +107,7 @@ class Filter extends Component {
             type="checkbox"
             id="chinese"
             checked={this.props.subjectCheckboxes["chinese"]}
-            onChange={this.handleSubjectCheckboxChange}
+            onChange={this.props.subjectCheckboxChange}
           />
           chinese
         </label>
@@ -141,7 +117,7 @@ class Filter extends Component {
             type="checkbox"
             id="math"
             checked={this.props.subjectCheckboxes["math"]}
-            onChange={this.handleSubjectCheckboxChange}
+            onChange={this.props.subjectCheckboxChange}
           />
           math
         </label>
@@ -151,7 +127,7 @@ class Filter extends Component {
             type="checkbox"
             id="science"
             checked={this.props.subjectCheckboxes["science"]}
-            onChange={this.handleSubjectCheckboxChange}
+            onChange={this.props.subjectCheckboxChange}
           />
           science
         </label>
@@ -161,7 +137,7 @@ class Filter extends Component {
             type="checkbox"
             id="others"
             checked={this.props.subjectCheckboxes["others"]}
-            onChange={this.handleSubjectCheckboxChange}
+            onChange={this.props.subjectCheckboxChange}
           />
           others
         </label>
@@ -175,7 +151,7 @@ class Filter extends Component {
             type="checkbox"
             id="all"
             checked={this.props.locationCheckboxes["all"]}
-            onChange={this.handleLocationCheckboxChange}
+            onChange={this.props.locationCheckboxChange}
           />
           show all
         </label>
@@ -185,7 +161,7 @@ class Filter extends Component {
             type="checkbox"
             id="north"
             checked={this.props.locationCheckboxes["north"]}
-            onChange={this.handleLocationCheckboxChange}
+            onChange={this.props.locationCheckboxChange}
           />
           north
         </label>
@@ -195,7 +171,7 @@ class Filter extends Component {
             type="checkbox"
             id="south"
             checked={this.props.locationCheckboxes["south"]}
-            onChange={this.handleLocationCheckboxChange}
+            onChange={this.props.locationCheckboxChange}
           />
           south
         </label>
@@ -205,7 +181,7 @@ class Filter extends Component {
             type="checkbox"
             id="east"
             checked={this.props.locationCheckboxes["east"]}
-            onChange={this.handleLocationCheckboxChange}
+            onChange={this.props.locationCheckboxChange}
           />
           east
         </label>
@@ -215,9 +191,19 @@ class Filter extends Component {
             type="checkbox"
             id="west"
             checked={this.props.locationCheckboxes["west"]}
-            onChange={this.handleLocationCheckboxChange}
+            onChange={this.props.locationCheckboxChange}
           />
           west
+        </label>
+        <label>
+          <input
+            name="central"
+            type="checkbox"
+            id="central"
+            checked={this.props.locationCheckboxes["central"]}
+            onChange={this.props.locationCheckboxChange}
+          />
+          central
         </label>
         <label>
           <input
@@ -225,7 +211,7 @@ class Filter extends Component {
             type="checkbox"
             id="others"
             checked={this.props.locationCheckboxes["others"]}
-            onChange={this.handleLocationCheckboxChange}
+            onChange={this.props.locationCheckboxChange}
           />
           others
         </label>
@@ -239,7 +225,7 @@ class Filter extends Component {
           outline
           color="primary"
           active={this.props.sortButtons["createdAt"] !== false}
-          onClick={this.handleSortButtonChange}
+          onClick={this.props.sortButtonChange}
         >
           Date Posted
           <StyledArrowUp
@@ -256,7 +242,7 @@ class Filter extends Component {
           outline
           color="success"
           active={this.props.sortButtons["price"] !== false}
-          onClick={this.handleSortButtonChange}
+          onClick={this.props.sortButtonChange}
         >
           Price
           <StyledArrowUp
@@ -273,7 +259,7 @@ class Filter extends Component {
           outline
           color="danger"
           active={this.props.sortButtons["likes"] !== false}
-          onClick={this.handleSortButtonChange}
+          onClick={this.props.sortButtonChange}
         >
           Popularity
           <StyledArrowUp
@@ -287,6 +273,23 @@ class Filter extends Component {
         </Button>
       </div>
     );
+
+    const searchFilterBlock = (
+      <div>
+        <StyledSearchInput
+          placeholder="Search for post by title, description, author's name"
+          id="input"
+          value={this.props.searchValue}
+          onChange={this.props.searchFilterChange}
+        />
+        {this.props.searchValue ? (
+          <IoIosCloseCircleOutline
+            id="clear"
+            onClick={this.props.searchFilterChange}
+          />
+        ) : null}
+      </div>
+    );
     return (
       <div>
         <Button
@@ -296,6 +299,8 @@ class Filter extends Component {
         >
           Filter
         </Button>
+        {/* HERE */}
+        {searchFilterBlock}
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>
@@ -316,16 +321,18 @@ const mapStateToProps = state => {
     categoryCheckboxes: state.filter.checkboxes.category,
     subjectCheckboxes: state.filter.checkboxes.subject,
     locationCheckboxes: state.filter.checkboxes.location,
-    sortButtons: state.filter.checkboxes.sort
+    sortButtons: state.filter.checkboxes.sort,
+    searchValue: state.filter.checkboxes.search
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    categoryCheckboxChange: id => dispatch(categoryCheckboxChange(id)),
-    subjectCheckboxChange: id => dispatch(subjectCheckboxChange(id)),
-    locationCheckboxChange: id => dispatch(locationCheckboxChange(id)),
-    sortButtonChange: id => dispatch(sortButtonChange(id))
+    categoryCheckboxChange: event => dispatch(categoryCheckboxChange(event)),
+    subjectCheckboxChange: event => dispatch(subjectCheckboxChange(event)),
+    locationCheckboxChange: event => dispatch(locationCheckboxChange(event)),
+    sortButtonChange: event => dispatch(sortButtonChange(event)),
+    searchFilterChange: event => dispatch(searchFilterChange(event))
   };
 };
 

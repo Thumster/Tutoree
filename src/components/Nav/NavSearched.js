@@ -89,13 +89,13 @@ class NavSearched extends React.Component {
                                         <div className="col-9 ">
                                             <div className="row"> */}
 
-                      <Col xs={4} className="NoPadding">
+                      {/* <Col xs={4} className="NoPadding">
                         <SearchDropdown style={{ margin: "0px" }} />
                       </Col>
                       <Col xs={6} className="NoPadding">
                         <Input style={{ width: "100%", margin: "none" }} />
-                      </Col>
-                      <Col xs={2} className="NoPadding">
+                      </Col> */}
+                      {/* <Col xs={2} className="NoPadding">
                         <Button
                           style={{
                             backgroundColor: "grey",
@@ -105,7 +105,7 @@ class NavSearched extends React.Component {
                         >
                           Search
                         </Button>
-                      </Col>
+                      </Col> */}
                     </Row>
                   </Form>
                 </div>

@@ -6,7 +6,11 @@ import { firestoreConnect } from "react-redux-firebase";
 import { fetchPostsIfNeeded } from "../store/actions/postActions";
 import ReactLoading from "react-loading";
 import Filter from "./Filter";
-import { getVisiblePosts } from "../store/actions/filterActions";
+import {
+  getVisiblePosts,
+  pageUpdate,
+  perPageUpdate
+} from "../store/actions/filterActions";
 import ReactPaginate from "react-paginate";
 import {
   Dropdown,
@@ -32,22 +36,12 @@ const StyledDiv = styled.div`
 class PostList extends React.Component {
   constructor(props) {
     super(props);
-    this.handlePageClick = this.handlePageClick.bind(this);
     this.toggleDropDown = this.toggleDropDown.bind(this);
-    this.selectDropDown = this.selectDropDown.bind(this);
-    this.state = { perPage: 5, offset: 0, dropdownOpen: false, currentPage: 0 };
+    this.state = { dropdownOpen: false };
   }
 
   componentDidMount = () => {
     this.props.fetchPostsIfNeeded();
-  };
-
-  handlePageClick = data => {
-    console.log("DATA",data)
-    let selected = data.selected;
-    let offset = Math.ceil(selected * this.state.perPage);
-
-    this.setState({ offset: offset, currentPage: selected });
   };
 
   toggleDropDown() {
@@ -56,27 +50,18 @@ class PostList extends React.Component {
     }));
   }
 
-  selectDropDown(event) {
-    this.setState({
-      offset: 0,
-      currentPage: 0,
-      perPage: parseInt(event.target.innerText, 10)
-    });
-  }
-
   render() {
     const posts = this.props.posts;
     const displayedPosts = this.props.displayedPosts;
-    const end = this.state.offset + this.state.perPage;
-    const paginatedPosts = displayedPosts.slice(this.state.offset, end);
-    // console.log("DISPLAYED_POSTS", displayedPosts);
-    // console.log("PAGINATED_POSTS", paginatedPosts);
-
     const { isFetching } = this.props;
+
+    const { offset, perPage, currentPage } = this.props.pagination;
+    const end = offset + perPage;
+    const paginatedPosts = displayedPosts.slice(offset, end);
+
+    // console.log("CURRENTLY_DISPLAYED_POSTS", displayedPosts);
     const showCards = posts => (
       <div>
-        {console.log("OFFSET", this.state.offset, "end", end, "currentPage", this.state.currentPage)}
-        {console.log("POSTS", posts)}
         <div style={cards}>
           {posts &&
             posts.map(post => {
@@ -84,10 +69,10 @@ class PostList extends React.Component {
             })}
           <StyledDiv>
             <ReactPaginate
-              forcePage={this.state.currentPage}
-              pageCount={Math.ceil(displayedPosts.length / this.state.perPage)}
-              // pageRangeDisplayed={3}
-              onPageChange={this.handlePageClick}
+              forcePage={currentPage}
+              pageCount={Math.ceil(displayedPosts.length / perPage)}
+              pageRangeDisplayed={3}
+              onPageChange={this.props.pageUpdate} //HERE
               marginPagesDisplayed={2}
               previousLabel={"previous"}
               nextLabel={"next"}
@@ -103,14 +88,24 @@ class PostList extends React.Component {
               size="sm"
               toggle={this.toggleDropDown}
             >
-              <DropdownToggle caret>{this.state.perPage}</DropdownToggle>
+              <DropdownToggle caret>{perPage}</DropdownToggle>
               <DropdownMenu>
                 <DropdownItem header>Choose no of posts per page</DropdownItem>
-                <DropdownItem onClick={this.selectDropDown}>1</DropdownItem>
-                <DropdownItem onClick={this.selectDropDown}>2</DropdownItem>
-                <DropdownItem onClick={this.selectDropDown}>3</DropdownItem>
-                <DropdownItem onClick={this.selectDropDown}>4</DropdownItem>
-                <DropdownItem onClick={this.selectDropDown}>5</DropdownItem>
+                <DropdownItem onClick={this.props.perPageUpdate}>
+                  1
+                </DropdownItem>
+                <DropdownItem onClick={this.props.perPageUpdate}>
+                  2
+                </DropdownItem>
+                <DropdownItem onClick={this.props.perPageUpdate}>
+                  3
+                </DropdownItem>
+                <DropdownItem onClick={this.props.perPageUpdate}>
+                  4
+                </DropdownItem>
+                <DropdownItem onClick={this.props.perPageUpdate}>
+                  5
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </StyledDiv>
@@ -124,7 +119,7 @@ class PostList extends React.Component {
         ) : posts ? (
           <div>
             <Filter />{" "}
-            {paginatedPosts.length > 0
+            {displayedPosts.length > 0
               ? showCards(paginatedPosts)
               : showNoPostsToLoad()}
           </div>
@@ -150,18 +145,21 @@ const showNoPostsToLoad = () => (
 );
 
 const mapStateToProps = state => {
-  // console.log("STATE", state);
+  console.log("STATE", state);
   return {
     users: state.firestore.data.users,
     posts: state.posts.data,
     displayedPosts: getVisiblePosts(state),
-    isFetching: state.posts.isFetching
+    isFetching: state.posts.isFetching,
+    pagination: state.filter.pagination
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPostsIfNeeded: () => dispatch(fetchPostsIfNeeded())
+    fetchPostsIfNeeded: () => dispatch(fetchPostsIfNeeded()),
+    pageUpdate: event => dispatch(pageUpdate(event)),
+    perPageUpdate: event => dispatch(perPageUpdate(event))
   };
 };
 

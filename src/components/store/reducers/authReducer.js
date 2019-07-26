@@ -23,7 +23,7 @@ const initState = {
   }
 };
 
-const authReducer = (state = initState, action) => {
+export const auth = (state = initState, action) => {
   switch (action.type) {
     case INITIALISATION_SUCESSFUL:
       console.log("initialisation succesful");
@@ -83,4 +83,4 @@ const authReducer = (state = initState, action) => {
   }
 };
 
-export default authReducer;
+// export default authReducer;

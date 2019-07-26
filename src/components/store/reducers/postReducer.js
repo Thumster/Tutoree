@@ -6,7 +6,8 @@ import {
   CREATE_POST_ERROR,
   FETCH_LIKES,
   FETCH_POSTS_LIKED,
-  POST_LIKED
+  POST_LIKED,
+  FETCHED_USERS
 } from "../actions/postActions";
 
 const initState = {
@@ -18,7 +19,17 @@ const initState = {
     isCreating: false
   },
   postsLiked: [],
-  postsLikeCounter: []
+  postsLikeCounter: [],
+  users: []
+};
+
+export const users = (state = initState.users, action) => {
+  switch (action.type) {
+    case FETCHED_USERS:
+      return Object.assign({}, state, action.usersData);
+    default:
+      return state;
+  }
 };
 
 export const postsLiked = (state = initState.postsLiked, action) => {

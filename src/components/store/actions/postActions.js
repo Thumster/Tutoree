@@ -6,6 +6,7 @@ export const CREATE_POST_ERROR = "CREATE_POST_ERROR";
 export const FETCH_LIKES = "FETCH_LIKES";
 export const FETCH_POSTS_LIKED = "FETCH_POSTS_LIKED";
 export const POST_LIKED = "POST_LIKED";
+export const FETCHED_USERS = "FETCHED_USERS";
 
 function requestPosts() {
   return {
@@ -36,6 +37,7 @@ function fetchPosts() {
         if (posts) {
           dispatch(fetchPostsLiked());
           dispatch(fetchLikes(posts));
+          dispatch(fetchUsers());
           dispatch(receivePosts(posts));
         } else {
           console.log("Could not retrieve posts");
@@ -101,6 +103,32 @@ function fetchLikes(posts) {
   return {
     type: FETCH_LIKES,
     postsLikeCounter: postsLikeCounter
+  };
+}
+
+function fetchUsers() {
+  console.log("fetching users...");
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    return firestore
+      .collection("users")
+      .get()
+      .then(response => {
+        console.log("RESPONSE1", response);
+        return response.docs.reduce((out, doc) => {
+          return {
+            ...out,
+            [doc.id]: doc.data()
+          };
+        }, {});
+      })
+      .then(users => {
+        if (users) {
+          dispatch({ type: FETCHED_USERS, usersData: users });
+        } else {
+          console.log("Could not retrieve users data");
+        }
+      });
   };
 }
 
