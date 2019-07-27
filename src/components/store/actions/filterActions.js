@@ -240,7 +240,11 @@ const getSearchVisiblePosts = createSelector(
           stringSimilarity.compareTwoStrings(searchText, desc) +
           stringSimilarity.compareTwoStrings(searchText, title) +
           stringSimilarity.compareTwoStrings(searchText, userName);
-        return result > 0.5;
+        const boolResult =
+          desc.indexOf(searchText) !== -1 ||
+          title.indexOf(searchText) !== -1 ||
+          userName.indexOf(searchText) !== -1;
+        return (result > 0.5) || boolResult;
       });
     }
   }
