@@ -20,7 +20,6 @@ const StyledLikeButton = styled(Button)`
 
 const StyledFilledHeart = styled(IoIosHeart)`
   height: "1.5rem";
-  color: "red";
   ${StyledLikeButton}:hover & {
     transform: scale(1.2);
   }
@@ -82,7 +81,7 @@ class PostCard extends React.Component {
     );
     const likeButton = (
       <StyledLikeButton color="primary" type="button" onClick={this.toggleLike}>
-        {liked ? <StyledFilledHeart /> : <StyledUnfilledHeart />}
+        {liked ? <StyledFilledHeart color="red" /> : <StyledUnfilledHeart />}
       </StyledLikeButton>
     );
 

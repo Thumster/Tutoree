@@ -67,6 +67,12 @@ class NavSearched extends React.Component {
   }
   render() {
     const { profile } = this.props;
+    const userIcon = profile.photoURL ? (
+      <StyledUserIcon src={profile.photoURL} className="navicon right" />
+    ) : (
+      <MdAccountCircle  size = {"2.5em"} />
+    );
+
     return (
       <div>
         <Navbar style={{ backgroundColor: "#326FA6" }} light expand="lg">
@@ -116,25 +122,18 @@ class NavSearched extends React.Component {
                 </NavLink>
               </NavItem>
               <NavItem className="icons">
-                {
-                  <NavLink href="/User">
-                    <StyledUserIcon
-                      src={profile.photoURL}
-                      className="navicon right"
-                    />
-                  </NavLink>
-                }
+                {<NavLink href="/User">{userIcon}</NavLink>}
               </NavItem>
               <NavItem className="button-item icons">
                 <Button color="success" className="Button" href="/Dashboard">
                   Dashboard
-                </Button>{" "}
+                </Button>
               </NavItem>
               <NavItem className="button-item icons">
                 <Button color="warning" className="Button" href="/CreatePost">
                   <MdCreate />
                   Post
-                </Button>{" "}
+                </Button>
               </NavItem>
               <NavItem className="button-item icons">
                 <Button
@@ -144,7 +143,7 @@ class NavSearched extends React.Component {
                   href="/"
                 >
                   Logout
-                </Button>{" "}
+                </Button>
               </NavItem>
             </Nav>
           </Collapse>

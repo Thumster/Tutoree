@@ -76,7 +76,7 @@ export const sortButtonChange = event => {
       const id = event.target.id;
       let sortArr = Object.assign({}, getState().filter.checkboxes.sort);
       if (sortArr[id] !== false) {
-        sortArr[id] == "asc" ? (sortArr[id] = "desc") : (sortArr[id] = "asc");
+        sortArr[id] === "asc" ? (sortArr[id] = "desc") : (sortArr[id] = "asc");
       } else {
         Object.keys(sortArr).forEach(key => (sortArr[key] = false));
         sortArr[id] = "asc";
@@ -92,11 +92,11 @@ export const sortButtonChange = event => {
 export const searchFilterChange = event => {
   return dispatch => {
     const id = event.target.id;
-    if (id == "input") {
+    if (id === "input") {
       console.log(event.target.value);
       dispatch({ type: RESET_PAGE });
       dispatch({ type: SEARCH_CHANGE, newSearch: event.target.value });
-    } else if (id == "clear") {
+    } else if (id === "clear") {
       dispatch({ type: RESET_PAGE });
       dispatch({ type: SEARCH_CHANGE, newSearch: "" });
     } else {
@@ -244,7 +244,7 @@ const getSearchVisiblePosts = createSelector(
           desc.indexOf(searchText) !== -1 ||
           title.indexOf(searchText) !== -1 ||
           userName.indexOf(searchText) !== -1;
-        return (result > 0.5) || boolResult;
+        return result > 0.5 || boolResult;
       });
     }
   }
