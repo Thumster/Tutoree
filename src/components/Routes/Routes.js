@@ -11,7 +11,8 @@ import Dashboard from "../Dashboard/Dashboard";
 import CreatePost from "../Post/CreatePost/CreatePost";
 import PostDetails from "../Post/PostDetails/PostDetails";
 import { connect } from "react-redux";
-import NavBar from "../Nav/NavSearched"
+import NavBar from "../Nav/NavSearched";
+import ProfilePage from "../ProfilePage/ProfilePage";
 
 const Routes = props => {
   const { auth } = props;
@@ -39,6 +40,7 @@ const Routes = props => {
           <PrivateRoute exact path="/Home" component={Home} />
           <PrivateRoute exact path="/Dashboard" component={Dashboard} />
           <PrivateRoute path="/Post/:id" component={PostDetails} />
+          <PrivateRoute patj="/ProfilePage" component={ProfilePage} />
           <Route render={() => <Redirect to={{ pathname: "/Dashboard" }} />} />
         </Switch>
       </Router>
