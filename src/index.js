@@ -12,19 +12,24 @@ import { reduxFirestore, getFirestore } from "redux-firestore";
 import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
 import fbConfig from "./components/config/fbConfig";
 import { fetchInit } from "./components/store/actions/authActions";
+import { fetchPostsIfNeeded } from "./components/store/actions/postActions";
 
 const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
     reduxFirestore(fbConfig),
-    reactReduxFirebase(fbConfig, { useFirestoreForProfile: true, userProfile: 'users',  attachAuthIsReady: true })
+    reactReduxFirebase(fbConfig, {
+      useFirestoreForProfile: true,
+      userProfile: "users",
+      attachAuthIsReady: true
+    })
   )
 );
 
-
 store.firebaseAuthIsReady.then(() => {
-  store.dispatch(fetchInit());
+  store.dispatch(fetchInit())
+  store.dispatch(fetchPostsIfNeeded());
   ReactDOM.render(
     <Provider store={store}>
       <App />

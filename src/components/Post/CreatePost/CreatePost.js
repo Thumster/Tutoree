@@ -172,6 +172,7 @@ class CreatePost extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log("STATE", state)
   return {
     isCreating: state.createPost.isCreating
   };
