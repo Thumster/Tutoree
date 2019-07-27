@@ -1,0 +1,17 @@
+
+.logo {
+    width: 25%;
+    margin: auto;
+}
+
+.NoPadding{
+    padding: 0 !important;
+   margin: 0 !important;
+}
+
+.SearchBar {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15%;
+}

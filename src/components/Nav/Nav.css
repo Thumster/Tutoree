@@ -1,0 +1,34 @@
+.navicon {
+    height: 1em;
+}
+
+.right {
+    height: 2em;
+}
+
+.button-item {
+    margin: 5px;
+}
+
+.icons {
+    margin: auto;
+}
+
+.search {
+    display: flex;
+    margin: auto;
+    justify-content: flex-end;
+}
+
+#scrolled {
+    position: fixed;
+}
+
+.Button.size{
+    margin: 2;
+    width: 100%;
+}
+
+.btn {
+    margin: 5px;
+}
