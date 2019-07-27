@@ -8,22 +8,11 @@ export const FETCH_POSTS_LIKED = "FETCH_POSTS_LIKED";
 export const POST_LIKED = "POST_LIKED";
 export const FETCHED_USERS = "FETCHED_USERS";
 
-function requestPosts() {
-  return {
-    type: REQUEST_POSTS
-  };
-}
-
-function receivePosts(posts) {
-  return {
-    type: RECEIVE_POSTS,
-    posts: posts
-  };
-}
-
 function fetchPosts() {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    dispatch(requestPosts());
+    dispatch({
+      type: REQUEST_POSTS
+    });
     const firestore = getFirestore();
     return firestore
       .collection("posts")
@@ -38,7 +27,10 @@ function fetchPosts() {
           dispatch(fetchPostsLiked());
           dispatch(fetchLikes(posts));
           dispatch(fetchUsers());
-          dispatch(receivePosts(posts));
+          dispatch({
+            type: RECEIVE_POSTS,
+            posts: posts
+          });
         } else {
           console.log("Could not retrieve posts");
         }
@@ -92,19 +84,22 @@ function fetchPostsLiked() {
   };
 }
 
-function fetchLikes(posts) {
-  console.log("fetching likes...");
-  var postsLikeCounter = posts.reduce((out, post) => {
-    return {
-      ...out,
-      [post.pid]: post.likes
-    };
-  }, {});
-  return {
-    type: FETCH_LIKES,
-    postsLikeCounter: postsLikeCounter
+export const fetchLikes = () => {
+  return (dispatch, getState) => {
+    const posts = getState().posts.data;
+    console.log("fetching likes...");
+    var postsLikeCounter = posts.reduce((out, post) => {
+      return {
+        ...out,
+        [post.pid]: post.likes
+      };
+    }, {});
+    dispatch({
+      type: FETCH_LIKES,
+      postsLikeCounter: postsLikeCounter
+    });
   };
-}
+};
 
 function fetchUsers() {
   console.log("fetching users...");
@@ -114,7 +109,6 @@ function fetchUsers() {
       .collection("users")
       .get()
       .then(response => {
-        console.log("RESPONSE1", response);
         return response.docs.reduce((out, doc) => {
           return {
             ...out,
@@ -160,16 +154,12 @@ export const likePost = pid => {
   };
 };
 
-function creatingPost() {
-  return { type: CREATING_POST };
-}
-
 export const createPost = post => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     // make async call to database
     const posts = getFirestore().collection("posts");
     const uid = getState().firebase.auth.uid;
-    dispatch(creatingPost());
+    dispatch({ type: CREATING_POST });
     posts
       .add({
         ...post,
