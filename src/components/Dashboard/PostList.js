@@ -145,7 +145,7 @@ const showNoPostsToLoad = () => (
 );
 
 const mapStateToProps = state => {
-  console.log("STATE", state);
+  // console.log("STATE", state);
   return {
     users: state.firestore.data.users,
     posts: state.posts.data,

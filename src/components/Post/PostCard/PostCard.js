@@ -56,17 +56,16 @@ class PostCard extends React.Component {
     this.toggleLike = this.toggleLike.bind(this);
   }
 
-  componentDidMount = () => {};
-
   toggleLike(e) {
     e.preventDefault();
     this.props.likePost(this.props.post.pid);
   }
 
   render() {
-    const author = this.props.users[this.props.post.uid];
-    const liked = this.props.postsLiked[this.props.post.pid] || false;
-    const likeCount = this.props.postsLikeCounter[this.props.post.pid];
+    const { users, postsLiked, postsLikeCounter } = this.props;
+    const author = users ? users[this.props.post.uid] : "LOADING";
+    const liked = postsLiked[this.props.post.pid] || false;
+    const likeCount = postsLikeCounter[this.props.post.pid];
 
     const photo = author.photoURL ? (
       <img src={author.photoURL} style={{ height: "5em" }} />

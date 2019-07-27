@@ -7,35 +7,48 @@ import Moment from "react-moment";
 import ReactLoading from "react-loading";
 import { MdAccountCircle } from "react-icons/md";
 
-const PostDetails = props => {
-  const { post } = props;
-  const { author } = props;
+class PostDetails extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-  if (post && author) {
+  render() {
+    const { posts } = this.props;
+    const { post } = this.props;
+    const { author } = this.props;
+
     // POST VARIABLES
-    const title = post.title || "Title not stated";
-    const subject = post.subject || "Subject not stated";
-    const createdAt = post.createdAt.toString() ? (
-      <Moment fromNow ago>
-        {post.createdAt.toString()}
-      </Moment>
-    ) : (
-      "Time not captured"
-    );
-    const price = post.price || "Price not stated";
-    const description = post.description || "Description not stated";
+    const title = post ? post.title || "Title not stated" : null;
+    const subject = post ? post.subject || "Subject not stated" : null;
+    const createdAt = post ? (
+      post.createdAt.toString() ? (
+        <Moment fromNow ago>
+          {post.createdAt.toString()}
+        </Moment>
+      ) : (
+        "Time not captured"
+      )
+    ) : null;
+    const price = post ? post.price || "Price not stated" : null;
+    const description = post
+      ? post.description || "Description not stated"
+      : null;
 
     // AUTHOR VARIABLES
-    const authorPhoto = author.photoURL ? (
-      <img src={author.photoURL} className="ud profilePhoto" />
-    ) : (
-      <MdAccountCircle className="ud profilePhoto" />
-    );
-    const authorName = author.name || "Annonymous";
-    const authorEmail = author.email || "Email not provided";
-    const authorContact = author.contact || "Contact number not provided";
+    const authorPhoto = author ? (
+      author.photoURL ? (
+        <img src={author.photoURL} className="ud profilePhoto" />
+      ) : (
+        <MdAccountCircle className="ud profilePhoto" />
+      )
+    ) : null;
+    const authorName = author ? author.name || "Annonymous" : null;
+    const authorEmail = author ? author.email || "Email not provided" : null;
+    const authorContact = author
+      ? author.contact || "Contact number not provided"
+      : null;
 
-    return (
+    const showPostDetails = (
       <div>
         <header className="header" />
         <div className="empty-space">EMPTY SPACE</div>
@@ -84,17 +97,31 @@ const PostDetails = props => {
         </div>
       </div>
     );
-  } else {
+
+    const showSpinner = (
+      <div className="container center">
+        <p>LOADING POST...</p>
+        <ReactLoading type="spinningBubbles" color="#457cc9" />
+      </div>
+    )
+
+    const showInvalid = (
+      <div>
+        <p>INVALID LINK</p>
+      </div>
+    );
+
     return (
       <div>
-        <div className="container center">
-          <p>LOADING POST...</p>
-          <ReactLoading type="spinningBubbles" color="#457cc9" />
-        </div>
+        {post && author
+          ? showPostDetails
+          : !posts
+          ? showSpinner
+          : showInvalid}
       </div>
     );
   }
-};
+}
 
 const mapStateToProps = (state, ownProps) => state => {
   const pid = ownProps.match.params.id;
@@ -103,6 +130,7 @@ const mapStateToProps = (state, ownProps) => state => {
   const users = state.firestore.data.users;
   const author = users && post ? users[post.uid] : null;
   return {
+    posts: posts,
     post: post,
     author: author
   };

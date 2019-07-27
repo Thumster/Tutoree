@@ -1,12 +1,58 @@
+import { createSelector } from "reselect";
+
 export const REQUEST_POSTS = "REQUEST_POSTS";
-export const RECEIVE_POSTS = "RECEIVE_POSTS";
+export const RECEIVED_POSTS = "RECEIVED_POSTS";
 export const CREATING_POST = "CREATING_POST";
 export const CREATED_POST = "CREATED_POST";
 export const CREATE_POST_ERROR = "CREATE_POST_ERROR";
 export const FETCH_LIKES = "FETCH_LIKES";
 export const FETCH_POSTS_LIKED = "FETCH_POSTS_LIKED";
 export const POST_LIKED = "POST_LIKED";
-export const FETCHED_USERS = "FETCHED_USERS";
+export const RECEIVED_USERS = "RECEIVED_USERS";
+export const UPDATE_PROFILE = "UPDATE_PROFILE";
+export const UPDATE_TYPE = "UPDATE_TYPE";
+
+export const fetchProfilePage = uid => {
+  return (dispatch, getState) => {
+    dispatch({ type: UPDATE_PROFILE, uid: uid });
+  };
+};
+
+export const changeProfilePageView = event => {
+  const id = event.target.id;
+  return dispatch => {
+    if (id === "listings") {
+      dispatch({ type: UPDATE_TYPE, bool: true });
+    } else {
+      dispatch({ type: UPDATE_TYPE, bool: false });
+    }
+  };
+};
+
+const getProfilePage = state => state.profilePage;
+const getPosts = state => state.posts.data;
+const getUsers = state => state.users;
+
+export const getProfilePosts = createSelector(
+  [getProfilePage, getPosts, getUsers],
+  (profilePage, posts, users) => {
+    const uid = profilePage.currentUid;
+    const showListings = profilePage.showListings;
+    let reducedPosts;
+    if (showListings) {
+      reducedPosts = posts.filter(post => post.uid === uid);
+    } else {
+      let postsLiked = Object.assign([], users[uid].postsLiked);
+      postsLiked = postsLiked.map(likedId => {
+        return posts.find(post => post.pid === likedId);
+      });
+      reducedPosts = postsLiked;
+    }
+    console.log("REDUCED POSTS", reducedPosts);
+
+    return reducedPosts;
+  }
+);
 
 function fetchPosts() {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -28,7 +74,7 @@ function fetchPosts() {
           dispatch(fetchLikes(posts));
           dispatch(fetchUsers());
           dispatch({
-            type: RECEIVE_POSTS,
+            type: RECEIVED_POSTS,
             posts: posts
           });
         } else {
@@ -44,9 +90,8 @@ function shouldFetchPosts(state) {
     return true;
   } else if (posts.isFetching) {
     return false;
-  } else {
-    return true;
   }
+  return true;
 }
 
 export const fetchPostsIfNeeded = () => {
@@ -118,7 +163,7 @@ function fetchUsers() {
       })
       .then(users => {
         if (users) {
-          dispatch({ type: FETCHED_USERS, usersData: users });
+          dispatch({ type: RECEIVED_USERS, usersData: users });
         } else {
           console.log("Could not retrieve users data");
         }

@@ -67,10 +67,11 @@ class NavSearched extends React.Component {
   }
   render() {
     const { profile } = this.props;
+    const { uid } = this.props.auth;
     const userIcon = profile.photoURL ? (
       <StyledUserIcon src={profile.photoURL} className="navicon right" />
     ) : (
-      <MdAccountCircle  size = {"2.5em"} />
+      <MdAccountCircle size={"2.5em"} />
     );
 
     return (
@@ -122,7 +123,7 @@ class NavSearched extends React.Component {
                 </NavLink>
               </NavItem>
               <NavItem className="icons">
-                {<NavLink href="/User">{userIcon}</NavLink>}
+                {<NavLink href={"/user/" + uid}>{userIcon}</NavLink>}
               </NavItem>
               <NavItem className="button-item icons">
                 <Button color="success" className="Button" href="/Dashboard">

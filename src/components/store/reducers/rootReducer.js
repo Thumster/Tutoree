@@ -4,7 +4,8 @@ import {
   postsLiked,
   postsLikeCounter,
   createPost,
-  users
+  users,
+  profilePage
 } from "./postReducer";
 import { filter } from "./filterReducer";
 import { firestoreReducer } from "redux-firestore";
@@ -19,6 +20,8 @@ const rootReducer = combineReducers({
   postsLikeCounter: postsLikeCounter,
   posts: posts,
   users: users,
+
+  profilePage: profilePage,
 
   filter: filter,
 
