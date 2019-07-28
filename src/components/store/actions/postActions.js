@@ -69,12 +69,12 @@ function fetchPosts() {
       })
       .then(posts => {
         if (posts) {
-          dispatch(fetchPostsLiked());
-          dispatch(fetchLikes());
           dispatch({
             type: RECEIVED_POSTS,
             posts: posts
           });
+          dispatch(fetchPostsLiked());
+          dispatch(fetchLikes());
         } else {
           console.log("Could not retrieve posts");
         }

@@ -6,6 +6,7 @@ import { compose } from "redux";
 import Moment from "react-moment";
 import ReactLoading from "react-loading";
 import { MdAccountCircle } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 class PostDetails extends React.Component {
   constructor(props) {
@@ -74,7 +75,7 @@ class PostDetails extends React.Component {
                   <div className="jumbotron ud">
                     <div className="row">
                       <div className="col-5">
-                        <div className="row">{authorPhoto}</div>
+                        <div className="row"><Link to={"/user/" + this.props.uid}>{authorPhoto}</Link></div>
                         <div className="row">
                           <button type="button" class="btn btn-warning">
                             Message
@@ -127,9 +128,11 @@ const mapStateToProps = (state, ownProps) => state => {
   const pid = ownProps.match.params.id;
   const posts = state.firestore.data.posts;
   const post = posts ? posts[pid] : null;
+  const uid = post ? post.uid : null;
   const users = state.firestore.data.users;
   const author = users && post ? users[post.uid] : null;
   return {
+    uid: uid,
     posts: posts,
     post: post,
     author: author
