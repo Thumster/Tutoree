@@ -133,6 +133,7 @@ class PostList extends React.Component {
               </DropdownMenu>
             </StyledDropdown>
             </StyledDiv2>
+            <p>Total number of posts {displayedPosts.length}</p>
           </StyledDiv>
       </div>
     );

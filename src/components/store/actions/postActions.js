@@ -13,6 +13,17 @@ export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const UPDATE_TYPE = "UPDATE_TYPE";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const EDIT_COMPLETE = "EDIT_COMPLETE";
+export const DELETE_POST = "DELETE_POST";
+
+export const deletePost = pid => {
+  return (dispatch, getState, { getFirestore }) => {
+    getFirestore()
+      .collection("posts")
+      .doc(pid)
+      .delete()
+      .then(() => dispatch({ type: DELETE_POST }));
+  };
+};
 
 const fetchProfilePage = uid => {
   return (dispatch, getState) => {
@@ -52,20 +63,6 @@ export const submitEditProfile = event => {
     }
   };
 };
-
-// const posts = getFirestore().collection("posts");
-//     const uid = getState().firebase.auth.uid;
-//     dispatch({ type: CREATING_POST });
-//     posts
-//       .add({
-//         ...post,
-//         likes: 0,
-//         uid: uid,
-//         createdAt: new Date().toString()
-//       })
-//       .then(docRef => {
-//         posts.doc(docRef.id).update({ pid: docRef.id });
-//       })
 
 export const changeProfilePageView = event => {
   const id = event.target.id;

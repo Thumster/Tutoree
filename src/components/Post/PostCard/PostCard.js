@@ -154,7 +154,7 @@ class PostCard extends React.Component {
               </p>
               <p className="createdAt">
                 <MdTimer style={{ color: "#d6d2c7" }} />
-                <Moment format="HH:mm:ss">{this.props.post.createdAt}</Moment>
+                <Moment format="DD MMMM 'YY">{this.props.post.createdAt}</Moment>
               </p>
             </Link>
           </div>

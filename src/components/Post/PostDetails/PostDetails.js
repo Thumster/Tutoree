@@ -6,7 +6,10 @@ import { compose } from "redux";
 import Moment from "react-moment";
 import ReactLoading from "react-loading";
 import { MdAccountCircle } from "react-icons/md";
+import DeleteModal from "./DeleteModal";
 import { Link } from "react-router-dom";
+
+import styled from "styled-components";
 
 class PostDetails extends React.Component {
   constructor(props) {
@@ -14,9 +17,7 @@ class PostDetails extends React.Component {
   }
 
   render() {
-    const { posts } = this.props;
-    const { post } = this.props;
-    const { author } = this.props;
+    const { posts, post, author, isUser } = this.props;
 
     // POST VARIABLES
     const title = post ? post.title || "Title not stated" : null;
@@ -59,6 +60,7 @@ class PostDetails extends React.Component {
               <div className="row">
                 <div className="col-lg-6">
                   <div className="jumbotron pd">
+                    {isUser ? <DeleteModal pid={this.props.pid}/> : null}
                     <p className="pd-title">{title}</p>
                     <span class="badge badge-info" id="subjectBadge">
                       {subject}
@@ -75,7 +77,11 @@ class PostDetails extends React.Component {
                   <div className="jumbotron ud">
                     <div className="row">
                       <div className="col-5">
-                        <div className="row"><Link to={"/user/" + this.props.uid}>{authorPhoto}</Link></div>
+                        <div className="row">
+                          <Link to={"/user/" + this.props.uid}>
+                            {authorPhoto}
+                          </Link>
+                        </div>
                         <div className="row">
                           <button type="button" class="btn btn-warning">
                             Message
@@ -99,12 +105,16 @@ class PostDetails extends React.Component {
       </div>
     );
 
-    const showSpinner = (
-      <div className="container center">
-        <p>LOADING POST...</p>
-        <ReactLoading type="spinningBubbles" color="#457cc9" />
+    const showSpinner = () => (
+      <div style={{ marginTop: 100 }}>
+        <p style={{ textAlign: "center", fontSize: "200%", color: "#326FA6" }}>
+          LOADING...
+        </p>
+        <div style={{ display: "block", margin: "auto", width: 32 }}>
+          <ReactLoading color="#326FA6" type="spinningBubbles" />
+        </div>
       </div>
-    )
+    );
 
     const showInvalid = (
       <div>
@@ -114,11 +124,7 @@ class PostDetails extends React.Component {
 
     return (
       <div>
-        {post && author
-          ? showPostDetails
-          : !posts
-          ? showSpinner
-          : showInvalid}
+        {post && author ? showPostDetails : !posts ? showSpinner : showInvalid}
       </div>
     );
   }
@@ -128,14 +134,18 @@ const mapStateToProps = (state, ownProps) => state => {
   const pid = ownProps.match.params.id;
   const posts = state.firestore.data.posts;
   const post = posts ? posts[pid] : null;
+
+  const currentUid = state.firebase.auth.uid;
   const uid = post ? post.uid : null;
   const users = state.firestore.data.users;
   const author = users && post ? users[post.uid] : null;
   return {
+    pid: pid,
     uid: uid,
+    isUser: currentUid === uid,
     posts: posts,
     post: post,
-    author: author,
+    author: author
   };
 };
 
