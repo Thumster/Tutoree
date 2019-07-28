@@ -35,6 +35,61 @@ const StyledSearchInput = styled(Input)`
     display: inline;
 `;
 
+const Checkbox = ({ className, checked, ...props }) => (
+  <CheckboxContainer className={className}>
+    <HiddenCheckbox checked={checked} {...props} />
+    <StyledCheckbox checked={checked}>
+      <Icon viewBox="0 0 24 24" style={{verticalAlign:"text-top"}}>
+        <polyline points="20 6 9 17 4 12" />
+      </Icon>
+    </StyledCheckbox>
+  </CheckboxContainer>
+)
+
+const Icon = styled.svg`
+  fill: none;
+  stroke: white;
+  stroke-width: 2px;
+`
+
+const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
+  // Hide checkbox visually but remain accessible to screen readers.
+  // Source: https://polished.js.org/docs/#hidevisually
+  border: 0;
+  clip: rect(0 0 0 0);
+  clippath: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+`
+
+const StyledCheckbox = styled.div`
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: ${props => props.checked ? 'salmon' : 'papayawhip'}
+  border-radius: 3px;
+  transition: all 150ms;
+
+  ${HiddenCheckbox}:focus + & {
+    box-shadow: 0 0 0 3px pink;
+  }
+
+  ${Icon} {
+    visibility: ${props => props.checked ? 'visible' : 'hidden'}
+  }
+`
+const CheckboxContainer = styled.div`
+  display: inline-block;
+  vertical-align: middle;
+`
+
+
+
 class Filter extends Component {
   constructor(props) {
     super(props);
@@ -50,7 +105,7 @@ class Filter extends Component {
     const categoryCheckboxesBlock = (
       <div>
         <label>
-          <input
+          {/* <input
             name="show all"
             type="checkbox"
             id="all"
@@ -58,26 +113,51 @@ class Filter extends Component {
             onChange={this.props.categoryCheckboxChange}
           />
           show all
-        </label>
+         */}
+        <Checkbox
+            name="show all"
+            type="checkbox"
+            id="all"
+            checked={this.props.categoryCheckboxes["all"]}
+            onChange={this.props.categoryCheckboxChange}
+          />
+          <span> Show all</span>
+          </label>
         <label>
-          <input
+          {/* <input
             name="teach"
             type="checkbox"
             id="teach"
             checked={this.props.categoryCheckboxes["teach"]}
             onChange={this.props.categoryCheckboxChange}
           />
-          teach
+          teach */}
+          <Checkbox
+            name="teach"
+            type="checkbox"
+            id="teach"
+            checked={this.props.categoryCheckboxes["teach"]}
+            onChange={this.props.categoryCheckboxChange}
+          />
+          <span> teach</span>
         </label>
         <label>
-          <input
+          {/* <input
             name="learn"
             type="checkbox"
             id="learn"
             checked={this.props.categoryCheckboxes["learn"]}
             onChange={this.props.categoryCheckboxChange}
           />
-          learn
+          learn */}
+          <Checkbox
+            name="learn"
+            type="checkbox"
+            id="learn"
+            checked={this.props.categoryCheckboxes["learn"]}
+            onChange={this.props.categoryCheckboxChange}
+          />
+          <span> learn</span>
         </label>
       </div>
     );

@@ -48,6 +48,8 @@ const StyledDropdown = styled(Dropdown) `
 
 const StyledDiv2 = styled.div`
   justify-content:center;
+  display: flex;
+      align-items: baseline;
 `
 
 
@@ -87,7 +89,7 @@ class PostList extends React.Component {
             })}
           
         </div>
-        <StyledDiv>
+        <StyledDiv style={{position:"relative"}}>
             <StyledReactPaginate
               forcePage={currentPage}
               pageCount={Math.ceil(displayedPosts.length / perPage)}
