@@ -108,24 +108,28 @@ export const fetchPostsIfNeeded = () => {
 function fetchPostsLiked() {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const uid = getState().firebase.auth.uid;
-    getFirestore()
-      .collection("users")
-      .doc(uid)
-      .get()
-      .then(docs => {
-        return docs.data().postsLiked.reduce((out, doc) => {
-          return {
-            ...out,
-            [doc]: true
-          };
-        }, {});
-      })
-      .then(finalResponse => {
-        dispatch({
-          type: FETCH_POSTS_LIKED,
-          postsLiked: finalResponse
+    if (uid) {
+      return getFirestore()
+        .collection("users")
+        .doc(uid)
+        .get()
+        .then(docs => {
+          return docs.data().postsLiked.reduce((out, doc) => {
+            return {
+              ...out,
+              [doc]: true
+            };
+          }, {});
+        })
+        .then(finalResponse => {
+          dispatch({
+            type: FETCH_POSTS_LIKED,
+            postsLiked: finalResponse
+          });
         });
-      });
+    } else {
+      return Promise.resolve();
+    }
   };
 }
 
