@@ -44,9 +44,11 @@ class ProfilePage extends React.Component {
     // const userData = this.props.users ? users[this.props.uid] : null
     const name = userData ? userData.name : null;
     const email = userData ? userData.email : null;
+    
     const contactNo = userData
       ? userData.contactNo || "ContactNo not stated"
       : null;
+
     const photoIcon = userData ? (
       userData.photoURL ? (
         <ProfilePhoto src={userData.photoURL} />
