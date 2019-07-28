@@ -55,7 +55,8 @@ const StyledUnfilledHeart = styled(IoIosHeartEmpty)`
 
 const StyledProfilePhoto = styled.img`
   border-radius:50%;
-  height: 100px;
+  max-width:70%;
+max-height:70%;
   margin: 5% auto;
 `
 class PostCard extends React.Component {
@@ -112,7 +113,7 @@ class PostCard extends React.Component {
               <p className="title">Title {this.props.post.title}<span class="badge badge-dark" style={{float:"right", marginTop:"3%"}}>{this.props.post.category}</span></p>
               <p className="subject"><IoIosBook style={{color:"#d6d2c7"}}/> {this.props.post.subject}</p>
               <p className="name"><MdPermIdentity style={{color:"#d6d2c7"}}/> {author.name}</p>
-              <p className="price"><MdAttachMoney style={{color:"#d6d2c7"}}/> {this.props.post.price}/hr</p>
+              <p className="price"><MdAttachMoney style={{color:"#d6d2c7"}}/> {this.props.post.price}</p>
               <p className="location"><MdLocationOn style={{color:"#d6d2c7"}}/> {this.props.post.location}</p>
               <p className="createdAt">
                 <MdTimer style={{color:"#d6d2c7"}}/>
