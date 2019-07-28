@@ -157,7 +157,7 @@ class PostList extends React.Component {
 }
 
 const showSpinner = () => (
-  <div style={{marginTop:"30%"}}>
+  <div style={{marginTop:100}}>
     <p style={{textAlign:"center", fontSize:"200%",color:"#326FA6"}}>FETCHING POSTS...</p>
     <div style={{display:"block", margin: "auto", width:32}} >
     <ReactLoading color="#326FA6" type="spinningBubbles"  />
