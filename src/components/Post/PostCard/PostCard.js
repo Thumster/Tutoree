@@ -10,10 +10,14 @@ import { MdAccountCircle } from "react-icons/md";
 import Moment from "react-moment";
 import { Button } from "reactstrap";
 import { IoIosBook } from "react-icons/io";
-import { MdPermIdentity, MdAttachMoney, MdLocationOn, MdTimer } from "react-icons/md";
+import {
+  MdPermIdentity,
+  MdAttachMoney,
+  MdLocationOn,
+  MdTimer
+} from "react-icons/md";
 
 import styled from "styled-components";
-
 
 const StyledLikeButton = styled(Button)`
   color: lightblue;
@@ -54,11 +58,11 @@ const StyledUnfilledHeart = styled(IoIosHeartEmpty)`
 `;
 
 const StyledProfilePhoto = styled.img`
-  border-radius:50%;
-  max-width:70%;
-max-height:70%;
+  border-radius: 50%;
+  max-width: 70%;
+  max-height: 70%;
   margin: 5% auto;
-`
+`;
 class PostCard extends React.Component {
   constructor(props) {
     super(props);
@@ -76,7 +80,9 @@ class PostCard extends React.Component {
     const liked = postsLiked[this.props.post.pid] || false;
     const likeCount = postsLikeCounter[this.props.post.pid];
 
-    const photo = author.photoURL ? (
+    const name = author? author.name : "LOADING";
+
+    const photo = author && author.photoURL ? (
       <StyledProfilePhoto src={author.photoURL} />
     ) : (
       <MdAccountCircle className="photo" size="15em" />
@@ -97,7 +103,9 @@ class PostCard extends React.Component {
       <div id="containerid" className="container">
         <div className="row">
           <div className="col-5">
-            <div className="row">{photo}</div>
+            <div className="row">
+              <Link to={"/user/" + this.props.post.uid}>{photo}</Link>
+            </div>
             <div className="row">
               <div className="flexbutton">
                 {chatButton}
@@ -110,13 +118,32 @@ class PostCard extends React.Component {
           </div>
           <div className="col-7">
             <Link to={"/post/" + this.props.post.pid}>
-              <p className="title">Title {this.props.post.title}<span class="badge badge-dark" style={{float:"right", marginTop:"3%"}}>{this.props.post.category}</span></p>
-              <p className="subject"><IoIosBook style={{color:"#d6d2c7"}}/> {this.props.post.subject}</p>
-              <p className="name"><MdPermIdentity style={{color:"#d6d2c7"}}/> {author.name}</p>
-              <p className="price"><MdAttachMoney style={{color:"#d6d2c7"}}/> {this.props.post.price}</p>
-              <p className="location"><MdLocationOn style={{color:"#d6d2c7"}}/> {this.props.post.location}</p>
+              <p className="title">
+                Title {this.props.post.title}
+                <span
+                  class="badge badge-dark"
+                  style={{ float: "right", marginTop: "3%" }}
+                >
+                  {this.props.post.category}
+                </span>
+              </p>
+              <p className="subject">
+                <IoIosBook style={{ color: "#d6d2c7" }} />{" "}
+                {this.props.post.subject}
+              </p>
+              <p className="name">
+                <MdPermIdentity style={{ color: "#d6d2c7" }} /> {name}
+              </p>
+              <p className="price">
+                <MdAttachMoney style={{ color: "#d6d2c7" }} />{" "}
+                {this.props.post.price}
+              </p>
+              <p className="location">
+                <MdLocationOn style={{ color: "#d6d2c7" }} />{" "}
+                {this.props.post.location}
+              </p>
               <p className="createdAt">
-                <MdTimer style={{color:"#d6d2c7"}}/>
+                <MdTimer style={{ color: "#d6d2c7" }} />
                 <Moment format="HH:mm:ss">{this.props.post.createdAt}</Moment>
               </p>
             </Link>
@@ -128,6 +155,7 @@ class PostCard extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log("STATE", state);
   return {
     users: state.firestore.data.users,
     postsLiked: state.postsLiked,

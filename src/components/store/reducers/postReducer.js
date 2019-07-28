@@ -33,10 +33,14 @@ const initState = {
 export const profilePage = (state = initState.profilePage, action) => {
   switch (action.type) {
     case UPDATE_PROFILE:
-      console.log("profile page updated to user", action.uid)
-      return Object.assign({}, state, { currentUid: action.uid });
+      console.log("profile page updated to user", action.uid);
+      return Object.assign({}, state, {
+        currentUid: action.uid,
+        data: action.userData
+      });
+
     case UPDATE_TYPE:
-      console.log("show Listings?", action.bool)
+      console.log("show Listings?", action.bool);
       return Object.assign({}, state, { showListings: action.bool });
     default:
       return state;
@@ -46,6 +50,7 @@ export const profilePage = (state = initState.profilePage, action) => {
 export const users = (state = initState.users, action) => {
   switch (action.type) {
     case RECEIVED_USERS:
+      console.log("RECEIVED users", action.usersData);
       return Object.assign({}, state, action.usersData);
     default:
       return state;

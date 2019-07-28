@@ -12,9 +12,10 @@ export const RECEIVED_USERS = "RECEIVED_USERS";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const UPDATE_TYPE = "UPDATE_TYPE";
 
-export const fetchProfilePage = uid => {
+const fetchProfilePage = uid => {
   return (dispatch, getState) => {
-    dispatch({ type: UPDATE_PROFILE, uid: uid });
+    const userData = getState().users[uid];
+    dispatch({ type: UPDATE_PROFILE, uid: uid, userData: userData });
   };
 };
 
@@ -48,14 +49,12 @@ export const getProfilePosts = createSelector(
       });
       reducedPosts = postsLiked;
     }
-    console.log("REDUCED POSTS", reducedPosts);
-
     return reducedPosts;
   }
 );
 
 function fetchPosts() {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return (dispatch, getState, { getFirestore }) => {
     dispatch({
       type: REQUEST_POSTS
     });
@@ -70,13 +69,12 @@ function fetchPosts() {
       })
       .then(posts => {
         if (posts) {
-          dispatch(fetchPostsLiked());
-          dispatch(fetchLikes(posts));
-          dispatch(fetchUsers());
           dispatch({
             type: RECEIVED_POSTS,
             posts: posts
           });
+          dispatch(fetchPostsLiked());
+          dispatch(fetchLikes());
         } else {
           console.log("Could not retrieve posts");
         }
@@ -94,19 +92,17 @@ function shouldFetchPosts(state) {
   return true;
 }
 
-export const fetchPostsIfNeeded = () => {
+export function fetchPostsIfNeeded(uid) {
   return (dispatch, getState) => {
-    if (shouldFetchPosts(getState)) {
-      return dispatch(fetchPosts());
-    } else {
-      // Let the calling code know there's nothing to wait for.
-      return Promise.resolve();
+    if (shouldFetchPosts(getState())) {
+      dispatch(fetchPosts());
     }
+    dispatch(fetchUsers(uid));
   };
-};
+}
 
 function fetchPostsLiked() {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return (dispatch, getState, { getFirestore }) => {
     const uid = getState().firebase.auth.uid;
     if (uid) {
       return getFirestore()
@@ -150,7 +146,7 @@ export const fetchLikes = () => {
   };
 };
 
-function fetchUsers() {
+function fetchUsers(uid) {
   console.log("fetching users...");
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
@@ -170,6 +166,11 @@ function fetchUsers() {
           dispatch({ type: RECEIVED_USERS, usersData: users });
         } else {
           console.log("Could not retrieve users data");
+        }
+      })
+      .then(() => {
+        if (uid) {
+          dispatch(fetchProfilePage(uid));
         }
       });
   };
