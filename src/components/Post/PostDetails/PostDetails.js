@@ -99,12 +99,14 @@ class PostDetails extends React.Component {
       </div>
     );
 
-    const showSpinner = (
-      <div className="container center">
-        <p>LOADING POST...</p>
-        <ReactLoading type="spinningBubbles" color="#457cc9" />
+    const showSpinner = () => (
+      <div style={{marginTop:100}}>
+        <p style={{textAlign:"center", fontSize:"200%",color:"#326FA6"}}>LOADING...</p>
+        <div style={{display:"block", margin: "auto", width:32}} >
+        <ReactLoading color="#326FA6" type="spinningBubbles"  />
+        </div>
       </div>
-    )
+    );
 
     const showInvalid = (
       <div>
