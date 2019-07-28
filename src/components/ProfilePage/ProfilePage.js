@@ -165,12 +165,15 @@ class ProfilePage extends React.Component {
             >
               Liked
             </Button>
+          </div>
+        </div>
+        <div className="row">
             {isFetching
               ? showSpinner()
               : postsView.length > 0
               ? showCards(postsView)
               : showNoPostsToLoad()}
-          </div>
+        
         </div>
       </div>
     );
