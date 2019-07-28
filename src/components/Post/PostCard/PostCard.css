@@ -1,12 +1,16 @@
 #containerid {
-    width: 400px;
+    min-width: 400px;
+    width: 33%;
     border-style: solid;;
-    height: 180px;
+    min-height: 180px;
     border-radius: 5px;
-    border-color: antiquewhite;
+    border-color: rgb(255, 255, 255);
     margin: 0;
     border-width: 0.5px;
     cursor: pointer;
+    background: rgb(239,239,242);
+background: linear-gradient(90deg, rgba(239,239,242,1) 0%, rgba(238,238,241,1) 25%, rgba(255,255,255,1) 50%, rgba(238,238,241,1) 76%, rgba(239,239,242,1) 100%);
+
 }
 
 #containerid:hover{
@@ -30,7 +34,7 @@
     font-size: 1.5rem;
     text-decoration: underline;
     font-weight: 400;
-    margin: 3% 0;
+    margin: 3% 0 0 0;
     white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

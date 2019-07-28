@@ -19,6 +19,8 @@ import {
   DropdownItem
 } from "reactstrap";
 import styled from "styled-components";
+import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi';
+import './Pagination.css';
 
 const cards = {
   display: "flex",
@@ -32,6 +34,22 @@ const StyledDiv = styled.div`
   bottom: 0;
   right: 0;
 `;
+
+const StyledReactPaginate = styled(ReactPaginate) `
+  display: inline-block;
+  position: relative;
+`
+
+const StyledDropdown = styled(Dropdown) `
+  display: inline-block;
+  position: relative;
+  justify-content:center;
+`
+
+const StyledDiv2 = styled.div`
+  justify-content:center;
+`
+
 
 class PostList extends React.Component {
   constructor(props) {
@@ -67,23 +85,27 @@ class PostList extends React.Component {
             posts.map(post => {
               return <PostCard post={post} key={post.pid} />;
             })}
-          <StyledDiv>
-            <ReactPaginate
+          
+        </div>
+        <StyledDiv>
+            <StyledReactPaginate
               forcePage={currentPage}
               pageCount={Math.ceil(displayedPosts.length / perPage)}
               pageRangeDisplayed={3}
               onPageChange={this.props.pageUpdate} //HERE
               marginPagesDisplayed={2}
-              previousLabel={"previous"}
-              nextLabel={"next"}
+              previousLabel={<FiChevronsLeft />}
+              nextLabel={<FiChevronsRight />}
               breakClassName={"break-me"}
               breakLabel={"..."}
               containerClassName={"pagination"}
               subContainerClassName={"pages pagination"}
-              activeClassName={"active"}
+              activeClassName={"on"}
               // https://github.com/AdeleD/react-paginate#readme
             />
-            <Dropdown
+            <StyledDiv2>
+            Number of posts per page
+            <StyledDropdown
               isOpen={this.state.dropdownOpen}
               size="sm"
               toggle={this.toggleDropDown}
@@ -107,9 +129,9 @@ class PostList extends React.Component {
                   5
                 </DropdownItem>
               </DropdownMenu>
-            </Dropdown>
+            </StyledDropdown>
+            </StyledDiv2>
           </StyledDiv>
-        </div>
       </div>
     );
     return (
