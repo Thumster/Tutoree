@@ -31,7 +31,9 @@ const StyledArrowDown = styled(TiArrowDownOutline)`
     `}
 `;
 
-const StyledSearchInput = styled(Input)``;
+const StyledSearchInput = styled(Input)`
+    display: inline;
+`;
 
 class Filter extends Component {
   constructor(props) {
@@ -276,18 +278,20 @@ class Filter extends Component {
 
     const searchFilterBlock = (
       <div>
+        {this.props.searchValue ? (
+          <IoIosCloseCircleOutline
+            style={{position:"absolute", right:1, marginTop:11}}
+            id="clear"
+            onClick={this.props.searchFilterChange}
+          />
+        ) : null}
         <StyledSearchInput
           placeholder="Search for post by title, description, author's name"
           id="input"
           value={this.props.searchValue}
           onChange={this.props.searchFilterChange}
         />
-        {this.props.searchValue ? (
-          <IoIosCloseCircleOutline
-            id="clear"
-            onClick={this.props.searchFilterChange}
-          />
-        ) : null}
+        
       </div>
     );
     return (
