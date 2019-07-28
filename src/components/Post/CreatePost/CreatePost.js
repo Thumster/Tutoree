@@ -48,7 +48,6 @@ class CreatePost extends React.Component {
     event.preventDefault();
     this.setState({ values });
     this.props.createPost(values);
-    // this.props.history.push(`/Dashboard`);
   }
 
   componentDidUpdate(prevProps) {

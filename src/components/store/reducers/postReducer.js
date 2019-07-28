@@ -11,7 +11,8 @@ import {
   UPDATE_PROFILE,
   UPDATE_TYPE,
   EDIT_PROFILE,
-  EDIT_COMPLETE
+  EDIT_COMPLETE,
+  DELETE_POST
 } from "../actions/postActions";
 
 const initState = {
@@ -100,6 +101,9 @@ export const postsLikeCounter = (
 
 export const posts = (state = initState.posts, action) => {
   switch (action.type) {
+    case DELETE_POST:
+      console.log("DELETED post")
+      return state;
     case REQUEST_POSTS:
       console.log("fetching posts...");
       return Object.assign({}, state, {
