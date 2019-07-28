@@ -135,7 +135,7 @@ const mapStateToProps = (state, ownProps) => state => {
     uid: uid,
     posts: posts,
     post: post,
-    author: author
+    author: author,
   };
 };
 

@@ -11,6 +11,8 @@ export const POST_LIKED = "POST_LIKED";
 export const RECEIVED_USERS = "RECEIVED_USERS";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const UPDATE_TYPE = "UPDATE_TYPE";
+export const EDIT_PROFILE = "EDIT_PROFILE";
+export const EDIT_COMPLETE = "EDIT_COMPLETE";
 
 const fetchProfilePage = uid => {
   return (dispatch, getState) => {
@@ -18,6 +20,52 @@ const fetchProfilePage = uid => {
     dispatch({ type: UPDATE_PROFILE, uid: uid, userData: userData });
   };
 };
+
+export const editProfileData = event => {
+  const id = event.target.id;
+  return (dispatch, getState) => {
+    const newData = Object.assign({}, getState().profilePage.newData, {
+      [id]: event.target.value
+    });
+    dispatch({ type: EDIT_PROFILE, newData: newData });
+  };
+};
+
+export const submitEditProfile = event => {
+  console.log("CALEEEDDDDDD");
+  const id = event.target.id;
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const newData = Object.assign({}, getState().profilePage.newData);
+    const data = Object.assign({}, getState().profilePage.data);
+    if (newData[id] !== data[id]) {
+      console.log("DIFFERENT");
+      const uid = getState().profilePage.currentUid;
+      const user = getFirestore()
+        .collection("users")
+        .doc(uid);
+      data[id] = newData[id];
+      user
+        .update({ [id]: newData[id] })
+        .then(() => dispatch({ type: EDIT_COMPLETE, data: data }));
+    } else {
+      console.log("SAME");
+    }
+  };
+};
+
+// const posts = getFirestore().collection("posts");
+//     const uid = getState().firebase.auth.uid;
+//     dispatch({ type: CREATING_POST });
+//     posts
+//       .add({
+//         ...post,
+//         likes: 0,
+//         uid: uid,
+//         createdAt: new Date().toString()
+//       })
+//       .then(docRef => {
+//         posts.doc(docRef.id).update({ pid: docRef.id });
+//       })
 
 export const changeProfilePageView = event => {
   const id = event.target.id;

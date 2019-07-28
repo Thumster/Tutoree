@@ -8,10 +8,12 @@ import {
   fetchProfilePage,
   fetchPostsIfNeeded,
   changeProfilePageView,
-  getProfilePosts
+  getProfilePosts,
+  editProfileData,
+  submitEditProfile
 } from "../store/actions/postActions";
 import PostCard from "../Post/PostCard/PostCard";
-import { MdAccountCircle } from "react-icons/md";
+import { MdAccountCircle, MdDone } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import ReactLoading from "react-loading";
 
@@ -45,9 +47,10 @@ class ProfilePage extends React.Component {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);
     this.state = {
-      name: false,
-      email: false,
-      contact: false
+      // disabled
+      name: true,
+      email: true,
+      contact: true
     };
   }
 
@@ -56,8 +59,13 @@ class ProfilePage extends React.Component {
   };
 
   handleEdit = event => {
-    console.log(event.target);
-    this.setState({ [event.target.id]: !event.target.value });
+    const boo = this.state[event.currentTarget.id];
+    if (!boo) {
+      this.props.submitEditProfile(event);
+    }
+    this.setState({
+      [event.currentTarget.id]: !this.state[event.currentTarget.id]
+    });
   };
 
   render() {
@@ -65,9 +73,7 @@ class ProfilePage extends React.Component {
     const name = userData ? userData.name : null;
     const email = userData ? userData.email : null;
 
-    const contactNo = userData
-      ? userData.contactNo || "Contact not stated"
-      : null;
+    const contact = userData ? userData.contact : null;
 
     const photoIcon = userData ? (
       userData.photoURL ? (
@@ -78,6 +84,15 @@ class ProfilePage extends React.Component {
     ) : null;
 
     const { postsView } = this.props;
+
+    const showEditButton = id => {
+      const val = this.state[id];
+      return val ? (
+        <StyledEditButton size="1em" onClick={this.handleEdit} id={id} />
+      ) : (
+        <MdDone onClick={this.handleEdit} id={id} />
+      );
+    };
 
     const showProfilePage = (
       <div>
@@ -92,38 +107,34 @@ class ProfilePage extends React.Component {
             }}
           >
             <span>
-              <Input disabled={true} value={name} />
-              {isUser ? (
-                <span
-                  onClick={this.handleEdit}
-                  id="name"
-                  value={this.state.name}
-                >
-                  <StyledEditButton size="1em" />
-                </span>
-              ) : null}
+              <Input
+                type="text"
+                id="name"
+                disabled={this.state.name}
+                value={this.props.newData.name}
+                onChange={this.props.editProfileData}
+              />
+              {isUser ? showEditButton("name") : null}
             </span>
             <span>
-              <Input disabled={true} value={email} />
-              {isUser ? (
-                <StyledEditButton
-                  id="email"
-                  value={this.state.email}
-                  size="1em"
-                  onClick={this.handleEdit}
-                />
-              ) : null}
+              <Input
+                type="email"
+                id="email"
+                disabled={this.state.email}
+                value={this.props.newData.email}
+                onChange={this.props.editProfileData}
+              />
+              {isUser ? showEditButton("email") : null}
             </span>
             <span>
-              <Input disabled={true} value={contactNo} />
-              {isUser ? (
-                <StyledEditButton
-                  id="contact"
-                  value={this.state.contact}
-                  size="1em"
-                  onClick={this.handleEdit}
-                />
-              ) : null}
+              <Input
+                id="contact"
+                disabled={this.state.contact}
+                value={this.props.newData.contact}
+                placeholder={"Contact number not provided"}
+                onChange={this.props.editProfileData}
+              />
+              {isUser ? showEditButton("contact") : null}
             </span>
           </div>
         </div>
@@ -208,6 +219,7 @@ const mapStateToProps = (state, ownProps) => {
     isUser: currentUid === uid,
 
     userData: state.profilePage.data,
+    newData: state.profilePage.newData,
 
     isFetching: state.posts.isFetching,
 
@@ -223,7 +235,9 @@ const mapDispatchToProps = dispatch => {
   return {
     likePost: (liked, pid) => dispatch(likePost(liked, pid)),
     changeProfilePageView: event => dispatch(changeProfilePageView(event)),
-    fetchPostsIfNeeded: uid => dispatch(fetchPostsIfNeeded(uid))
+    fetchPostsIfNeeded: uid => dispatch(fetchPostsIfNeeded(uid)),
+    editProfileData: event => dispatch(editProfileData(event)),
+    submitEditProfile: event => dispatch(submitEditProfile(event))
   };
 };
 

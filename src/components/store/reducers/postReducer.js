@@ -9,7 +9,9 @@ import {
   POST_LIKED,
   RECEIVED_USERS,
   UPDATE_PROFILE,
-  UPDATE_TYPE
+  UPDATE_TYPE,
+  EDIT_PROFILE,
+  EDIT_COMPLETE
 } from "../actions/postActions";
 
 const initState = {
@@ -26,19 +28,26 @@ const initState = {
   users: [],
   profilePage: {
     currentUid: "",
-    showListings: true
+    showListings: true,
+    newData: {}
   }
 };
 
 export const profilePage = (state = initState.profilePage, action) => {
   switch (action.type) {
+    case EDIT_PROFILE:
+      console.log("editing...");
+      return Object.assign({}, state, { newData: action.newData });
     case UPDATE_PROFILE:
       console.log("profile page updated to user", action.uid);
       return Object.assign({}, state, {
         currentUid: action.uid,
-        data: action.userData
+        data: action.userData,
+        newData: action.userData
       });
-
+    case EDIT_COMPLETE:
+      console.log("UPDATED edit")
+      return Object.assign({}, state, { data: action.data });
     case UPDATE_TYPE:
       console.log("show Listings?", action.bool);
       return Object.assign({}, state, { showListings: action.bool });
