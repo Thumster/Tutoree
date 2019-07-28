@@ -9,8 +9,11 @@ import { likePost } from "../../store/actions/postActions";
 import { MdAccountCircle } from "react-icons/md";
 import Moment from "react-moment";
 import { Button } from "reactstrap";
+import { IoIosBook } from "react-icons/io";
+import { MdPermIdentity, MdAttachMoney, MdLocationOn, MdTimer } from "react-icons/md";
 
 import styled from "styled-components";
+
 
 const StyledLikeButton = styled(Button)`
   color: lightblue;
@@ -106,13 +109,13 @@ class PostCard extends React.Component {
           </div>
           <div className="col-7">
             <Link to={"/post/" + this.props.post.pid}>
-              <p className="title">Title {this.props.post.title}</p><span class="badge badge-dark">{this.props.post.category}</span>
-              <p className="subject">Subject {this.props.post.subject}</p>
-              <p className="name">Name: {author.name}</p>
-              <p className="price">Price: {this.props.post.price}</p>
-              <p className="location">Location: {this.props.post.location}</p>
+              <p className="title">Title {this.props.post.title}<span class="badge badge-dark" style={{float:"right", marginTop:"3%"}}>{this.props.post.category}</span></p>
+              <p className="subject"><IoIosBook style={{color:"#d6d2c7"}}/> {this.props.post.subject}</p>
+              <p className="name"><MdPermIdentity style={{color:"#d6d2c7"}}/> {author.name}</p>
+              <p className="price"><MdAttachMoney style={{color:"#d6d2c7"}}/> {this.props.post.price}/hr</p>
+              <p className="location"><MdLocationOn style={{color:"#d6d2c7"}}/> {this.props.post.location}</p>
               <p className="createdAt">
-                createdAt:
+                <MdTimer style={{color:"#d6d2c7"}}/>
                 <Moment format="HH:mm:ss">{this.props.post.createdAt}</Moment>
               </p>
             </Link>

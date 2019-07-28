@@ -23,7 +23,7 @@ import styled from "styled-components";
 const cards = {
   display: "flex",
   flexWrap: "wrap",
-  justifyContent: "flex-start"
+  justifyContent: "center"
 };
 
 const StyledDiv = styled.div`
