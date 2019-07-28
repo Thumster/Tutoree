@@ -1,5 +1,4 @@
 import React from "react";
-import profilePhoto from "../../images/orangeBoxLmao.png";
 import styled from "styled-components";
 import { Button, Input } from "reactstrap";
 import { connect } from "react-redux";

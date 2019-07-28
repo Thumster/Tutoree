@@ -132,7 +132,7 @@ class NavSearched extends React.Component {
               </NavItem>
               <NavItem className="button-item icons">
                 <Button color="warning" className="Button" href="/CreatePost">
-                  <MdCreate />
+                  <MdCreate style={{alignContent:"baseline"}}/>
                   Post
                 </Button>
               </NavItem>

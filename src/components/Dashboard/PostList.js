@@ -25,7 +25,7 @@ import './Pagination.css';
 const cards = {
   display: "flex",
   flexWrap: "wrap",
-  justifyContent: "flex-start"
+  justifyContent: "center"
 };
 
 const StyledDiv = styled.div`
@@ -89,7 +89,7 @@ class PostList extends React.Component {
             })}
           
         </div>
-        <StyledDiv style={{position:"relative"}}>
+        <StyledDiv style={{position:"relative" ,marginTop:10}}>
             <StyledReactPaginate
               forcePage={currentPage}
               pageCount={Math.ceil(displayedPosts.length / perPage)}

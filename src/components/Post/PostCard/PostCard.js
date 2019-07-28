@@ -123,12 +123,19 @@ class PostCard extends React.Component {
             <Link to={"/post/" + this.props.post.pid}>
               <p className="title">
                 Title {this.props.post.title}
-                <span
-                  class="badge badge-dark"
+                {this.props.post.category==="teach" ?  <span
+                  class="badge badge-info"
                   style={{ float: "right", marginTop: "3%" }}
                 >
                   {this.props.post.category}
-                </span>
+                </span> :
+                <span
+                class="badge badge-danger"
+                style={{ float: "right", marginTop: "3%" }}
+              >
+                {this.props.post.category}
+              </span>
+                }
               </p>
               <p className="subject">
                 <IoIosBook style={{ color: "#d6d2c7" }} />{" "}

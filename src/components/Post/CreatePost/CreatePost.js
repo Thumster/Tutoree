@@ -31,7 +31,6 @@ const StyledHeader = styled.p`
 `;
 
 const StyledAvRadioGroup = styled(AvRadioGroup)`
-  /* background-color: yellow; */
 `;
 
 const StyledAvRadio = styled(AvRadio)`
@@ -71,13 +70,14 @@ class CreatePost extends React.Component {
           <Jumbotron>
             <StyledHeader>Post Details</StyledHeader>
             <AvForm onValidSubmit={this.handleValidSubmit}>
+            <Label for="category">Category</Label>
               <StyledAvRadioGroup
                 name="category"
-                label="Category"
                 required
                 errorMessage="*Please choose a category"
                 inline
               >
+                
                 <StyledAvRadio
                   customInput
                   label="I want to learn!"
@@ -101,6 +101,7 @@ class CreatePost extends React.Component {
               <AvGroup>
                 <Label for="description">Description</Label>
                 <AvInput
+                  style={{resize:"none"}}
                   name="description"
                   id="exampleText"
                   type="textarea"
