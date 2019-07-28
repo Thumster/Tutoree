@@ -9,8 +9,8 @@ import {
   searchFilterChange
 } from "../store/actions/filterActions";
 import { TiArrowDownOutline, TiArrowUpOutline } from "react-icons/ti";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-
+import { IoIosCloseCircleOutline, IoIosPerson, IoIosBook } from "react-icons/io";
+import { MdLocationOn } from "react-icons/md";
 import styled, { css } from "styled-components";
 
 const StyledArrowUp = styled(TiArrowUpOutline)`
@@ -87,7 +87,9 @@ const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
 `
-
+const Column = styled.td `
+  width: 105px;
+`
 
 
 class Filter extends Component {
@@ -103,17 +105,11 @@ class Filter extends Component {
 
   render() {
     const categoryCheckboxesBlock = (
-      <div>
+      <table style={{tableLayout: "fixed"}}>
+        <tr>
+          <Column>
+        <IoIosPerson style={{verticalAlign:"initial", marginRight:5}}/>
         <label>
-          {/* <input
-            name="show all"
-            type="checkbox"
-            id="all"
-            checked={this.props.categoryCheckboxes["all"]}
-            onChange={this.props.categoryCheckboxChange}
-          />
-          show all
-         */}
         <Checkbox
             name="show all"
             type="checkbox"
@@ -123,15 +119,9 @@ class Filter extends Component {
           />
           <span> Show all</span>
           </label>
+          </Column>
+          <Column>
         <label>
-          {/* <input
-            name="teach"
-            type="checkbox"
-            id="teach"
-            checked={this.props.categoryCheckboxes["teach"]}
-            onChange={this.props.categoryCheckboxChange}
-          />
-          teach */}
           <Checkbox
             name="teach"
             type="checkbox"
@@ -139,17 +129,11 @@ class Filter extends Component {
             checked={this.props.categoryCheckboxes["teach"]}
             onChange={this.props.categoryCheckboxChange}
           />
-          <span> teach</span>
+          <span> Teach</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          {/* <input
-            name="learn"
-            type="checkbox"
-            id="learn"
-            checked={this.props.categoryCheckboxes["learn"]}
-            onChange={this.props.categoryCheckboxChange}
-          />
-          learn */}
           <Checkbox
             name="learn"
             type="checkbox"
@@ -157,147 +141,182 @@ class Filter extends Component {
             checked={this.props.categoryCheckboxes["learn"]}
             onChange={this.props.categoryCheckboxChange}
           />
-          <span> learn</span>
+          <span> Learn</span>
         </label>
-      </div>
+        </Column>
+        </tr>
+      </table>
     );
     const subjectCheckboxesBlock = (
-      <div>
+      <table style={{tableLayout: "fixed"}}>
+        <tr>
+          <Column>
+        <IoIosBook style={{marginRight:5, verticalAlign:"initial"}}/>
         <label>
-          <input
+          <Checkbox
             name="show all"
             type="checkbox"
             id="all"
             checked={this.props.subjectCheckboxes["all"]}
             onChange={this.props.subjectCheckboxChange}
           />
-          show all
+          <span> Show all</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          <input
+          <Checkbox
             name="english"
             type="checkbox"
             id="english"
             checked={this.props.subjectCheckboxes["english"]}
             onChange={this.props.subjectCheckboxChange}
           />
-          english
+          <span> English</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          <input
+          <Checkbox
             name="chinese"
             type="checkbox"
             id="chinese"
             checked={this.props.subjectCheckboxes["chinese"]}
             onChange={this.props.subjectCheckboxChange}
           />
-          chinese
+          <span> Chinese</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          <input
+          <Checkbox
             name="math"
             type="checkbox"
             id="math"
             checked={this.props.subjectCheckboxes["math"]}
             onChange={this.props.subjectCheckboxChange}
           />
-          math
+          <span> Math</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          <input
+          <Checkbox
             name="science"
             type="checkbox"
             id="science"
             checked={this.props.subjectCheckboxes["science"]}
             onChange={this.props.subjectCheckboxChange}
           />
-          science
+          <span> Science</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          <input
+          <Checkbox
             name="others"
             type="checkbox"
             id="others"
             checked={this.props.subjectCheckboxes["others"]}
             onChange={this.props.subjectCheckboxChange}
           />
-          others
+          <span> Others</span>
         </label>
-      </div>
+        </Column>
+        </tr>
+      </table>
     );
     const locationCheckboxesBlock = (
-      <div>
+      <table style={{tableLayout: "fixed"}}>
+        <tr>
+          <Column>
+        <MdLocationOn style={{verticalAlign:"initial", marginRight:5}}/>
         <label>
-          <input
+          <Checkbox
             name="show all"
             type="checkbox"
             id="all"
             checked={this.props.locationCheckboxes["all"]}
             onChange={this.props.locationCheckboxChange}
           />
-          show all
+          <span> Show all</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          <input
+          <Checkbox
             name="north"
             type="checkbox"
             id="north"
             checked={this.props.locationCheckboxes["north"]}
             onChange={this.props.locationCheckboxChange}
           />
-          north
+          <span> North</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          <input
+          <Checkbox
             name="south"
             type="checkbox"
             id="south"
             checked={this.props.locationCheckboxes["south"]}
             onChange={this.props.locationCheckboxChange}
           />
-          south
+          <span> South</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          <input
+          <Checkbox
             name="east"
             type="checkbox"
             id="east"
             checked={this.props.locationCheckboxes["east"]}
             onChange={this.props.locationCheckboxChange}
           />
-          east
+          <span> East</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          <input
+          <Checkbox
             name="west"
             type="checkbox"
             id="west"
             checked={this.props.locationCheckboxes["west"]}
             onChange={this.props.locationCheckboxChange}
           />
-          west
+          <span> West</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          <input
+          <Checkbox
             name="central"
             type="checkbox"
             id="central"
             checked={this.props.locationCheckboxes["central"]}
             onChange={this.props.locationCheckboxChange}
           />
-          central
+          <span> Central</span>
         </label>
+        </Column>
+        <Column>
         <label>
-          <input
+          <Checkbox
             name="others"
             type="checkbox"
             id="others"
             checked={this.props.locationCheckboxes["others"]}
             onChange={this.props.locationCheckboxChange}
           />
-          others
+          <span> Others</span>
         </label>
-      </div>
+        </Column>
+        </tr>
+      </table>
+   
     );
 
     const sortButtonsBlock = (

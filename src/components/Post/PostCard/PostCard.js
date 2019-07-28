@@ -59,9 +59,8 @@ const StyledUnfilledHeart = styled(IoIosHeartEmpty)`
 
 const StyledProfilePhoto = styled.img`
   border-radius: 50%;
-  max-width: 70%;
-  max-height: 70%;
-  margin: 5% auto;
+  width: 70%;
+  margin: 5% 15%;
 `;
 class PostCard extends React.Component {
   constructor(props) {
