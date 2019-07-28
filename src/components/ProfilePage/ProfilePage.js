@@ -88,9 +88,9 @@ class ProfilePage extends React.Component {
     const showEditButton = id => {
       const val = this.state[id];
       return val ? (
-        <StyledEditButton size="1em" onClick={this.handleEdit} id={id} />
+        <StyledEditButton style={{position:"absolute", right:18 ,marginTop:11}} size="1em" onClick={this.handleEdit} id={id} />
       ) : (
-        <MdDone onClick={this.handleEdit} id={id} />
+        <MdDone style={{position:"absolute", right:18 ,marginTop:11}} onClick={this.handleEdit} id={id} />
       );
     };
 
@@ -107,6 +107,7 @@ class ProfilePage extends React.Component {
             }}
           >
             <span>
+            {isUser ? showEditButton("name") : null}
               <Input
                 type="text"
                 id="name"
@@ -114,9 +115,10 @@ class ProfilePage extends React.Component {
                 value={this.props.newData.name}
                 onChange={this.props.editProfileData}
               />
-              {isUser ? showEditButton("name") : null}
+              
             </span>
             <span>
+            {isUser ? showEditButton("email") : null}
               <Input
                 type="email"
                 id="email"
@@ -124,9 +126,10 @@ class ProfilePage extends React.Component {
                 value={this.props.newData.email}
                 onChange={this.props.editProfileData}
               />
-              {isUser ? showEditButton("email") : null}
+              
             </span>
             <span>
+            {isUser ? showEditButton("contact") : null}
               <Input
                 id="contact"
                 disabled={this.state.contact}
@@ -134,7 +137,7 @@ class ProfilePage extends React.Component {
                 placeholder={"Contact number not provided"}
                 onChange={this.props.editProfileData}
               />
-              {isUser ? showEditButton("contact") : null}
+              
             </span>
           </div>
         </div>
@@ -147,7 +150,7 @@ class ProfilePage extends React.Component {
           >
             <Button
               type="button"
-              class="btn btn-primary"
+              outline color="primary"
               style={{ margin: 0 }}
               id="listings"
               active={this.props.showListings}
@@ -157,7 +160,7 @@ class ProfilePage extends React.Component {
             </Button>
             <Button
               type="button"
-              class="btn btn-secondary"
+              outline color="primary"
               style={{ margin: 0 }}
               id="liked"
               active={!this.props.showListings}
