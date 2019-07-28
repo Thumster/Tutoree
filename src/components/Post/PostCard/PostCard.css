@@ -36,7 +36,7 @@
   text-overflow: ellipsis;
 }
 
-.name, .price, .location, .subject {
+.category, .name, .price, .location, .subject {
     margin:0;
     width: 100%;
     white-space: nowrap;

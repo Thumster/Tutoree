@@ -50,6 +50,11 @@ const StyledUnfilledHeart = styled(IoIosHeartEmpty)`
   }
 `;
 
+const StyledProfilePhoto = styled.img`
+  border-radius:50%;
+  height: 100px;
+  margin: 5% auto;
+`
 class PostCard extends React.Component {
   constructor(props) {
     super(props);
@@ -68,7 +73,7 @@ class PostCard extends React.Component {
     const likeCount = postsLikeCounter[this.props.post.pid];
 
     const photo = author.photoURL ? (
-      <img src={author.photoURL} style={{ height: "5em" }} />
+      <StyledProfilePhoto src={author.photoURL} />
     ) : (
       <MdAccountCircle className="photo" size="15em" />
     );
@@ -101,8 +106,7 @@ class PostCard extends React.Component {
           </div>
           <div className="col-7">
             <Link to={"/post/" + this.props.post.pid}>
-              <p className="title">Title {this.props.post.title}</p>
-              <p className="category">Category: {this.props.post.category}</p>
+              <p className="title">Title {this.props.post.title}</p><span class="badge badge-dark">{this.props.post.category}</span>
               <p className="subject">Subject {this.props.post.subject}</p>
               <p className="name">Name: {author.name}</p>
               <p className="price">Price: {this.props.post.price}</p>
