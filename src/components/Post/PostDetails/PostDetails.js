@@ -28,10 +28,7 @@ import styled from "styled-components";
 import { FiPrinter } from "react-icons/fi";
 
 const StyledLikeButton = styled(Button)`
-  color: lightblue;
-  border-radius: 0;
-  margin: 5% auto;
-  float: right;
+
 `;
 
 const StyledFilledHeart = styled(IoIosHeart)`
