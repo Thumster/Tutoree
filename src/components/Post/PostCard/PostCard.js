@@ -68,15 +68,6 @@ const StyledProfilePhoto = styled.img`
   }
 `;
 
-const StyledDefaultPhoto = styled(MdAccountCircle)`
-  border-radius: 50%;
-  width: 70%;
-  margin: 5% 15%;
-
-  &:hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  }
-`;
 class PostCard extends React.Component {
   constructor(props) {
     super(props);
@@ -97,11 +88,9 @@ class PostCard extends React.Component {
     const name = author ? author.name : "LOADING";
 
     const photo =
-      author && author.photoURL ? (
-        <StyledProfilePhoto src={author.photoURL} />
-      ) : (
-        <StyledProfilePhoto src={defaultUserIcon} />
-      );
+      author ? (
+        <StyledProfilePhoto src={author.photoURL || defaultUserIcon} />
+      ) : null;
 
     const chatButton = (
       <button type="button" class="btn btn-warning">
@@ -118,7 +107,7 @@ class PostCard extends React.Component {
       <div id="containerid" className="container">
         <div className="row">
           <div className="col-5">
-            <div className="row" style={{hegiht:"100%", width:"100%"}}>
+            <div className="row" style={{ hegiht: "100%", width: "100%" }}>
               <Link to={"/user/" + this.props.post.uid}>{photo}</Link>
             </div>
             <div className="row">
@@ -132,23 +121,16 @@ class PostCard extends React.Component {
             <Link to={"/post/" + this.props.post.pid}>
               <span className="title" style={{ display: "block" }}>
                 {this.props.post.title}
-                
               </span>
               {this.props.post.category === "teach" ? (
-                  <span
-                    class="badge badge-info"
-                    style={{ marginTop: "5%" }}
-                  >
-                    {this.props.post.category}
-                  </span>
-                ) : (
-                  <span
-                    class="badge badge-danger"
-                    style={{ marginTop: "5%" }}
-                  >
-                    {this.props.post.category}
-                  </span>
-                )}
+                <span class="badge badge-info" style={{ marginTop: "5%" }}>
+                  {this.props.post.category}
+                </span>
+              ) : (
+                <span class="badge badge-danger" style={{ marginTop: "5%" }}>
+                  {this.props.post.category}
+                </span>
+              )}
               <p className="subject">
                 <IoIosBook style={{ color: "#d6d2c7" }} />{" "}
                 {this.props.post.subject}

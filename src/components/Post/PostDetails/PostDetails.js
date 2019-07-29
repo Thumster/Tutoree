@@ -31,7 +31,7 @@ const StyledLikeButton = styled(Button)`
   color: lightblue;
   border-radius: 0;
   margin: 5% auto;
-  float: right
+  float: right;
 `;
 
 const StyledFilledHeart = styled(IoIosHeart)`
@@ -75,7 +75,7 @@ const StyledUserIcon = styled.img`
   &:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
-`
+`;
 
 class PostDetails extends React.Component {
   constructor(props) {
@@ -101,8 +101,8 @@ class PostDetails extends React.Component {
           {post.createdAt.toString()}
         </Moment>
       ) : (
-          "Time not captured"
-        )
+        "Time not captured"
+      )
     ) : null;
     const price = post ? post.price || "Price not stated" : null;
     const description = post
@@ -115,9 +115,9 @@ class PostDetails extends React.Component {
     const authorPhoto = author ? (
       <StyledUserIcon
         src={author.photoURL || defaultUserIcon}
-        className="ud profilePhoto"
+        // className="ud profilePhoto"
       />
-    ) : (null);
+    ) : null;
     const authorName = author ? author.name || "Annonymous" : null;
     const authorEmail = author ? author.email || "Email not provided" : null;
     const authorContact = author
@@ -129,8 +129,6 @@ class PostDetails extends React.Component {
         {liked ? <StyledFilledHeart color="red" /> : <StyledUnfilledHeart />}
       </StyledLikeButton>
     );
-
-
 
     const showPostDetails = (
       <div>
