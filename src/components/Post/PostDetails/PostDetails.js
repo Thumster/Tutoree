@@ -19,10 +19,11 @@ import {
   IoIosHeartEmpty,
   IoIosHeart,
   IoIosMail,
+  IoMdHeart,
   IoIosPhonePortrait
 } from "react-icons/io";
 import { Button } from "reactstrap";
-
+import defaultUserIcon from "../../../images/usericon.jpg";
 import styled from "styled-components";
 import { FiPrinter } from "react-icons/fi";
 
@@ -30,6 +31,7 @@ const StyledLikeButton = styled(Button)`
   color: lightblue;
   border-radius: 0;
   margin: 5% auto;
+  float: right
 `;
 
 const StyledFilledHeart = styled(IoIosHeart)`
@@ -64,6 +66,17 @@ const StyledUnfilledHeart = styled(IoIosHeartEmpty)`
   }
 `;
 
+const StyledUserIcon = styled.img`
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+  width: "70%";
+
+  &:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+`
+
 class PostDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -88,31 +101,23 @@ class PostDetails extends React.Component {
           {post.createdAt.toString()}
         </Moment>
       ) : (
-        "Time not captured"
-      )
+          "Time not captured"
+        )
     ) : null;
     const price = post ? post.price || "Price not stated" : null;
     const description = post
       ? post.description || "Description not stated"
       : null;
+    const location = post ? post.location || "Location no stated" : null;
+    const likes = post ? post.likes || "0" : null;
 
     // AUTHOR VARIABLES
     const authorPhoto = author ? (
-      author.photoURL ? (
-        <img
-          src={author.photoURL}
-          style={{
-            borderRadius: "50%",
-            display: "block",
-            margin: "0 auto",
-            width: "70%"
-          }}
-          className="ud profilePhoto"
-        />
-      ) : (
-        <MdAccountCircle className="ud profilePhoto" />
-      )
-    ) : null;
+      <StyledUserIcon
+        src={author.photoURL || defaultUserIcon}
+        className="ud profilePhoto"
+      />
+    ) : (null);
     const authorName = author ? author.name || "Annonymous" : null;
     const authorEmail = author ? author.email || "Email not provided" : null;
     const authorContact = author
@@ -124,6 +129,8 @@ class PostDetails extends React.Component {
         {liked ? <StyledFilledHeart color="red" /> : <StyledUnfilledHeart />}
       </StyledLikeButton>
     );
+
+
 
     const showPostDetails = (
       <div>
@@ -141,13 +148,16 @@ class PostDetails extends React.Component {
                       {subject}
                     </span>
                     <p className="pd-timeStamp">
-                      <MdTimer /> {createdAt}
+                      <MdTimer /> {createdAt} ago
                     </p>
                     <p className="pd-price">
-                      <MdAttachMoney /> S$ {price}
+                      <MdAttachMoney /> {price}
                     </p>
                     <p className="pd-location">
-                      <MdLocationOn />{" "}
+                      <MdLocationOn /> {location}
+                    </p>
+                    <p className="pd-price">
+                      <IoMdHeart /> {likes}
                     </p>
                     <div className="jumbotron desc">
                       <p>Descripton</p>
