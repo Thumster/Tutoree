@@ -182,7 +182,8 @@ class ProfilePage extends React.Component {
 
     return (
       <div className="container">
-        <div className="jumbotron">
+        
+        <div className="jumbotron" style={{minHeight:"700px"}}>
           {userData ? showProfilePage : showSpinner()}
         </div>
       </div>
