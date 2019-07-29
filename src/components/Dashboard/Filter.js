@@ -227,7 +227,7 @@ class Filter extends Component {
       </table>
     );
     const locationCheckboxesBlock = (
-      <table style={{tableLayout: "fixed"}}>
+      <table >
         <tr>
           <Column>
         <MdLocationOn style={{verticalAlign:"initial", marginRight:5}}/>
@@ -376,34 +376,51 @@ class Filter extends Component {
     );
 
     const searchFilterBlock = (
-      <div>
+      <span style={{display:"inline", width:"100%"}}>
         {this.props.searchValue ? (
           <IoIosCloseCircleOutline
-            style={{position:"absolute", right:1, marginTop:11}}
+            style={{position:"absolute", right:17, marginTop:11}}
             id="clear"
             onClick={this.props.searchFilterChange}
           />
         ) : null}
         <StyledSearchInput
+          
           placeholder="Search for post by title, description, author's name"
           id="input"
           value={this.props.searchValue}
           onChange={this.props.searchFilterChange}
         />
         
-      </div>
+      </span>
     );
     return (
       <div>
-        <Button
+        <div className="row">
+          <div className="col-10">
+          {searchFilterBlock}
+          
+          </div>
+          <div className="col-2">
+          <Button
           color="primary"
           onClick={this.toggle}
-          style={{ marginBottom: "1rem" }}
+          style={{ display:"inline", margin:0, width:"100%"}}
         >
           Filter
         </Button>
+          </div>
+
+        </div>
+        
+          
+        
+
+        
+        
+        
         {/* HERE */}
-        {searchFilterBlock}
+        
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>

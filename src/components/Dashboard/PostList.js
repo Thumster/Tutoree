@@ -51,7 +51,14 @@ const StyledDiv2 = styled.div`
   display: flex;
       align-items: baseline;
 `
+const StyledNoPage = styled.p`
+  color: #326FA6;
 
+`
+
+const StyledTotalPosts = styled.p`
+ color: #325FA6;
+`
 
 class PostList extends React.Component {
   constructor(props) {
@@ -106,7 +113,7 @@ class PostList extends React.Component {
               // https://github.com/AdeleD/react-paginate#readme
             />
             <StyledDiv2>
-            Number of posts per page
+            <StyledNoPage>No. of posts/page</StyledNoPage>
             <StyledDropdown
               isOpen={this.state.dropdownOpen}
               size="sm"
@@ -133,7 +140,7 @@ class PostList extends React.Component {
               </DropdownMenu>
             </StyledDropdown>
             </StyledDiv2>
-            <p>Total number of posts {displayedPosts.length}</p>
+            
           </StyledDiv>
       </div>
     );
@@ -143,7 +150,9 @@ class PostList extends React.Component {
           showSpinner()
         ) : posts ? (
           <div>
+            
             <Filter />{" "}
+            <StyledTotalPosts><span style={{textDecoration:"underline"}}>Total posts: </span>{displayedPosts.length}</StyledTotalPosts>
             {displayedPosts.length > 0
               ? showCards(paginatedPosts)
               : showNoPostsToLoad()}

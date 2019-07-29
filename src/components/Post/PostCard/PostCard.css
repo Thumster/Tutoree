@@ -1,6 +1,5 @@
 #containerid {
-    min-width: 400px;
-    width: 33%;
+    width: 400px;
     border-style: solid;;
     min-height: 180px;
     border-radius: 5px;
@@ -40,7 +39,7 @@ background: linear-gradient(90deg, rgba(239,239,242,1) 0%, rgba(238,238,241,1) 2
   text-overflow: ellipsis;
 }
 
-.category, .name, .price, .location, .subject {
+.createdAt, .noOfLikes, .category, .name, .price, .location, .subject {
     margin:0;
     width: 100%;
     white-space: nowrap;

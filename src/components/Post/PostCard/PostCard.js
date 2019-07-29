@@ -114,14 +114,14 @@ class PostCard extends React.Component {
                 {chatButton}
                 <span>
                   {likeButton}
-                  {likeCount}
+                  
                 </span>
               </div>
             </div>
           </div>
           <div className="col-7">
             <Link to={"/post/" + this.props.post.pid}>
-              <p className="title">
+              <p className="title" style={{display:"inline"}}>
                 Title {this.props.post.title}
                 {this.props.post.category==="teach" ?  <span
                   class="badge badge-info"
@@ -155,6 +155,11 @@ class PostCard extends React.Component {
               <p className="createdAt">
                 <MdTimer style={{ color: "#d6d2c7" }} />
                 <Moment format="DD MMMM 'YY">{this.props.post.createdAt}</Moment>
+              </p>
+              <p className="noOfLikes">
+                <IoIosHeart style={{color:"#d6d2c7"}} />
+                {likeCount}
+
               </p>
             </Link>
           </div>
