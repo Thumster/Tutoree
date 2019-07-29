@@ -19,8 +19,8 @@ import {
   DropdownItem
 } from "reactstrap";
 import styled from "styled-components";
-import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi';
-import './Pagination.css';
+import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
+import "./Pagination.css";
 
 const cards = {
   display: "flex",
@@ -35,30 +35,29 @@ const StyledDiv = styled.div`
   right: 0;
 `;
 
-const StyledReactPaginate = styled(ReactPaginate) `
+const StyledReactPaginate = styled(ReactPaginate)`
   display: inline-block;
   position: relative;
-`
+`;
 
-const StyledDropdown = styled(Dropdown) `
+const StyledDropdown = styled(Dropdown)`
   display: inline-block;
   position: relative;
-  justify-content:center;
-`
+  justify-content: center;
+`;
 
 const StyledDiv2 = styled.div`
-  justify-content:center;
+  justify-content: center;
   display: flex;
-      align-items: baseline;
-`
+  align-items: baseline;
+`;
 const StyledNoPage = styled.p`
-  color: #326FA6;
-
-`
+  color: #326fa6;
+`;
 
 const StyledTotalPosts = styled.p`
- color: #325FA6;
-`
+  color: #325fa6;
+`;
 
 class PostList extends React.Component {
   constructor(props) {
@@ -93,25 +92,24 @@ class PostList extends React.Component {
             posts.map(post => {
               return <PostCard post={post} key={post.pid} />;
             })}
-          
         </div>
-        <StyledDiv style={{position:"relative" ,marginTop:10}}>
-            <StyledReactPaginate
-              forcePage={currentPage}
-              pageCount={Math.ceil(displayedPosts.length / perPage)}
-              pageRangeDisplayed={3}
-              onPageChange={this.props.pageUpdate} //HERE
-              marginPagesDisplayed={2}
-              previousLabel={<FiChevronsLeft />}
-              nextLabel={<FiChevronsRight />}
-              breakClassName={"break-me"}
-              breakLabel={"..."}
-              containerClassName={"pagination"}
-              subContainerClassName={"pages pagination"}
-              activeClassName={"on"}
-              // https://github.com/AdeleD/react-paginate#readme
-            />
-            <StyledDiv2>
+        <StyledDiv style={{ position: "relative", marginTop: 10 }}>
+          <StyledReactPaginate
+            forcePage={currentPage}
+            pageCount={Math.ceil(displayedPosts.length / perPage)}
+            pageRangeDisplayed={3}
+            onPageChange={this.props.pageUpdate} //HERE
+            marginPagesDisplayed={2}
+            previousLabel={<FiChevronsLeft />}
+            nextLabel={<FiChevronsRight />}
+            breakClassName={"break-me"}
+            breakLabel={"..."}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"on"}
+            // https://github.com/AdeleD/react-paginate#readme
+          />
+          <StyledDiv2>
             <StyledNoPage>No. of posts/page</StyledNoPage>
             <StyledDropdown
               isOpen={this.state.dropdownOpen}
@@ -138,9 +136,8 @@ class PostList extends React.Component {
                 </DropdownItem>
               </DropdownMenu>
             </StyledDropdown>
-            </StyledDiv2>
-            
-          </StyledDiv>
+          </StyledDiv2>
+        </StyledDiv>
       </div>
     );
     return (
@@ -149,9 +146,13 @@ class PostList extends React.Component {
           showSpinner()
         ) : posts ? (
           <div>
-            
             <Filter />{" "}
-            <StyledTotalPosts><span style={{textDecoration:"underline"}}>Total posts: </span>{displayedPosts.length}</StyledTotalPosts>
+            <StyledTotalPosts>
+              <span>Total posts: </span>
+              <span style={{ fontWeight: "bold", textDecoration: "underline" }}>
+                {displayedPosts.length}
+              </span>
+            </StyledTotalPosts>
             {displayedPosts.length > 0
               ? showCards(paginatedPosts)
               : showNoPostsToLoad()}
@@ -159,17 +160,18 @@ class PostList extends React.Component {
         ) : (
           showNoPostsToLoad()
         )}
-        
       </div>
     );
   }
 }
 
 const showSpinner = () => (
-  <div style={{marginTop:100}}>
-    <p style={{textAlign:"center", fontSize:"200%",color:"#326FA6"}}>FETCHING POSTS...</p>
-    <div style={{display:"block", margin: "auto", width:32}} >
-    <ReactLoading color="#326FA6" type="spinningBubbles"  />
+  <div style={{ marginTop: 100 }}>
+    <p style={{ textAlign: "center", fontSize: "200%", color: "#326FA6" }}>
+      FETCHING POSTS...
+    </p>
+    <div style={{ display: "block", margin: "auto", width: 32 }}>
+      <ReactLoading color="#326FA6" type="spinningBubbles" />
     </div>
   </div>
 );
