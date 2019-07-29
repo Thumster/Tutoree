@@ -168,9 +168,11 @@ class PostDetails extends React.Component {
                     <div className="row">
                       <div className="col-5">
                         <div className="row">
+                          <div className="col">
                           <Link to={"/user/" + this.props.uid}>
                             {authorPhoto}
                           </Link>
+                        </div>
                         </div>
                         <div className="row">
                           <button
