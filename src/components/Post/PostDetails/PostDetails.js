@@ -155,7 +155,7 @@ class PostDetails extends React.Component {
                       <IoMdHeart /> {likes}
                     </p>
                     <div className="jumbotron desc">
-                      <p>Descripton</p>
+                      <p style={{fontWeight: "bold"}}>Description</p>
                       <p>{description}</p>
                     </div>
                   </div>
