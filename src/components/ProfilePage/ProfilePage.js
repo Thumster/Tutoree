@@ -109,7 +109,7 @@ class ProfilePage extends React.Component {
           >
             <span>
             {isUser ? showEditButton("name") : null}
-            <MdPermIdentity style={{position:"absolute", right:40, marginTop:11}}/>
+            {/* <MdPermIdentity style={{position:"absolute", right:40, marginTop:11}}/> */}
               <Input
                 type="text"
                 id="name"
@@ -121,7 +121,7 @@ class ProfilePage extends React.Component {
             </span>
             <span>
             {isUser ? showEditButton("email") : null}
-              <IoMdMail style={{position:"absolute", right:40, marginTop:11}}/>
+              {/* <IoMdMail style={{position:"absolute", right:40, marginTop:11}}/> */}
               <Input
                 type="email"
                 id="email"
@@ -133,7 +133,7 @@ class ProfilePage extends React.Component {
             </span>
             <span>
             {isUser ? showEditButton("contact") : null}
-              <IoIosPhonePortrait style={{position:"absolute", right:40, marginTop:11}}/>
+              {/* <IoIosPhonePortrait style={{position:"absolute", right:40, marginTop:11}}/> */}
               <Input
                 id="contact"
                 disabled={this.state.contact}
