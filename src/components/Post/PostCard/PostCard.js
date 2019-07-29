@@ -107,8 +107,10 @@ class PostCard extends React.Component {
       <div id="containerid" className="container">
         <div className="row">
           <div className="col-5">
-            <div className="row" style={{ hegiht: "100%", width: "100%" }}>
+            <div className="row">
+              <div className="col">
               <Link to={"/user/" + this.props.post.uid}>{photo}</Link>
+            </div>
             </div>
             <div className="row">
               <div className="flexbutton">
@@ -123,11 +125,11 @@ class PostCard extends React.Component {
                 {this.props.post.title}
               </span>
               {this.props.post.category === "teach" ? (
-                <span class="badge badge-info" style={{ marginTop: "5%" }}>
+                <span class="badge badge-info" style={{ marginTop: "1%" }}>
                   {this.props.post.category}
                 </span>
               ) : (
-                <span class="badge badge-danger" style={{ marginTop: "5%" }}>
+                <span class="badge badge-danger" style={{ marginTop: "1%" }}>
                   {this.props.post.category}
                 </span>
               )}
