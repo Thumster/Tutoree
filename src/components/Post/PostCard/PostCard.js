@@ -165,7 +165,6 @@ class PostCard extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("STATE", state);
   return {
     users: state.firestore.data.users,
     postsLiked: state.postsLiked,
