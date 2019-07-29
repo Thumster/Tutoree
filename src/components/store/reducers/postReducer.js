@@ -40,7 +40,6 @@ export const profilePage = (state = initState.profilePage, action) => {
       console.log("editing...");
       return Object.assign({}, state, { newData: action.newData });
     case UPDATE_PROFILE:
-      console.log("profile page updated to user", action.uid);
       return Object.assign({}, state, {
         currentUid: action.uid,
         data: action.userData,

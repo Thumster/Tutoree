@@ -20,6 +20,8 @@ import {
 import { signOut } from "../store/actions/authActions";
 
 import { MdMailOutline, MdCreate, MdAccountCircle } from "react-icons/md";
+import { IoIosLogOut } from "react-icons/io";
+import { FiAirplay } from "react-icons/fi";
 import styled from "styled-components";
 
 const StyledMailIcon = styled(MdMailOutline)`
@@ -47,6 +49,60 @@ const StyledUserIcon = styled(Media)`
   border-radius: 50%;
   :hover {
     transform: scale(1.4);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+`;
+
+const StyledDashboardButton = styled(Button)`
+  :hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+`;
+
+const StyledDashboardIcon = styled(FiAirplay)`
+  font-size: 20px;
+  position: relative;
+  /* Adjust these values accordingly */
+  top: -2px;
+  right: 3px;
+  ${StyledDashboardButton}:hover & {
+    transform: scale(1.2);
+  }
+`;
+
+const StyledEditButton = styled(Button)`
+  :hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+`;
+
+const StyledEditIcon = styled(MdCreate)`
+  font-size: 20px;
+  position: relative;
+  /* Adjust these values accordingly */
+  top: -2px;
+  right: 1px;
+
+  ${StyledEditButton}:hover & {
+    transform: scale(1.2);
+  }
+`;
+
+const StyledLogoutButton = styled(Button)`
+  :hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+`;
+
+const StyledLogoutIcon = styled(IoIosLogOut)`
+  font-size: 20px;
+  position: relative;
+  /* Adjust these values accordingly */
+  top: -2px;
+  left: 5px;
+
+  ${StyledLogoutButton}:hover & {
+    transform: scale(1.2);
   }
 `;
 
@@ -126,25 +182,34 @@ class NavSearched extends React.Component {
                 {<NavLink href={"/user/" + uid}>{userIcon}</NavLink>}
               </NavItem>
               <NavItem className="button-item icons">
-                <Button color="success" className="Button" href="/Dashboard">
+                <StyledDashboardButton
+                  color="success"
+                  className="Button"
+                  href="/Dashboard"
+                >
+                  <StyledDashboardIcon />
                   Dashboard
-                </Button>
+                </StyledDashboardButton>
               </NavItem>
               <NavItem className="button-item icons">
-                <Button color="warning" className="Button" href="/CreatePost">
-                  <MdCreate style={{alignContent:"baseline"}}/>
+                <StyledEditButton
+                  color="warning"
+                  className="Button"
+                  href="/CreatePost"
+                >
+                  <StyledEditIcon />
                   Post
-                </Button>
+                </StyledEditButton>
               </NavItem>
               <NavItem className="button-item icons">
-                <Button
+                <StyledLogoutButton
                   color="danger"
                   className="Button"
                   onClick={() => this.props.signOut()}
-                  href="/"
                 >
                   Logout
-                </Button>
+                  <StyledLogoutIcon />
+                </StyledLogoutButton>
               </NavItem>
             </Nav>
           </Collapse>

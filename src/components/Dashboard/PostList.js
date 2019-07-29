@@ -86,7 +86,6 @@ class PostList extends React.Component {
     const end = offset + perPage;
     const paginatedPosts = displayedPosts.slice(offset, end);
 
-    // console.log("CURRENTLY_DISPLAYED_POSTS", displayedPosts);
     const showCards = posts => (
       <div>
         <div style={cards}>
@@ -182,7 +181,6 @@ const showNoPostsToLoad = () => (
 );
 
 const mapStateToProps = state => {
-  // console.log("STATE", state);
   return {
     users: state.firestore.data.users,
     posts: state.posts.data,

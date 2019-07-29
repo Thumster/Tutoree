@@ -43,13 +43,11 @@ export const editProfileData = event => {
 };
 
 export const submitEditProfile = event => {
-  console.log("CALEEEDDDDDD");
   const id = event.target.id;
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const newData = Object.assign({}, getState().profilePage.newData);
     const data = Object.assign({}, getState().profilePage.data);
     if (newData[id] !== data[id]) {
-      console.log("DIFFERENT");
       const uid = getState().profilePage.currentUid;
       const user = getFirestore()
         .collection("users")
@@ -58,8 +56,6 @@ export const submitEditProfile = event => {
       user
         .update({ [id]: newData[id] })
         .then(() => dispatch({ type: EDIT_COMPLETE, data: data }));
-    } else {
-      console.log("SAME");
     }
   };
 };
@@ -89,9 +85,12 @@ export const getProfilePosts = createSelector(
       reducedPosts = posts.filter(post => post.uid === uid);
     } else {
       let postsLiked = Object.assign([], users[uid].postsLiked);
-      postsLiked = postsLiked.map(likedId => {
-        return posts.find(post => post.pid === likedId);
-      });
+      postsLiked = postsLiked
+        .map(likedId => {
+          let foundPost = posts.find(post => post.pid === likedId);
+          return foundPost;
+        })
+        .filter(post => post);
       reducedPosts = postsLiked;
     }
     return reducedPosts;

@@ -217,7 +217,6 @@ const showNoPostsToLoad = () => (
 );
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("STATE", state);
   const currentUid = state.firebase.auth.uid; // Current users uid
   const uid = ownProps.match.params.id; // uid of profile page viewed
   return {

@@ -115,7 +115,6 @@ export const pageUpdate = event => {
 };
 
 export const perPageUpdate = event => {
-  console.log(event);
   return dispatch => {
     dispatch({
       type: PER_PAGE_UPDATE,
@@ -227,7 +226,6 @@ const getSearchVisiblePosts = createSelector(
   (visibilityFilter, posts, users) => {
     var stringSimilarity = require("string-similarity");
     const searchText = visibilityFilter.toLowerCase();
-    console.log("POSTS", posts);
     if (!visibilityFilter) {
       return posts;
     } else {
@@ -235,7 +233,6 @@ const getSearchVisiblePosts = createSelector(
         const desc = post.description.toLowerCase();
         const title = post.title.toLowerCase();
         const userName = users[post.uid].name.toLowerCase();
-        console.log(desc, title, userName);
         const result =
           stringSimilarity.compareTwoStrings(searchText, desc) +
           stringSimilarity.compareTwoStrings(searchText, title) +
