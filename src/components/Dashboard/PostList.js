@@ -120,19 +120,19 @@ class PostList extends React.Component {
               <DropdownMenu>
                 <DropdownItem header>Choose no of posts per page</DropdownItem>
                 <DropdownItem onClick={this.props.perPageUpdate}>
-                  1
-                </DropdownItem>
-                <DropdownItem onClick={this.props.perPageUpdate}>
-                  2
-                </DropdownItem>
-                <DropdownItem onClick={this.props.perPageUpdate}>
-                  3
-                </DropdownItem>
-                <DropdownItem onClick={this.props.perPageUpdate}>
                   4
                 </DropdownItem>
                 <DropdownItem onClick={this.props.perPageUpdate}>
-                  5
+                  8
+                </DropdownItem>
+                <DropdownItem onClick={this.props.perPageUpdate}>
+                  16
+                </DropdownItem>
+                <DropdownItem onClick={this.props.perPageUpdate}>
+                  24
+                </DropdownItem>
+                <DropdownItem onClick={this.props.perPageUpdate}>
+                  32
                 </DropdownItem>
               </DropdownMenu>
             </StyledDropdown>

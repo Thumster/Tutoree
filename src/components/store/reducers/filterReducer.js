@@ -44,7 +44,7 @@ const initState = {
   pagination: {
     currentPage: 0,
     offset: 0,
-    perPage: 5
+    perPage: 8
   }
 };
 
