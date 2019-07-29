@@ -16,6 +16,7 @@ import { MdAccountCircle, MdDone, MdPermIdentity } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import ReactLoading from "react-loading";
 import {IoIosPhonePortrait, IoMdMail} from  "react-icons/io";
+import defaultUserPhoto from "../../images/usericon.jpg";
 
 const cards = {
   display: "flex",
@@ -79,7 +80,7 @@ class ProfilePage extends React.Component {
       userData.photoURL ? (
         <ProfilePhoto src={userData.photoURL} />
       ) : (
-        <MdAccountCircle className="photo" size="100em" />
+        <ProfilePhoto src={defaultUserPhoto} />
       )
     ) : null;
 

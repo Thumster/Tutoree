@@ -18,6 +18,7 @@ import {
 } from "react-icons/md";
 
 import styled from "styled-components";
+import defaultUserIcon from "../../../images/usericon.jpg";
 
 const StyledLikeButton = styled(Button)`
   color: lightblue;
@@ -99,7 +100,7 @@ class PostCard extends React.Component {
       author && author.photoURL ? (
         <StyledProfilePhoto src={author.photoURL} />
       ) : (
-        <StyledDefaultPhoto className="photo" />
+        <StyledProfilePhoto src={defaultUserIcon} />
       );
 
     const chatButton = (
