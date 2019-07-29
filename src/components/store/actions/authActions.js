@@ -90,7 +90,7 @@ export const signUp = newUser => {
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then(resp => {
-        dispatch(storeNewUser(resp.user));
+        dispatch(storeNewUser(resp.user, newUser));
       })
       .then(() => {
         dispatch({ type: SIGNUP_SUCCESS });
@@ -101,23 +101,41 @@ export const signUp = newUser => {
   };
 };
 
-function storeNewUser(newUser) {
+function storeNewUser(newUser, userDeets) {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
-    firestore
-      .collection("users")
-      .doc(newUser.uid)
-      .set({
-        name: newUser.displayName,
-        email: newUser.email,
-        photoURL: newUser.photoURL,
-        postsLiked: []
-      })
-      .then(() => {
-        dispatch({ type: STORE_NEW_USER_SUCCESS });
-      })
-      .catch(err => {
-        dispatch({ type: STORE_NEW_USER_ERROR, err });
-      });
+    if (userDeets) {
+      firestore
+        .collection("users")
+        .doc(newUser.uid)
+        .set({
+          name: userDeets.name,
+          email: newUser.email,
+          photoURL: "",
+          postsLiked: []
+        })
+        .then(() => {
+          dispatch({ type: STORE_NEW_USER_SUCCESS });
+        })
+        .catch(err => {
+          dispatch({ type: STORE_NEW_USER_ERROR, err });
+        });
+    } else {
+      firestore
+        .collection("users")
+        .doc(newUser.uid)
+        .set({
+          name: newUser.displayName,
+          email: newUser.email,
+          photoURL: newUser.photoURL,
+          postsLiked: []
+        })
+        .then(() => {
+          dispatch({ type: STORE_NEW_USER_SUCCESS });
+        })
+        .catch(err => {
+          dispatch({ type: STORE_NEW_USER_ERROR, err });
+        });
+    }
   };
 }

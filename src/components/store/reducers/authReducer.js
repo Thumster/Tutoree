@@ -59,7 +59,7 @@ export const auth = (state = initState, action) => {
         signUpError: null
       };
     case SIGNUP_ERROR:
-      console.log("signup error");
+      console.log("signup error", action.err.message);
       return {
         ...state,
         signUpError: action.err.message
