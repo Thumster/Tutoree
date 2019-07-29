@@ -35,6 +35,9 @@ background: linear-gradient(90deg, rgba(239,239,242,1) 0%, rgba(238,238,241,1) 2
     font-weight: 400;
     margin: 3% 0 0 0;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
 
 .createdAt, .noOfLikes, .category, .name, .price, .location, .subject {

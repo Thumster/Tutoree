@@ -130,24 +130,25 @@ class PostCard extends React.Component {
           </div>
           <div className="col-7">
             <Link to={"/post/" + this.props.post.pid}>
-              <p className="title" style={{ display: "inline" }}>
-                Title {this.props.post.title}
-                {this.props.post.category === "teach" ? (
+              <span className="title" style={{ display: "inline" }}>
+                {this.props.post.title}
+                
+              </span>
+              {this.props.post.category === "teach" ? (
                   <span
                     class="badge badge-info"
-                    style={{ float: "right", marginTop: "3%" }}
+                    style={{ float: "right", marginTop: "5%" }}
                   >
                     {this.props.post.category}
                   </span>
                 ) : (
                   <span
                     class="badge badge-danger"
-                    style={{ float: "right", marginTop: "3%" }}
+                    style={{ float: "right", marginTop: "5%" }}
                   >
                     {this.props.post.category}
                   </span>
                 )}
-              </p>
               <p className="subject">
                 <IoIosBook style={{ color: "#d6d2c7" }} />{" "}
                 {this.props.post.subject}

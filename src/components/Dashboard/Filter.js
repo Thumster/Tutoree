@@ -396,7 +396,7 @@ class Filter extends Component {
     );
     return (
       <div>
-        <div className="row">
+        <div className="row" style={{marginTop:5}}>
           <div className="col-10">
           {searchFilterBlock}
           
