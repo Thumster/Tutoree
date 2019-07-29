@@ -54,6 +54,7 @@ const StyledUserIcon = styled(Media)`
 `;
 
 const StyledDashboardButton = styled(Button)`
+  width: 130px;
   :hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
@@ -71,6 +72,7 @@ const StyledDashboardIcon = styled(FiAirplay)`
 `;
 
 const StyledEditButton = styled(Button)`
+  width: 130px;
   :hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
@@ -89,6 +91,7 @@ const StyledEditIcon = styled(MdCreate)`
 `;
 
 const StyledLogoutButton = styled(Button)`
+  width: 130px;
   :hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }

@@ -66,6 +66,16 @@ const StyledProfilePhoto = styled.img`
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 `;
+
+const StyledDefaultPhoto = styled(MdAccountCircle)`
+  border-radius: 50%;
+  width: 70%;
+  margin: 5% 15%;
+
+  &:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+`;
 class PostCard extends React.Component {
   constructor(props) {
     super(props);
@@ -83,13 +93,14 @@ class PostCard extends React.Component {
     const liked = postsLiked[this.props.post.pid] || false;
     const likeCount = postsLikeCounter[this.props.post.pid];
 
-    const name = author? author.name : "LOADING";
+    const name = author ? author.name : "LOADING";
 
-    const photo = author && author.photoURL ? (
-      <StyledProfilePhoto src={author.photoURL} />
-    ) : (
-      <MdAccountCircle className="photo" size="15em" />
-    );
+    const photo =
+      author && author.photoURL ? (
+        <StyledProfilePhoto src={author.photoURL} />
+      ) : (
+        <StyledDefaultPhoto className="photo" />
+      );
 
     const chatButton = (
       <button type="button" class="btn btn-warning">
@@ -112,30 +123,29 @@ class PostCard extends React.Component {
             <div className="row">
               <div className="flexbutton">
                 {chatButton}
-                <span>
-                  {likeButton}
-                  
-                </span>
+                <span>{likeButton}</span>
               </div>
             </div>
           </div>
           <div className="col-7">
             <Link to={"/post/" + this.props.post.pid}>
-              <p className="title" style={{display:"inline"}}>
+              <p className="title" style={{ display: "inline" }}>
                 Title {this.props.post.title}
-                {this.props.post.category==="teach" ?  <span
-                  class="badge badge-info"
-                  style={{ float: "right", marginTop: "3%" }}
-                >
-                  {this.props.post.category}
-                </span> :
-                <span
-                class="badge badge-danger"
-                style={{ float: "right", marginTop: "3%" }}
-              >
-                {this.props.post.category}
-              </span>
-                }
+                {this.props.post.category === "teach" ? (
+                  <span
+                    class="badge badge-info"
+                    style={{ float: "right", marginTop: "3%" }}
+                  >
+                    {this.props.post.category}
+                  </span>
+                ) : (
+                  <span
+                    class="badge badge-danger"
+                    style={{ float: "right", marginTop: "3%" }}
+                  >
+                    {this.props.post.category}
+                  </span>
+                )}
               </p>
               <p className="subject">
                 <IoIosBook style={{ color: "#d6d2c7" }} />{" "}
@@ -153,13 +163,13 @@ class PostCard extends React.Component {
                 {this.props.post.location}
               </p>
               <p className="createdAt">
-                <MdTimer style={{ color: "#d6d2c7" }} />
-                <Moment format="DD MMMM 'YY">{this.props.post.createdAt}</Moment>
+                <MdTimer style={{ color: "#d6d2c7" }} />{" "}
+                <Moment format="DD MMMM 'YY">
+                  {this.props.post.createdAt}
+                </Moment>
               </p>
               <p className="noOfLikes">
-                <IoIosHeart style={{color:"#d6d2c7"}} />
-                {likeCount}
-
+                <IoIosHeart style={{ color: "#d6d2c7" }} /> {likeCount}
               </p>
             </Link>
           </div>
