@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ec847754.chunk.css",
+    "main.js": "/static/js/main.bd5e76d7.chunk.js",
+    "main.js.map": "/static/js/main.bd5e76d7.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/css/2.510409cd.chunk.css": "/static/css/2.510409cd.chunk.css",
+    "static/js/2.3a505715.chunk.js": "/static/js/2.3a505715.chunk.js",
+    "static/js/2.3a505715.chunk.js.map": "/static/js/2.3a505715.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.e7c925e63277377b8f6a76a2cc9c7701.js": "/precache-manifest.e7c925e63277377b8f6a76a2cc9c7701.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.510409cd.chunk.css.map": "/static/css/2.510409cd.chunk.css.map",
+    "static/css/main.ec847754.chunk.css.map": "/static/css/main.ec847754.chunk.css.map",
+    "static/media/Teacher-Classroom-Blog-Getty.jpg": "/static/media/Teacher-Classroom-Blog-Getty.79af93a7.jpg",
+    "static/media/book_blue.png": "/static/media/book_blue.1b712589.png",
+    "static/media/book_white.png": "/static/media/book_white.536c2254.png"
+  }
+}
