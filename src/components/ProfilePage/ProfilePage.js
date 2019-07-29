@@ -12,9 +12,11 @@ import {
   submitEditProfile
 } from "../store/actions/postActions";
 import PostCard from "../Post/PostCard/PostCard";
-import { MdAccountCircle, MdDone } from "react-icons/md";
+import { MdAccountCircle, MdDone, MdPermIdentity } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import ReactLoading from "react-loading";
+import {IoIosPhonePortrait, IoMdMail} from  "react-icons/io";
+import defaultUserPhoto from "../../images/usericon.jpg";
 
 const cards = {
   display: "flex",
@@ -78,7 +80,7 @@ class ProfilePage extends React.Component {
       userData.photoURL ? (
         <ProfilePhoto src={userData.photoURL} />
       ) : (
-        <MdAccountCircle className="photo" size="100em" />
+        <ProfilePhoto src={defaultUserPhoto} />
       )
     ) : null;
 
@@ -107,6 +109,7 @@ class ProfilePage extends React.Component {
           >
             <span>
             {isUser ? showEditButton("name") : null}
+            <MdPermIdentity style={{position:"absolute", right:40, marginTop:11}}/>
               <Input
                 type="text"
                 id="name"
@@ -118,6 +121,7 @@ class ProfilePage extends React.Component {
             </span>
             <span>
             {isUser ? showEditButton("email") : null}
+              <IoMdMail style={{position:"absolute", right:40, marginTop:11}}/>
               <Input
                 type="email"
                 id="email"
@@ -129,6 +133,7 @@ class ProfilePage extends React.Component {
             </span>
             <span>
             {isUser ? showEditButton("contact") : null}
+              <IoIosPhonePortrait style={{position:"absolute", right:40, marginTop:11}}/>
               <Input
                 id="contact"
                 disabled={this.state.contact}
