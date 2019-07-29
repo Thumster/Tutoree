@@ -60,7 +60,7 @@ const StyledUnfilledHeart = styled(IoIosHeartEmpty)`
 const StyledProfilePhoto = styled.img`
   border-radius: 50%;
   width: 70%;
-  margin: 2% 15% 5% 15%;
+  margin: 22% 15% 5% 15%;
 
   &:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
