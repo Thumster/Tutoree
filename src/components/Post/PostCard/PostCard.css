@@ -30,14 +30,14 @@ background: linear-gradient(90deg, rgba(239,239,242,1) 0%, rgba(238,238,241,1) 2
 }
 
 .title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     text-decoration: underline;
     font-weight: 400;
     margin: 3% 0 0 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 150px;
+    width: 210px;
 }
 
 .createdAt, .noOfLikes, .category, .name, .price, .location, .subject {
