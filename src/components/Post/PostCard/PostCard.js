@@ -97,7 +97,7 @@ class PostCard extends React.Component {
       </button>
     );
     const likeButton = (
-      <StyledLikeButton color="primary" type="button" onClick={this.toggleLike}>
+      <StyledLikeButton class="btn" color="primary" type="button" onClick={this.toggleLike}>
         {liked ? <StyledFilledHeart color="red" /> : <StyledUnfilledHeart />}
       </StyledLikeButton>
     );

@@ -28,7 +28,7 @@ import styled from "styled-components";
 import { FiPrinter } from "react-icons/fi";
 
 const StyledLikeButton = styled(Button)`
-
+  
 `;
 
 const StyledFilledHeart = styled(IoIosHeart)`
@@ -122,7 +122,7 @@ class PostDetails extends React.Component {
       : null;
 
     const likeButton = (
-      <StyledLikeButton color="primary" type="button" onClick={this.toggleLike}>
+      <StyledLikeButton class="btn" color="primary" type="button" onClick={this.toggleLike}>
         {liked ? <StyledFilledHeart color="red" /> : <StyledUnfilledHeart />}
       </StyledLikeButton>
     );
