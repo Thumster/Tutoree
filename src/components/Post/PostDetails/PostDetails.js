@@ -28,7 +28,7 @@ import styled from "styled-components";
 import { FiPrinter } from "react-icons/fi";
 
 const StyledLikeButton = styled(Button)`
-
+float:right;
 `;
 
 const StyledFilledHeart = styled(IoIosHeart)`
