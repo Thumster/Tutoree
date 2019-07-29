@@ -8,9 +8,19 @@ import DeleteModal from "./DeleteModal";
 
 import ReactLoading from "react-loading";
 import Moment from "react-moment";
-import { MdAccountCircle } from "react-icons/md";
+import {
+  MdAccountCircle,
+  MdTimer,
+  MdAttachMoney,
+  MdLocationOn
+} from "react-icons/md";
 import { likePost } from "../../store/actions/postActions";
-import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
+import {
+  IoIosHeartEmpty,
+  IoIosHeart,
+  IoIosMail,
+  IoIosPhonePortrait
+} from "react-icons/io";
 import { Button } from "reactstrap";
 
 import styled from "styled-components";
@@ -89,7 +99,16 @@ class PostDetails extends React.Component {
     // AUTHOR VARIABLES
     const authorPhoto = author ? (
       author.photoURL ? (
-        <img src={author.photoURL} className="ud profilePhoto" />
+        <img
+          src={author.photoURL}
+          style={{
+            borderRadius: "50%",
+            display: "block",
+            margin: "0 auto",
+            width: "70%"
+          }}
+          className="ud profilePhoto"
+        />
       ) : (
         <MdAccountCircle className="ud profilePhoto" />
       )
@@ -105,11 +124,10 @@ class PostDetails extends React.Component {
         {liked ? <StyledFilledHeart color="red" /> : <StyledUnfilledHeart />}
       </StyledLikeButton>
     );
-    
+
     const showPostDetails = (
       <div>
         <header className="header" />
-        <div className="empty-space">EMPTY SPACE</div>
         <div className="container" id="content">
           <div className="jumbotron">
             <div className="container">
@@ -122,8 +140,15 @@ class PostDetails extends React.Component {
                     <span class="badge badge-info" id="subjectBadge">
                       {subject}
                     </span>
-                    <p className="pd-timeStamp">Posted: ago {createdAt}</p>
-                    <p className="pd-price">Price: S$ {price}</p>
+                    <p className="pd-timeStamp">
+                      <MdTimer /> {createdAt}
+                    </p>
+                    <p className="pd-price">
+                      <MdAttachMoney /> S$ {price}
+                    </p>
+                    <p className="pd-location">
+                      <MdLocationOn />{" "}
+                    </p>
                     <div className="jumbotron desc">
                       <p>Descripton</p>
                       <p>{description}</p>
@@ -140,16 +165,27 @@ class PostDetails extends React.Component {
                           </Link>
                         </div>
                         <div className="row">
-                          <button type="button" class="btn btn-warning">
+                          <button
+                            type="button"
+                            class="btn btn-warning"
+                            style={{
+                              display: "block",
+                              margin: "0 auto",
+                              width: "50%",
+                              marginTop: "5px"
+                            }}
+                          >
                             Message
                           </button>
                         </div>
                       </div>
                       <div className="col-7">
                         <p className="name ud">{authorName}</p>
-                        <p className="email ud">Email: {authorEmail}</p>
+                        <p className="email ud" style={{ margin: "20px 0" }}>
+                          <IoIosMail /> {authorEmail}
+                        </p>
                         <p className="contact ud">
-                          Contact No: {authorContact}
+                          <IoIosPhonePortrait /> {authorContact}
                         </p>
                       </div>
                     </div>

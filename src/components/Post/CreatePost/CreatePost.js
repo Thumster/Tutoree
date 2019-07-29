@@ -37,6 +37,7 @@ const StyledAvRadio = styled(AvRadio)`
   /* background-color: yellow; */
 `;
 
+
 class CreatePost extends React.Component {
   constructor(props) {
     super(props);
@@ -47,6 +48,7 @@ class CreatePost extends React.Component {
     event.preventDefault();
     this.setState({ values });
     this.props.createPost(values);
+    // this.props.history.push(`/Dashboard`);
   }
 
   componentDidUpdate(prevProps) {
@@ -172,6 +174,7 @@ class CreatePost extends React.Component {
 }
 
 const mapStateToProps = state => {
+  // console.log("STATE", state)
   return {
     isCreating: state.createPost.isCreating
   };

@@ -46,7 +46,7 @@ class DeleteModal extends React.Component {
 
   render() {
     const deleteButton = (
-      <StyledDeleteIcon size="3em" color="red" onClick={this.toggle} />
+      <StyledDeleteIcon style={{float:"right"}}size="3em" color="red" onClick={this.toggle} />
     );
     return (
       <div>
