@@ -1,23 +1,73 @@
 import React from "react";
 import "./PostDetails.css";
 import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import Moment from "react-moment";
-import ReactLoading from "react-loading";
-import { MdAccountCircle } from "react-icons/md";
-import DeleteModal from "./DeleteModal";
 import { Link } from "react-router-dom";
+import { firestoreConnect } from "react-redux-firebase";
+import DeleteModal from "./DeleteModal";
+
+import ReactLoading from "react-loading";
+import Moment from "react-moment";
+import { MdAccountCircle } from "react-icons/md";
+import { likePost } from "../../store/actions/postActions";
+import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
+import { Button } from "reactstrap";
 
 import styled from "styled-components";
+import { FiPrinter } from "react-icons/fi";
+
+const StyledLikeButton = styled(Button)`
+  color: lightblue;
+  border-radius: 0;
+  margin: 5% auto;
+`;
+
+const StyledFilledHeart = styled(IoIosHeart)`
+  height: "1.5rem";
+  ${StyledLikeButton}:hover & {
+    transform: scale(1.2);
+  }
+`;
+
+const StyledUnfilledHeart = styled(IoIosHeartEmpty)`
+  height: "1.5rem";
+  ${StyledLikeButton}:hover & {
+    animation: 0.8s 3 beatHeart;
+  }
+
+  @keyframes beatHeart {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.1);
+    }
+    40% {
+      transform: scale(1);
+    }
+    60% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+`;
 
 class PostDetails extends React.Component {
   constructor(props) {
     super(props);
+    this.toggleLike = this.toggleLike.bind(this);
   }
 
+  toggleLike(e) {
+    e.preventDefault();
+    this.props.likePost(this.props.post.pid);
+  }
   render() {
-    const { posts, post, author, isUser } = this.props;
+    const { posts, post, author, isUser, postsLiked } = this.props;
+
+    const liked = postsLiked[this.props.pid] || false;
 
     // POST VARIABLES
     const title = post ? post.title || "Title not stated" : null;
@@ -50,6 +100,12 @@ class PostDetails extends React.Component {
       ? author.contact || "Contact number not provided"
       : null;
 
+    const likeButton = (
+      <StyledLikeButton color="primary" type="button" onClick={this.toggleLike}>
+        {liked ? <StyledFilledHeart color="red" /> : <StyledUnfilledHeart />}
+      </StyledLikeButton>
+    );
+    
     const showPostDetails = (
       <div>
         <header className="header" />
@@ -60,7 +116,8 @@ class PostDetails extends React.Component {
               <div className="row">
                 <div className="col-lg-6">
                   <div className="jumbotron pd">
-                    {isUser ? <DeleteModal pid={this.props.pid}/> : null}
+                    {isUser ? <DeleteModal pid={this.props.pid} /> : null}
+                    {likeButton}
                     <p className="pd-title">{title}</p>
                     <span class="badge badge-info" id="subjectBadge">
                       {subject}
@@ -145,11 +202,21 @@ const mapStateToProps = (state, ownProps) => state => {
     isUser: currentUid === uid,
     posts: posts,
     post: post,
-    author: author
+    author: author,
+    postsLiked: state.postsLiked
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    likePost: (liked, pid) => dispatch(likePost(liked, pid))
   };
 };
 
 export default compose(
-  connect(mapStateToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   firestoreConnect([{ collection: "posts" }, { collection: "users" }])
 )(PostDetails);
